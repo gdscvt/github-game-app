@@ -1,17 +1,32 @@
+import 'dart:ui';
 import 'package:flame/game.dart';
-import 'package:flame_tiled/flame_tiled.dart';
+import 'level.dart';
+import 'player.dart';
+import 'package:flutter/material.dart';
 
 class GitHubGame extends FlameGame {
-  late final TiledComponent map;
+  late final Level level;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // Do game start logic
+    level = Level(Player(), "level_one.tmx", Vector2.all(32.0));
+    add(level);
+  }
 
-    map = await TiledComponent.load("level_one.tmx", Vector2.all(32.0));
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+  }
 
-    add(map);
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
+
+  @override
+  void onGameResize(canvasSize) {
+    super.onGameResize(canvasSize);
   }
 }

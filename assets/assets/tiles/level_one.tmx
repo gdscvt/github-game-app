@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="8">
  <tileset firstgid="1" name="Inside" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="../images/tilesets/SF_Inside_B.png" width="512" height="512"/>
  </tileset>
  <tileset firstgid="257" name="WallsAndFloors" tilewidth="32" tileheight="32" tilecount="3404" columns="74">
   <image source="../images/tilesets/WallsAndFloors.png" width="2368" height="1472"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="14" height="14">
+ <layer id="1" name="Floor" width="14" height="14">
   <data encoding="csv">
 548,548,548,548,548,548,548,548,548,548,548,548,548,548,
 548,548,548,548,548,548,548,548,548,548,548,548,548,548,
@@ -22,6 +22,42 @@
 548,548,548,548,548,548,548,548,548,548,548,548,548,548,
 548,548,548,548,548,548,548,548,548,548,548,548,548,548,
 548,548,548,548,548,548,548,548,548,548,548,548,548,548
+</data>
+ </layer>
+ <layer id="2" name="Walls" width="14" height="14">
+  <data encoding="csv">
+261,266,267,268,1754,0,0,0,0,1741,268,268,269,274,
+335,340,341,342,1828,0,0,0,0,1815,342,342,343,348,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+555,0,0,0,0,0,0,0,0,0,0,0,0,572,
+1741,1742,1747,1748,1747,1748,1747,1748,1747,1748,1747,1748,1753,1754
+</data>
+ </layer>
+ <layer id="3" name="Desk" width="14" height="14">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,236,237,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
 </map>
