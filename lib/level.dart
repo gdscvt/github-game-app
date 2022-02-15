@@ -6,6 +6,15 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'player.dart';
 
 /*
+  Represents a position as 2 integers. Useful for tile coordinates.
+*/
+class Position {
+  late int x, y;
+
+  Position(this.x, this.y);
+}
+
+/*
   Represents a level with a player and tile map
 */
 class Level extends PositionComponent with HasGameRef<GitHubGame> {
@@ -22,7 +31,7 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   late final String _mapPath;
 
   // Player starting location
-  late final Vector2 _playerSpawnLocation;
+  late final Position _playerSpawnLocation;
 
   // Set to true once all assets are loaded
   bool _loaded = false;
@@ -73,6 +82,21 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   }
 
   /*
+    Determine whether the tile at a given position has collision.
+  */
+  bool hasCollision(Position tilePosition) {
+    // Your collision layer must be the top layer of the tile map.
+    int? tileId = tileMapComponent.tileMap
+        .getTileData(
+            layerId: _tileMap.layers.length - 1,
+            x: tilePosition.x,
+            y: tilePosition.y)
+        ?.tile;
+
+    return (tileId != 0);
+  }
+
+  /*
     Centers the level in the middle of the canvas
   */
   void _center(Vector2 canvasSize) {
@@ -90,7 +114,8 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   /*
     Returns a converted coordinate vector from tile space to canvas space.
   */
-  Vector2 getCanvasPosition(Vector2 tilePosition) {
-    return tilePosition.clone()..multiply(gameRef.tileSize);
+  Vector2 getCanvasPosition(Position tilePosition) {
+    return Vector2(tilePosition.x.toDouble(), tilePosition.y.toDouble())
+      ..multiply(gameRef.tileSize);
   }
 }

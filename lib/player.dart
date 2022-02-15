@@ -18,8 +18,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<GitHubGame> {
   static const AnimationState defaultState = AnimationState.IDLE_D;
 
   late final Level level;
-
-  late Vector2 tilePosition;
+  late Position tilePosition;
 
   Player(this.level, this.tilePosition);
 

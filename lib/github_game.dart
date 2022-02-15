@@ -22,7 +22,7 @@ class GitHubGame extends FlameGame {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    add(level = Level(_mapPath, Vector2.all(5)));
+    add(level = Level(_mapPath, Position(5, 5)));
   }
 
   @override
