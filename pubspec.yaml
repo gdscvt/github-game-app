@@ -65,6 +65,14 @@ flutter:
     - assets/assets/images/tilesets/SF_Inside_B.png
     - assets/assets/images/tilesets/WallsAndFloors.png
     - assets/assets/tiles/level_one.tmx
+    - assets/assets/images/player_idle_u.png
+    - assets/assets/images/player_idle_r.png
+    - assets/assets/images/player_idle_l.png
+    - assets/assets/images/player_idle_d.png
+    - assets/assets/images/player_walking_u.png
+    - assets/assets/images/player_walking_r.png
+    - assets/assets/images/player_walking_l.png
+    - assets/assets/images/player_walking_d.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
