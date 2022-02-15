@@ -3,6 +3,9 @@ import 'package:flame/flame.dart';
 import 'package:github_game/github_game.dart';
 import 'level.dart';
 
+/*
+  Represents each possible animation
+*/
 enum AnimationState {
   IDLE_U,
   IDLE_L,
@@ -15,9 +18,13 @@ enum AnimationState {
 }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<GitHubGame> {
+  // Entry animation state
   static const AnimationState defaultState = AnimationState.IDLE_D;
 
+  // Reference to the current level
   late final Level level;
+
+  // The current tile coordinates of the player
   late Position tilePosition;
 
   Player(this.level, this.tilePosition);
@@ -32,11 +39,15 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<GitHubGame> {
     animations = await loadAnimationMap();
   }
 
+  /*
+    Handles loading of all animation assets
+  */
   Future<Map<AnimationState, SpriteAnimation>> loadAnimationMap() async {
     Map<AnimationState, SpriteAnimation> animMap = {};
 
     for (AnimationState state in AnimationState.values) {
-      final String filePath = "player_${state.name.toLowerCase()}.png";
+      final String filePath =
+          "${GitHubGame.ANIMATION_FILE_PATH}/player_${state.name.toLowerCase()}.png";
 
       int sampleSize = 1;
       if (filePath.contains("walking")) {

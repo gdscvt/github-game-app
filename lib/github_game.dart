@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
   This class represents the game with a specified level
 */
 class GitHubGame extends FlameGame {
+  static const String ANIMATION_FILE_PATH = "animations";
+
   // Reference to the loaded level
   late final Level level;
 
