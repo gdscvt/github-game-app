@@ -1,5 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/modules/level/collision_module.dart';
+import 'package:github_game/modules/player/locomotion_module.dart';
 import 'dart:ui';
 import 'package:tiled/tiled.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -25,18 +27,21 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   late final TiledComponent tileMapComponent;
 
   // Reference to the rendered tile map (member of the component)
-  late final TiledMap _tileMap;
+  late final TiledMap tileMap;
 
   // Path to the tile map file
   late final String _mapPath;
 
   // Player starting location
-  late final Position _playerSpawnLocation;
+  late final Position playerSpawnLocation;
+
+  // This module loads and reads collision data from the level
+  late CollisionModule collisionModule;
 
   // Set to true once all assets are loaded
   bool _loaded = false;
 
-  Level(this._mapPath, this._playerSpawnLocation);
+  Level(this._mapPath, this.playerSpawnLocation);
 
   @override
   Future<void> onLoad() async {
@@ -46,13 +51,16 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
     add(tileMapComponent =
         await TiledComponent.load(_mapPath, gameRef.tileSize));
 
-    // Add the player to the level
-    add(player = Player(this, _playerSpawnLocation));
+    // Add the collision module
+    add(collisionModule = CollisionModule());
 
-    player.position = getCanvasPosition(_playerSpawnLocation);
+    // Add the player to the level
+    add(player = Player(this));
+
+    player.position = getCanvasPosition(playerSpawnLocation);
 
     // Save a reference to the rendered tile map
-    _tileMap = tileMapComponent.tileMap.map;
+    tileMap = tileMapComponent.tileMap.map;
 
     // Set the loaded flag to true
     _loaded = true;
@@ -82,26 +90,11 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   }
 
   /*
-    Determine whether the tile at a given position has collision.
-  */
-  bool hasCollision(Position tilePosition) {
-    // Your collision layer must be the top layer of the tile map.
-    int? tileId = tileMapComponent.tileMap
-        .getTileData(
-            layerId: _tileMap.layers.length - 1,
-            x: tilePosition.x,
-            y: tilePosition.y)
-        ?.tile;
-
-    return (tileId != 0);
-  }
-
-  /*
     Centers the level in the middle of the canvas
   */
   void _center(Vector2 canvasSize) {
-    position.x = _getMiddle(canvasSize.x, _tileMap.width * gameRef.tileSize.x);
-    position.y = _getMiddle(canvasSize.y, _tileMap.height * gameRef.tileSize.y);
+    position.x = _getMiddle(canvasSize.x, tileMap.width * gameRef.tileSize.x);
+    position.y = _getMiddle(canvasSize.y, tileMap.height * gameRef.tileSize.y);
   }
 
   /*

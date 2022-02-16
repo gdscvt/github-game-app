@@ -1,66 +1,42 @@
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/modules/player/animation_module.dart';
+import 'package:github_game/modules/player/locomotion_module.dart';
 import 'level.dart';
+import 'dart:ui';
 
-/*
-  Represents each possible animation
-*/
-enum AnimationState {
-  IDLE_U,
-  IDLE_L,
-  IDLE_R,
-  IDLE_D,
-  WALKING_U,
-  WALKING_L,
-  WALKING_R,
-  WALKING_D
-}
-
-class Player extends SpriteAnimationGroupComponent with HasGameRef<GitHubGame> {
-  // Entry animation state
-  static const AnimationState defaultState = AnimationState.IDLE_D;
-
+class Player extends PositionComponent with HasGameRef<GitHubGame> {
   // Reference to the current level
   late final Level level;
 
-  // The current tile coordinates of the player
-  late Position tilePosition;
+  // This module controls the movement of the player
+  late LocomotionModule locomotionModule;
 
-  Player(this.level, this.tilePosition);
+  // This module controls the animation of the player
+  late AnimationModule animationModule;
+
+  Player(this.level);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
     size = gameRef.tileSize;
-    current = defaultState;
 
-    animations = await loadAnimationMap();
+    add(animationModule = AnimationModule());
+    add(locomotionModule = LocomotionModule(level.playerSpawnLocation));
   }
 
-  /*
-    Handles loading of all animation assets
-  */
-  Future<Map<AnimationState, SpriteAnimation>> loadAnimationMap() async {
-    Map<AnimationState, SpriteAnimation> animMap = {};
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+  }
 
-    for (AnimationState state in AnimationState.values) {
-      final String filePath =
-          "${GitHubGame.ANIMATION_FILE_PATH}/player_${state.name.toLowerCase()}.png";
+  @override
+  void update(double dt) {
+    super.update(dt);
 
-      int sampleSize = 1;
-      if (filePath.contains("walking")) {
-        sampleSize = 3;
-      }
-
-      final SpriteAnimationData data = SpriteAnimationData.sequenced(
-          amount: sampleSize, stepTime: 0.15, textureSize: gameRef.tileSize);
-      final SpriteAnimation animation = SpriteAnimation.fromFrameData(
-          await Flame.images.load(filePath), data);
-      animMap.putIfAbsent(state, () => animation);
-    }
-
-    return animMap;
+    animationModule.current = AnimationState.values.byName(
+        "${locomotionModule.locomotionState.name}_${locomotionModule.direction.name}");
   }
 }
