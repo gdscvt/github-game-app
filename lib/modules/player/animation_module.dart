@@ -52,13 +52,12 @@ extension AnimationData on AnimationState {
 /*
   Runs the animation state machine
 */
-class AnimationModule extends SpriteAnimationGroupComponent
-    with HasGameRef<GitHubGame> {
+class AnimationModule extends SpriteAnimationGroupComponent {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = gameRef.tileSize;
+    size = GitHubGame.TILE_SIZE;
     animations = await loadAnimationMap();
     current = AnimationState.IDLE_D;
   }
@@ -73,7 +72,8 @@ class AnimationModule extends SpriteAnimationGroupComponent
       final String filePath =
           "${GitHubGame.ANIMATION_FILE_PATH}/player_${state.name.toLowerCase()}.png";
 
-      final SpriteAnimationData data = state.getAnimationData(gameRef.tileSize);
+      final SpriteAnimationData data =
+          state.getAnimationData(GitHubGame.TILE_SIZE);
 
       final SpriteAnimation animation = SpriteAnimation.fromFrameData(
           await Flame.images.load(filePath), data);

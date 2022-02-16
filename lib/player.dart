@@ -2,10 +2,9 @@ import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
 import 'package:github_game/modules/player/animation_module.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
-import 'level.dart';
-import 'dart:ui';
+import 'package:github_game/level.dart';
 
-class Player extends PositionComponent with HasGameRef<GitHubGame> {
+class Player extends PositionComponent {
   // Reference to the current level
   late final Level level;
 
@@ -21,15 +20,11 @@ class Player extends PositionComponent with HasGameRef<GitHubGame> {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = gameRef.tileSize;
+    // Set sprite size
+    size = GitHubGame.TILE_SIZE;
 
     add(animationModule = AnimationModule());
-    add(locomotionModule = LocomotionModule(level.playerSpawnLocation));
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
+    add(locomotionModule = LocomotionModule(level));
   }
 
   @override
@@ -38,5 +33,7 @@ class Player extends PositionComponent with HasGameRef<GitHubGame> {
 
     animationModule.current = AnimationState.values.byName(
         "${locomotionModule.locomotionState.name}_${locomotionModule.direction.name}");
+
+    locomotionModule.updatePosition(position);
   }
 }

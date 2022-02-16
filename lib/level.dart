@@ -1,11 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
 import 'package:github_game/modules/level/collision_module.dart';
-import 'package:github_game/modules/player/locomotion_module.dart';
-import 'dart:ui';
 import 'package:tiled/tiled.dart';
+import 'package:quiver/core.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'player.dart';
+import 'package:github_game/player.dart';
 
 /*
   Represents a position as 2 integers. Useful for tile coordinates.
@@ -14,6 +13,9 @@ class Position {
   late int x, y;
 
   Position(this.x, this.y);
+
+  bool operator ==(o) => o is Position && x == o.x && y == o.y;
+  int get hashCode => hash2(x.hashCode, y.hashCode);
 }
 
 /*
@@ -49,14 +51,15 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
 
     // Load the tile map and add it to the game
     add(tileMapComponent =
-        await TiledComponent.load(_mapPath, gameRef.tileSize));
+        await TiledComponent.load(_mapPath, GitHubGame.TILE_SIZE));
 
     // Add the collision module
-    add(collisionModule = CollisionModule());
+    add(collisionModule = CollisionModule(tileMapComponent));
 
     // Add the player to the level
     add(player = Player(this));
 
+    // Sets the players position to the spawn location
     player.position = getCanvasPosition(playerSpawnLocation);
 
     // Save a reference to the rendered tile map
@@ -79,22 +82,14 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
     }
   }
 
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-  }
-
   /*
     Centers the level in the middle of the canvas
   */
   void _center(Vector2 canvasSize) {
-    position.x = _getMiddle(canvasSize.x, tileMap.width * gameRef.tileSize.x);
-    position.y = _getMiddle(canvasSize.y, tileMap.height * gameRef.tileSize.y);
+    position.x =
+        _getMiddle(canvasSize.x, tileMap.width * GitHubGame.TILE_SIZE.x);
+    position.y =
+        _getMiddle(canvasSize.y, tileMap.height * GitHubGame.TILE_SIZE.y);
   }
 
   /*
@@ -109,6 +104,6 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   */
   Vector2 getCanvasPosition(Position tilePosition) {
     return Vector2(tilePosition.x.toDouble(), tilePosition.y.toDouble())
-      ..multiply(gameRef.tileSize);
+      ..multiply(GitHubGame.TILE_SIZE);
   }
 }
