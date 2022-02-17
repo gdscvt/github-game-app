@@ -7,7 +7,7 @@ enum Direction { U, R, L, D }
 enum LocomotionState { IDLE, WALKING }
 
 class LocomotionModule extends Component {
-  static const double MOVEMENT_SPEED = 0.2;
+  static const double MOVEMENT_SPEED = 0.35;
 
   Direction direction = Direction.D;
   LocomotionState locomotionState = LocomotionState.IDLE;

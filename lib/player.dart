@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
 import 'package:github_game/modules/player/animation_module.dart';
+import 'package:github_game/modules/player/input_module.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
 import 'package:github_game/level.dart';
 
@@ -14,6 +15,8 @@ class Player extends PositionComponent {
   // This module controls the animation of the player
   late AnimationModule animationModule;
 
+  late InputModule inputModule;
+
   Player(this.level);
 
   @override
@@ -25,6 +28,7 @@ class Player extends PositionComponent {
 
     add(animationModule = AnimationModule());
     add(locomotionModule = LocomotionModule(level));
+    add(inputModule = InputModule(this));
   }
 
   @override
