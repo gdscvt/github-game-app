@@ -1,3 +1,4 @@
+import 'package:github_game/github_game.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/components.dart';
 import 'dart:math';
@@ -7,7 +8,8 @@ enum Direction { U, R, L, D }
 enum LocomotionState { IDLE, WALKING }
 
 class LocomotionModule extends Component {
-  static const double MOVEMENT_SPEED = 0.35;
+  static const double MOVEMENT_SPEED = 0.45;
+  static const double MOVEMENT_JUMP_THRESHOLD = 10;
 
   Direction direction = Direction.D;
   LocomotionState locomotionState = LocomotionState.IDLE;
@@ -45,6 +47,15 @@ class LocomotionModule extends Component {
 
       if (!level.collisionModule.collision(_destTilePosition)) {
         locomotionState = LocomotionState.WALKING;
+      }
+    } else {
+      Vector2 currentPosition = level.player.position;
+      Vector2 targetPosition = level.getCanvasPosition(_destTilePosition);
+      if (currentPosition.distanceTo(targetPosition) <
+          MOVEMENT_JUMP_THRESHOLD) {
+        currentPosition = targetPosition;
+        updatePosition(currentPosition);
+        move(dir);
       }
     }
   }
