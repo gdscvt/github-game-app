@@ -9,7 +9,7 @@ enum LocomotionState { IDLE, WALKING }
 
 class LocomotionModule extends Component {
   static const double MOVEMENT_SPEED = 0.45;
-  static const double MOVEMENT_JUMP_THRESHOLD = 10;
+  static const double MOVEMENT_JUMP_THRESHOLD = 2;
 
   Direction direction = Direction.D;
   LocomotionState locomotionState = LocomotionState.IDLE;
@@ -26,37 +26,44 @@ class LocomotionModule extends Component {
   }
 
   void move(Direction dir) {
-    if (locomotionState == LocomotionState.IDLE) {
-      direction = dir;
-      _destTilePosition = Position(tilePosition.x, tilePosition.y);
+    switch (locomotionState) {
+      case LocomotionState.WALKING:
+        Vector2 currentPosition = level.player.position;
+        Vector2 targetPosition = level.getCanvasPosition(_destTilePosition);
+        if (currentPosition.distanceTo(targetPosition) <
+            MOVEMENT_JUMP_THRESHOLD) {
+          currentPosition.x = targetPosition.x;
+          currentPosition.y = targetPosition.y;
+          updatePosition(currentPosition);
+          move(dir);
+        }
 
-      switch (dir) {
-        case Direction.U:
-          _destTilePosition.y = max(_destTilePosition.y - 1, 0);
-          break;
-        case Direction.R:
-          _destTilePosition.x = min(_destTilePosition.x + 1, _width - 1);
-          break;
-        case Direction.L:
-          _destTilePosition.x = max(_destTilePosition.x - 1, 0);
-          break;
-        case Direction.D:
-          _destTilePosition.y = min(_destTilePosition.y + 1, _height - 1);
-          break;
-      }
+        break;
 
-      if (!level.collisionModule.collision(_destTilePosition)) {
-        locomotionState = LocomotionState.WALKING;
-      }
-    } else {
-      Vector2 currentPosition = level.player.position;
-      Vector2 targetPosition = level.getCanvasPosition(_destTilePosition);
-      if (currentPosition.distanceTo(targetPosition) <
-          MOVEMENT_JUMP_THRESHOLD) {
-        currentPosition = targetPosition;
-        updatePosition(currentPosition);
-        move(dir);
-      }
+      case LocomotionState.IDLE:
+        direction = dir;
+        _destTilePosition = Position(tilePosition.x, tilePosition.y);
+
+        switch (dir) {
+          case Direction.U:
+            _destTilePosition.y = max(_destTilePosition.y - 1, 0);
+            break;
+          case Direction.R:
+            _destTilePosition.x = min(_destTilePosition.x + 1, _width - 1);
+            break;
+          case Direction.L:
+            _destTilePosition.x = max(_destTilePosition.x - 1, 0);
+            break;
+          case Direction.D:
+            _destTilePosition.y = min(_destTilePosition.y + 1, _height - 1);
+            break;
+        }
+
+        if (!level.collisionModule.collision(_destTilePosition)) {
+          locomotionState = LocomotionState.WALKING;
+        }
+
+        break;
     }
   }
 
