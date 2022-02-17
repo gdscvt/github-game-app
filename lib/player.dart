@@ -35,9 +35,11 @@ class Player extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
+    // Update the animation state based on the locomotion state
     animationModule.current = AnimationState.values.byName(
         "${locomotionModule.locomotionState.name}_${locomotionModule.direction.name}");
 
+    // Update the players position based on their movement in the locomotion module.
     locomotionModule.updatePosition(position);
   }
 }

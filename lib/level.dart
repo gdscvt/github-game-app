@@ -60,7 +60,7 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
     add(player = Player(this));
 
     // Sets the players position to the spawn location
-    player.position = getCanvasPosition(playerSpawnLocation);
+    teleportPlayer(playerSpawnLocation);
 
     // Save a reference to the rendered tile map
     tileMap = tileMapComponent.tileMap.map;
@@ -80,6 +80,13 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
       // Center the canvas
       _center(gameSize);
     }
+  }
+
+  /*
+    Used to teleport the player to a given tile position
+  */
+  void teleportPlayer(Position position) {
+    player.position = getCanvasPosition(position);
   }
 
   /*

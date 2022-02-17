@@ -25,15 +25,13 @@ extension AnimationData on AnimationState {
   */
   SpriteAnimationData getAnimationData(Vector2 frameSize) {
     return SpriteAnimationData.sequenced(
-        amount: getAnimationFrameCount(),
-        stepTime: FRAME_LENGTH,
-        textureSize: frameSize);
+        amount: _frameCount, stepTime: FRAME_LENGTH, textureSize: frameSize);
   }
 
   /*
     Gets the number of frames for each animation
   */
-  int getAnimationFrameCount() {
+  int get _frameCount {
     switch (this) {
       case AnimationState.IDLE_U:
       case AnimationState.IDLE_R:
@@ -58,14 +56,14 @@ class AnimationModule extends SpriteAnimationGroupComponent {
     await super.onLoad();
 
     size = GitHubGame.TILE_SIZE;
-    animations = await loadAnimationMap();
+    animations = await _loadAnimationMap();
     current = AnimationState.IDLE_D;
   }
 
   /*
     Loads and retuns a map of the animation assets
   */
-  Future<Map<AnimationState, SpriteAnimation>> loadAnimationMap() async {
+  Future<Map<AnimationState, SpriteAnimation>> _loadAnimationMap() async {
     Map<AnimationState, SpriteAnimation> animMap = {};
 
     for (AnimationState state in AnimationState.values) {
