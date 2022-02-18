@@ -5,6 +5,7 @@ import 'package:tiled/tiled.dart';
 import 'package:quiver/core.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:github_game/player.dart';
+import 'package:github_game/entities/laser.dart';
 
 /*
   Represents a position as 2 integers. Useful for tile coordinates.
@@ -21,7 +22,7 @@ class Position {
 /*
   Represents a level with a player and tile map
 */
-class Level extends PositionComponent with HasGameRef<GitHubGame> {
+class Level extends PositionComponent with HasGameRef<GithubGame> {
   // Reference to the player model
   late final Player player;
 
@@ -51,7 +52,10 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
 
     // Load the tile map and add it to the game
     add(tileMapComponent =
-        await TiledComponent.load(_mapPath, GitHubGame.TILE_SIZE));
+        await TiledComponent.load(_mapPath, GithubGame.TILE_SIZE));
+
+    // Save a reference to the rendered tile map
+    tileMap = tileMapComponent.tileMap.map;
 
     // Add the collision module
     add(collisionModule = CollisionModule(tileMapComponent));
@@ -59,11 +63,15 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
     // Add the player to the level
     add(player = Player(this));
 
-    // Sets the players position to the spawn location
-    teleportPlayer(playerSpawnLocation);
+    for (int i = 5; i < 9; i++) {
+      late Laser laser;
+      add(laser = Laser(Position(i, 0), this, LaserState.ACTIVE));
+    }
 
-    // Save a reference to the rendered tile map
-    tileMap = tileMapComponent.tileMap.map;
+    for (int i = 5; i < 9; i++) {
+      late Laser laser;
+      add(laser = Laser(Position(i, 1), this, LaserState.FLICKER));
+    }
 
     // Set the loaded flag to true
     _loaded = true;
@@ -83,10 +91,12 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   }
 
   /*
-    Used to teleport the player to a given tile position
+    Used to transform a vector position to a given tile position
   */
-  void teleportPlayer(Position position) {
-    player.position = getCanvasPosition(position);
+  void teleport(Vector2 from, Position to) {
+    Vector2 pos = getCanvasPosition(to);
+    from.x = pos.x;
+    from.y = pos.y;
   }
 
   /*
@@ -94,9 +104,9 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   */
   void _center(Vector2 canvasSize) {
     position.x =
-        _getMiddle(canvasSize.x, tileMap.width * GitHubGame.TILE_SIZE.x);
+        _getMiddle(canvasSize.x, tileMap.width * GithubGame.TILE_SIZE.x);
     position.y =
-        _getMiddle(canvasSize.y, tileMap.height * GitHubGame.TILE_SIZE.y);
+        _getMiddle(canvasSize.y, tileMap.height * GithubGame.TILE_SIZE.y);
   }
 
   /*
@@ -111,6 +121,6 @@ class Level extends PositionComponent with HasGameRef<GitHubGame> {
   */
   Vector2 getCanvasPosition(Position tilePosition) {
     return Vector2(tilePosition.x.toDouble(), tilePosition.y.toDouble())
-      ..multiply(GitHubGame.TILE_SIZE);
+      ..multiply(GithubGame.TILE_SIZE);
   }
 }

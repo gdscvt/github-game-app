@@ -5,8 +5,8 @@ import 'package:flame/input.dart';
 /*
   This class represents the game with a specified level
 */
-class GitHubGame extends FlameGame with HasKeyboardHandlerComponents {
-  // The folder holding the animation assets
+class GithubGame extends FlameGame with HasKeyboardHandlerComponents {
+  // The directory holding animation assets
   static const String ANIMATION_FILE_PATH = "animations";
 
   // The size in pixels of each tile
@@ -18,7 +18,7 @@ class GitHubGame extends FlameGame with HasKeyboardHandlerComponents {
   // The file path to the tile map
   late final String _mapPath;
 
-  GitHubGame(this._mapPath);
+  GithubGame(this._mapPath);
 
   @override
   Future<void> onLoad() async {

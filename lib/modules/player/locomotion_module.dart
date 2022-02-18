@@ -48,7 +48,7 @@ class LocomotionModule extends Component {
         if (currentPosition.distanceTo(targetPosition) <
             MOVEMENT_JUMP_THRESHOLD) {
           // Teleport the player to their destination
-          _level.teleportPlayer(_destTilePosition);
+          _level.teleport(currentPosition, _destTilePosition);
 
           // Update their movement state (resets state to idle because they have
           // arrived at their destination)

@@ -24,11 +24,13 @@ class Player extends PositionComponent {
     await super.onLoad();
 
     // Set sprite size
-    size = GitHubGame.TILE_SIZE;
+    size = GithubGame.TILE_SIZE;
 
     add(animationModule = AnimationModule());
     add(locomotionModule = LocomotionModule(level));
     add(inputModule = InputModule(this));
+
+    level.teleport(position, level.playerSpawnLocation);
   }
 
   @override

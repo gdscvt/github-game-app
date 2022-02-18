@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:github_game/github_game.dart';
+import 'dart:collection';
 
 /*
   Each state corresponds to an animation
@@ -51,11 +52,14 @@ extension AnimationData on AnimationState {
   Runs the animation state machine
 */
 class AnimationModule extends SpriteAnimationGroupComponent {
+  static const String PLAYER_FILE_PATH =
+      "${GithubGame.ANIMATION_FILE_PATH}/player";
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = GitHubGame.TILE_SIZE;
+    size = GithubGame.TILE_SIZE;
     animations = await _loadAnimationMap();
     current = AnimationState.IDLE_D;
   }
@@ -64,18 +68,18 @@ class AnimationModule extends SpriteAnimationGroupComponent {
     Loads and retuns a map of the animation assets
   */
   Future<Map<AnimationState, SpriteAnimation>> _loadAnimationMap() async {
-    Map<AnimationState, SpriteAnimation> animMap = {};
+    HashMap<AnimationState, SpriteAnimation> animMap = HashMap();
 
     for (AnimationState state in AnimationState.values) {
       final String filePath =
-          "${GitHubGame.ANIMATION_FILE_PATH}/player_${state.name.toLowerCase()}.png";
+          "${PLAYER_FILE_PATH}/player_${state.name.toLowerCase()}.png";
 
       final SpriteAnimationData data =
-          state.getAnimationData(GitHubGame.TILE_SIZE);
+          state.getAnimationData(GithubGame.TILE_SIZE);
 
       final SpriteAnimation animation = SpriteAnimation.fromFrameData(
           await Flame.images.load(filePath), data);
-      animMap.putIfAbsent(state, () => animation);
+      animMap[state] = animation;
     }
 
     return animMap;
