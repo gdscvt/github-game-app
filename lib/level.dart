@@ -82,18 +82,8 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
     // Set the loaded flag to true
     _loaded = true;
 
-    // Center the level in the middle of the canvas
-    _center(gameRef.canvasSize);
-  }
-
-  @override
-  void onGameResize(Vector2 gameSize) {
-    super.onGameResize(gameSize);
-
-    if (_loaded) {
-      // Center the canvas
-      _center(gameSize);
-    }
+    // Make the camera follow the player
+    gameRef.camera.followComponent(player, relativeOffset: Anchor.center);
   }
 
   /*
@@ -103,23 +93,6 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
     Vector2 pos = getCanvasPosition(to);
     from.x = pos.x;
     from.y = pos.y;
-  }
-
-  /*
-    Centers the level in the middle of the canvas
-  */
-  void _center(Vector2 canvasSize) {
-    position.x =
-        _getMiddle(canvasSize.x, tileMap.width * GithubGame.TILE_SIZE.x);
-    position.y =
-        _getMiddle(canvasSize.y, tileMap.height * GithubGame.TILE_SIZE.y);
-  }
-
-  /*
-    Returns the midpoint for a given canvas
-  */
-  static double _getMiddle(double canvasSize, double width) {
-    return (canvasSize / 2) - (width / 2);
   }
 
   /*
