@@ -63,23 +63,9 @@ class LocomotionModule extends Component {
       // If the player is not already moving
       case LocomotionState.IDLE:
         direction = dir;
-        _destTilePosition = Position(tilePosition.x, tilePosition.y);
 
-        // Get the tile coordinate in the direction you want to move
-        switch (dir) {
-          case Direction.U:
-            _destTilePosition.y = max(_destTilePosition.y - 1, 0);
-            break;
-          case Direction.R:
-            _destTilePosition.x = min(_destTilePosition.x + 1, _width - 1);
-            break;
-          case Direction.L:
-            _destTilePosition.x = max(_destTilePosition.x - 1, 0);
-            break;
-          case Direction.D:
-            _destTilePosition.y = min(_destTilePosition.y + 1, _height - 1);
-            break;
-        }
+        // Get the tile in the new facing direction
+        _destTilePosition = forwardTile();
 
         // Check the collision of the destination coordinate
         if (!_level.collisionModule.collision(_destTilePosition)) {
@@ -89,6 +75,30 @@ class LocomotionModule extends Component {
 
         break;
     }
+  }
+
+  /*
+    This function gets the tile position directly in front of the player currently
+  */
+  Position forwardTile() {
+    Position forward = Position(tilePosition.x, tilePosition.y);
+
+    switch (direction) {
+      case Direction.U:
+        forward.y = max(forward.y - 1, 0);
+        break;
+      case Direction.R:
+        forward.x = min(forward.x + 1, _width - 1);
+        break;
+      case Direction.L:
+        forward.x = max(forward.x - 1, 0);
+        break;
+      case Direction.D:
+        forward.y = min(forward.y + 1, _height - 1);
+        break;
+    }
+
+    return forward;
   }
 
   /*

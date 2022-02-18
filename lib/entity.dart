@@ -17,7 +17,11 @@ abstract class Entity extends SpriteGroupComponent {
     if (collision) {
       level.collisionModule.setCollision(tilePosition, true);
     }
+
+    level.entities.add(this);
   }
 
   bool get collision;
+
+  void onInteract();
 }

@@ -67,6 +67,11 @@ class Laser extends Entity {
     }
   }
 
+  @override
+  void onInteract() {
+    print("interacted with laser at ${tilePosition.x}, ${tilePosition.y}");
+  }
+
   void deactive() {
     current = LaserState.INACTIVE;
     level.collisionModule.setCollision(tilePosition, false);

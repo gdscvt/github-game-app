@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 /*
   These are all of the input actions that need to be handled
 */
-enum InputAction { UP, RIGHT, LEFT, DOWN }
+enum InputAction { UP, RIGHT, LEFT, DOWN, INTERACT }
 
 /*
   This module handles input for the player
@@ -31,6 +31,7 @@ class InputModule extends Component with KeyboardHandler {
     keyMap[LogicalKeyboardKey.keyA] = InputAction.LEFT;
     keyMap[LogicalKeyboardKey.keyD] = InputAction.RIGHT;
     keyMap[LogicalKeyboardKey.keyS] = InputAction.DOWN;
+    keyMap[LogicalKeyboardKey.enter] = InputAction.INTERACT;
   }
 
   @override
@@ -61,6 +62,9 @@ class InputModule extends Component with KeyboardHandler {
           break;
         case InputAction.UP:
           _player.locomotionModule.move(Direction.U);
+          break;
+        case InputAction.INTERACT:
+          _player.interact();
           break;
       }
     }

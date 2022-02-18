@@ -4,6 +4,7 @@ import 'package:github_game/modules/player/animation_module.dart';
 import 'package:github_game/modules/player/input_module.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
 import 'package:github_game/level.dart';
+import 'package:github_game/entity.dart';
 
 class Player extends PositionComponent {
   // Reference to the current level
@@ -43,5 +44,15 @@ class Player extends PositionComponent {
 
     // Update the players position based on their movement in the locomotion module.
     locomotionModule.updatePosition(position);
+  }
+
+  void interact() {
+    Position pos = locomotionModule.forwardTile();
+    for (Entity entity in level.entities) {
+      if (pos == entity.tilePosition) {
+        entity.onInteract();
+        return;
+      }
+    }
   }
 }
