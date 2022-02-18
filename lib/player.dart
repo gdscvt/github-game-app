@@ -43,7 +43,7 @@ class Player extends PositionComponent {
         "${locomotionModule.locomotionState.name}_${locomotionModule.direction.name}");
 
     // Update the players position based on their movement in the locomotion module.
-    locomotionModule.updatePosition(position);
+    locomotionModule.updatePosition(position, dt);
   }
 
   void interact() {

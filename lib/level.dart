@@ -68,6 +68,7 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
     // Add the player to the level
     add(player = Player(this));
 
+    // Added lasers
     for (int i = 5; i < 9; i++) {
       late Laser laser;
       add(laser = Laser(Position(i, 0), this, LaserState.ACTIVE));

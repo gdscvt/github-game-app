@@ -16,8 +16,8 @@ enum LocomotionState { IDLE, WALKING }
   This module is used to handle the movement of the player
 */
 class LocomotionModule extends Component {
-  static const double MOVEMENT_SPEED = 0.40;
-  static const double MOVEMENT_JUMP_THRESHOLD = 2.5;
+  static const double MOVEMENT_SPEED = 50;
+  static const double MOVEMENT_JUMP_THRESHOLD = 0.5;
 
   Direction direction = Direction.D;
   LocomotionState locomotionState = LocomotionState.IDLE;
@@ -52,7 +52,8 @@ class LocomotionModule extends Component {
 
           // Update their movement state (resets state to idle because they have
           // arrived at their destination)
-          updatePosition(currentPosition);
+          tilePosition = _destTilePosition;
+          locomotionState = LocomotionState.IDLE;
 
           // Call the move function again, and move in the direction specified
           move(dir);
@@ -105,27 +106,28 @@ class LocomotionModule extends Component {
     This function moves the player towards their destination if they are walking. 
     If the player is at their destination, they will enter the idle state.
   */
-  void updatePosition(Vector2 currentPosition) {
+  void updatePosition(Vector2 currentPosition, double dt) {
     switch (locomotionState) {
       case LocomotionState.WALKING:
         Vector2 targetPosition = _level.getCanvasPosition(_destTilePosition);
         if (currentPosition != targetPosition) {
+          double distance = MOVEMENT_SPEED * dt;
           switch (direction) {
             case Direction.U:
               currentPosition.y =
-                  max(currentPosition.y - MOVEMENT_SPEED, targetPosition.y);
+                  max(currentPosition.y - distance, targetPosition.y);
               break;
             case Direction.R:
               currentPosition.x =
-                  min(currentPosition.x + MOVEMENT_SPEED, targetPosition.x);
+                  min(currentPosition.x + distance, targetPosition.x);
               break;
             case Direction.L:
               currentPosition.x =
-                  max(currentPosition.x - MOVEMENT_SPEED, targetPosition.x);
+                  max(currentPosition.x - distance, targetPosition.x);
               break;
             case Direction.D:
               currentPosition.y =
-                  min(currentPosition.y + MOVEMENT_SPEED, targetPosition.y);
+                  min(currentPosition.y + distance, targetPosition.y);
               break;
           }
         } else {
