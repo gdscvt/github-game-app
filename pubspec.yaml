@@ -74,6 +74,9 @@ flutter:
     - assets/assets/images/animations/player/player_walking_r.png
     - assets/assets/images/animations/player/player_walking_l.png
     - assets/assets/images/animations/player/player_walking_d.png
+    - assets/assets/images/animations/laser/laser_active.png
+    - assets/assets/images/animations/laser/laser_flicker.png
+    - assets/assets/images/animations/laser/laser_inactive.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

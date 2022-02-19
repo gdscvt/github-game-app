@@ -23,16 +23,16 @@ class CollisionModule extends Component {
 
     TiledMap tileMap = _tiledComponent.tileMap.map;
 
-    Layer layer = tileMap.layerByName("Collision");
+    int id = tileMap.layerByName("Collision").id ?? 0;
 
     // Hide the collision layer
-    _tiledComponent.tileMap.setLayerVisibility(layer.id ?? 0, false);
+    _tiledComponent.tileMap.setLayerVisibility(id, false);
 
     // Populate the collision hash set based on the collision layer
     for (int x = 0; x < tileMap.width; x++) {
       for (int y = 0; y < tileMap.height; y++) {
         if (_tiledComponent.tileMap
-                .getTileData(layerId: layer.id ?? 0, x: x, y: y)
+                .getTileData(layerId: id, x: x, y: y)
                 ?.tile !=
             0) {
           collisionSet.add(Position(x, y));

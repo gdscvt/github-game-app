@@ -16,8 +16,8 @@ enum LocomotionState { IDLE, WALKING }
   This module is used to handle the movement of the player
 */
 class LocomotionModule extends Component {
-  static const double MOVEMENT_SPEED = 50;
-  static const double MOVEMENT_JUMP_THRESHOLD = 0.5;
+  static const double MOVEMENT_SPEED = 70;
+  static const double MOVEMENT_JUMP_THRESHOLD = 0.3;
 
   Direction direction = Direction.D;
   LocomotionState locomotionState = LocomotionState.IDLE;
