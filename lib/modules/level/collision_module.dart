@@ -2,14 +2,15 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:tiled/tiled.dart';
 import 'package:github_game/level.dart';
+import 'dart:collection';
 
 /*
   This collision module transforms the tile matrix into a column major array, 
   with one bit representing the collision of each tile.
 */
 class CollisionModule extends Component {
-  // Column major collision bit matrix
-  late List<bool> _collisionMatrix;
+  // Hash set of collidable positions
+  late HashSet<Position> collisionSet = HashSet();
 
   // The tile component for this level
   late final TiledComponent _tiledComponent;
@@ -23,36 +24,38 @@ class CollisionModule extends Component {
     TiledMap tileMap = _tiledComponent.tileMap.map;
 
     Layer layer = tileMap.layerByName("Collision");
-    int _width = tileMap.width;
 
     // Hide the collision layer
     _tiledComponent.tileMap.setLayerVisibility(layer.id ?? 0, false);
 
-    // Generate a column major list view of the collision matrix
-    _collisionMatrix = List.generate(tileMap.width * tileMap.height, (index) {
-      int col = index % _width;
-      int row = ((index - col) / _width).round();
-
-      return _tiledComponent.tileMap
-              .getTileData(layerId: layer.id ?? 0, x: col, y: row)
-              ?.tile !=
-          0;
-    });
+    // Populate the collision hash set based on the collision layer
+    for (int x = 0; x < tileMap.width; x++) {
+      for (int y = 0; y < tileMap.height; y++) {
+        if (_tiledComponent.tileMap
+                .getTileData(layerId: layer.id ?? 0, x: x, y: y)
+                ?.tile !=
+            0) {
+          collisionSet.add(Position(x, y));
+        }
+      }
+    }
   }
 
   /*
     Returns whether or not there is collision at the given coordinate
   */
   bool collision(Position tilePosition) {
-    return _collisionMatrix[
-        (tilePosition.y * _tiledComponent.tileMap.map.width) + tilePosition.x];
+    return collisionSet.contains(tilePosition);
   }
 
   /*
     Sets the collision of a given tile position 
   */
   void setCollision(Position tilePosition, bool coll) {
-    _collisionMatrix[(tilePosition.y * _tiledComponent.tileMap.map.width) +
-        tilePosition.x] = coll;
+    if (coll) {
+      collisionSet.add(tilePosition);
+    } else {
+      collisionSet.remove(tilePosition);
+    }
   }
 }
