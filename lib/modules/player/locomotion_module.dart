@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:html';
+
 import 'package:github_game/level.dart';
 import 'package:flame/components.dart';
 import 'dart:math';
@@ -16,14 +19,17 @@ enum LocomotionState { IDLE, WALKING }
   This module is used to handle the movement of the player
 */
 class LocomotionModule extends Component {
-  static const double MOVEMENT_SPEED = 70;
-  static const double MOVEMENT_JUMP_THRESHOLD = 0.3;
+  static const double MOVEMENT_SPEED = 75;
+  static const double MOVEMENT_QUEUE_THRESHOLD = 12;
 
   Direction direction = Direction.D;
   LocomotionState locomotionState = LocomotionState.IDLE;
 
   late final Level _level;
-  late Position tilePosition, _destTilePosition;
+  late Position tilePosition;
+
+  ListQueue<Direction> _movements = ListQueue();
+  late Position _targetPosition;
 
   late int _width, _height;
 
@@ -33,55 +39,40 @@ class LocomotionModule extends Component {
     tilePosition = _level.playerSpawnLocation;
   }
 
+  bool get withinQueueThreshold {
+    return _level.player.position
+            .distanceTo(_level.getCanvasPosition(_targetPosition)) <=
+        MOVEMENT_QUEUE_THRESHOLD;
+  }
+
   /*
     This will cause a player to begin moving in a direction if they are 
     not already moving (or are about to stop moving).
   */
   void move(Direction dir) {
-    switch (locomotionState) {
-      // If the player is already moving:
-      case LocomotionState.WALKING:
-        Vector2 currentPosition = _level.player.position;
-        Vector2 targetPosition = _level.getCanvasPosition(_destTilePosition);
+    if (_movements.isEmpty) {
+      _initMovement(dir);
+    } else if (_movements.length == 1) {
+      if (withinQueueThreshold) {
+        _initMovement(dir);
+      }
+    } else {
+      _movements.removeLast();
+      _initMovement(dir);
+    }
+  }
 
-        // If the player is within an acceptable radius from their destination:
-        if (currentPosition.distanceTo(targetPosition) <
-            MOVEMENT_JUMP_THRESHOLD) {
-          // Teleport the player to their destination
-          _level.teleport(currentPosition, _destTilePosition);
-
-          // Update their movement state (resets state to idle because they have
-          // arrived at their destination)
-          tilePosition = _destTilePosition;
-          locomotionState = LocomotionState.IDLE;
-
-          // Call the move function again, and move in the direction specified
-          move(dir);
-        }
-
-        break;
-
-      // If the player is not already moving
-      case LocomotionState.IDLE:
-        direction = dir;
-
-        // Get the tile in the new facing direction
-        _destTilePosition = forwardTile();
-
-        // Check the collision of the destination coordinate
-        if (!_level.collisionModule.collision(_destTilePosition)) {
-          // If there is no collision, enter the walking state
-          locomotionState = LocomotionState.WALKING;
-        }
-
-        break;
+  void _initMovement(Direction dir) {
+    _movements.add(dir);
+    if (locomotionState == LocomotionState.IDLE) {
+      locomotionState = LocomotionState.WALKING;
     }
   }
 
   /*
     This function gets the tile position directly in front of the player currently
   */
-  Position forwardTile() {
+  Position get forwardTile {
     Position forward = Position(tilePosition.x, tilePosition.y);
 
     switch (direction) {
@@ -106,37 +97,56 @@ class LocomotionModule extends Component {
     This function moves the player towards their destination if they are walking. 
     If the player is at their destination, they will enter the idle state.
   */
-  void updatePosition(Vector2 currentPosition, double dt) {
-    switch (locomotionState) {
-      case LocomotionState.WALKING:
-        Vector2 targetPosition = _level.getCanvasPosition(_destTilePosition);
-        if (currentPosition != targetPosition) {
-          double distance = MOVEMENT_SPEED * dt;
-          switch (direction) {
-            case Direction.U:
-              currentPosition.y =
-                  max(currentPosition.y - distance, targetPosition.y);
-              break;
-            case Direction.R:
-              currentPosition.x =
-                  min(currentPosition.x + distance, targetPosition.x);
-              break;
-            case Direction.L:
-              currentPosition.x =
-                  max(currentPosition.x - distance, targetPosition.x);
-              break;
-            case Direction.D:
-              currentPosition.y =
-                  min(currentPosition.y + distance, targetPosition.y);
-              break;
-          }
-        } else {
-          locomotionState = LocomotionState.IDLE;
-          tilePosition = _destTilePosition;
-        }
-        break;
-      case LocomotionState.IDLE:
-        break;
+  void updateMovement(Vector2 currentPosition, double dt) {
+    if (_movements.isEmpty) {
+      locomotionState = LocomotionState.IDLE;
+    } else {
+      if (direction != _movements.first) {
+        direction = _movements.first;
+      }
+
+      _moveTowardTarget(dt);
+
+      if (tilePosition == _targetPosition) {
+        _movements.removeFirst();
+      }
+    }
+  }
+
+  void _moveTowardTarget(double dt) {
+    _targetPosition = forwardTile;
+
+    Vector2 currentPosition = _level.player.position;
+    Vector2 targetPosition = currentPosition.clone();
+
+    if (!_level.collisionModule.collision(_targetPosition)) {
+      targetPosition = _level.getCanvasPosition(_targetPosition);
+      double distance = MOVEMENT_SPEED * dt;
+
+      switch (direction) {
+        case Direction.U:
+          currentPosition.y =
+              max(currentPosition.y - distance, targetPosition.y);
+          break;
+        case Direction.R:
+          currentPosition.x =
+              min(currentPosition.x + distance, targetPosition.x);
+          break;
+        case Direction.L:
+          currentPosition.x =
+              max(currentPosition.x - distance, targetPosition.x);
+          break;
+        case Direction.D:
+          currentPosition.y =
+              min(currentPosition.y + distance, targetPosition.y);
+          break;
+      }
+
+      if (currentPosition == targetPosition) {
+        tilePosition = _targetPosition;
+      }
+    } else {
+      _targetPosition = tilePosition;
     }
   }
 }

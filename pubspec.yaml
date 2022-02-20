@@ -38,6 +38,7 @@ dependencies:
   flame_tiled: ^1.2.1
   flame_audio: ^1.0.0
   quiver: ^3.0.1+1
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/github_game.dart';
+import 'dart:collection';
 
 abstract class Entity extends SpriteGroupComponent {
   late final Level level;
@@ -19,9 +20,14 @@ abstract class Entity extends SpriteGroupComponent {
     }
 
     level.entities.add(this);
+    level.teleport(position, tilePosition);
+
+    sprites = await loadSprites();
   }
 
   bool get collision;
 
   void onInteract();
+
+  Future<HashMap<dynamic, Sprite>> loadSprites();
 }

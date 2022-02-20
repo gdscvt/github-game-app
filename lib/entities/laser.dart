@@ -10,9 +10,8 @@ extension SpritePath on LaserState {
   static const String LASER_FILE_PATH =
       "${GithubGame.ANIMATION_FILE_PATH}/laser";
 
-  String get spritePath {
-    return "${LASER_FILE_PATH}/laser_${this.name.toLowerCase()}.png";
-  }
+  String get spritePath =>
+      "${LASER_FILE_PATH}/laser_${this.name.toLowerCase()}.png";
 }
 
 class Laser extends Entity {
@@ -34,10 +33,6 @@ class Laser extends Entity {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    sprites = await _loadSprites;
-
-    level.teleport(position, tilePosition);
   }
 
   @override
@@ -48,7 +43,30 @@ class Laser extends Entity {
   @override
   void update(double dt) {
     super.update(dt);
+    handleFlicker(dt);
+  }
 
+  @override
+  void onInteract() {
+    print("interacted with laser at ${tilePosition.x}, ${tilePosition.y}");
+  }
+
+  void deactive() {
+    current = LaserState.INACTIVE;
+    level.collisionModule.setCollision(tilePosition, false);
+  }
+
+  @override
+  Future<HashMap<LaserState, Sprite>> loadSprites() async {
+    HashMap<LaserState, Sprite> result = HashMap();
+    for (LaserState laserState in LaserState.values) {
+      result[laserState] = await Sprite.load(laserState.spritePath);
+    }
+
+    return result;
+  }
+
+  void handleFlicker(double dt) {
     elapsed += dt;
 
     if (elapsed >= currentAnimLength) {
@@ -65,24 +83,5 @@ class Laser extends Entity {
 
       elapsed = 0;
     }
-  }
-
-  @override
-  void onInteract() {
-    print("interacted with laser at ${tilePosition.x}, ${tilePosition.y}");
-  }
-
-  void deactive() {
-    current = LaserState.INACTIVE;
-    level.collisionModule.setCollision(tilePosition, false);
-  }
-
-  Future<HashMap<LaserState, Sprite>> get _loadSprites async {
-    HashMap<LaserState, Sprite> result = HashMap();
-    for (LaserState laserState in LaserState.values) {
-      result[laserState] = await Sprite.load(laserState.spritePath);
-    }
-
-    return result;
   }
 }

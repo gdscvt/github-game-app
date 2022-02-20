@@ -43,11 +43,11 @@ class Player extends PositionComponent {
         "${locomotionModule.locomotionState.name}_${locomotionModule.direction.name}");
 
     // Update the players position based on their movement in the locomotion module.
-    locomotionModule.updatePosition(position, dt);
+    locomotionModule.updateMovement(position, dt);
   }
 
   void interact() {
-    Position pos = locomotionModule.forwardTile();
+    Position pos = locomotionModule.forwardTile;
     for (Entity entity in level.entities) {
       if (pos == entity.tilePosition) {
         entity.onInteract();

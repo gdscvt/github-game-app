@@ -19,6 +19,8 @@ class Position {
 
   bool operator ==(o) => o is Position && x == o.x && y == o.y;
   int get hashCode => hash2(x.hashCode, y.hashCode);
+
+  String toString() => "$x, $y";
 }
 
 /*
@@ -67,17 +69,6 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
 
     // Add the player to the level
     add(player = Player(this));
-
-    // Added lasers
-    for (int i = 5; i < 9; i++) {
-      late Laser laser;
-      add(laser = Laser(Position(i, 0), this, LaserState.ACTIVE));
-    }
-
-    for (int i = 5; i < 9; i++) {
-      late Laser laser;
-      add(laser = Laser(Position(i, 1), this, LaserState.FLICKER));
-    }
 
     // Set the loaded flag to true
     _loaded = true;

@@ -18,8 +18,14 @@ enum AnimationState {
 }
 
 extension AnimationData on AnimationState {
+  static const String PLAYER_FILE_PATH =
+      "${GithubGame.ANIMATION_FILE_PATH}/player";
+
   // The length of time each frame in an animation lasts
   static const double FRAME_LENGTH = 0.15;
+
+  String get spritePath =>
+      "${PLAYER_FILE_PATH}/player_${name.toLowerCase()}.png";
 
   /*
     Generates a sprite animation data object for an animation
@@ -52,9 +58,6 @@ extension AnimationData on AnimationState {
   Runs the animation state machine
 */
 class AnimationModule extends SpriteAnimationGroupComponent {
-  static const String PLAYER_FILE_PATH =
-      "${GithubGame.ANIMATION_FILE_PATH}/player";
-
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -71,14 +74,11 @@ class AnimationModule extends SpriteAnimationGroupComponent {
     HashMap<AnimationState, SpriteAnimation> animMap = HashMap();
 
     for (AnimationState state in AnimationState.values) {
-      final String filePath =
-          "${PLAYER_FILE_PATH}/player_${state.name.toLowerCase()}.png";
-
       final SpriteAnimationData data =
           state.getAnimationData(GithubGame.TILE_SIZE);
 
       final SpriteAnimation animation = SpriteAnimation.fromFrameData(
-          await Flame.images.load(filePath), data);
+          await Flame.images.load(state.spritePath), data);
       animMap[state] = animation;
     }
 
