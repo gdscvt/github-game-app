@@ -1,6 +1,6 @@
 # github_game
 
-A new Flutter project.
+Seperate repo for github_game
 
 ## Getting Started
 
