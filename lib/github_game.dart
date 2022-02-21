@@ -10,7 +10,7 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents {
   static const String ANIMATION_FILE_PATH = "animations";
 
   // The size in pixels of each tile
-  static final Vector2 TILE_SIZE = Vector2.all(32.0);
+  static final Vector2 TILE_SIZE = Vector2.all(48.0);
 
   // Reference to the loaded level
   late final Level level;

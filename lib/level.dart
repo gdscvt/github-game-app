@@ -75,6 +75,7 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
 
     // Make the camera follow the player
     gameRef.camera.followComponent(player, relativeOffset: Anchor.center);
+    gameRef.camera.zoom = 0.8;
   }
 
   /*

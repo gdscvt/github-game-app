@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:html';
 
 import 'package:github_game/level.dart';
 import 'package:flame/components.dart';
