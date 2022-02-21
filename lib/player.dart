@@ -1,11 +1,11 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/level.dart';
+import 'package:github_game/entity.dart';
 import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/modules/player/animation_module.dart';
 import 'package:github_game/modules/player/input_module.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
-import 'package:github_game/level.dart';
-import 'package:github_game/entity.dart';
 
 /*
   Represents a player in a level.

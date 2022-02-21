@@ -1,12 +1,12 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:collection';
+import 'package:flutter/services.dart';
 
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/mixins/has_player_ref.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
-import 'package:github_game/player.dart';
-import 'package:flutter/services.dart';
 
 /*
   These are all of the input actions that need to be handled

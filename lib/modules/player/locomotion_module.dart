@@ -1,11 +1,11 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:collection';
-
-import 'package:github_game/mixins/has_level_ref.dart';
-import 'package:github_game/level.dart';
-import 'package:flame/components.dart';
 import 'dart:math';
-
+import 'package:flame/components.dart';
+import 'package:github_game/level.dart';
 import 'package:github_game/mixins/has_player_ref.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 
 /*
   These are the directions the player can face

@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:tiled/tiled.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/modules/level/map_module.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 
 /*
   This module queries the collision channel in the level file. In order for 

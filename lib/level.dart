@@ -1,11 +1,11 @@
+import 'dart:collection';
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/player.dart';
+import 'package:github_game/entity.dart';
 import 'package:github_game/modules/level/map_module.dart';
 import 'package:github_game/modules/level/collision_module.dart';
 import 'package:quiver/core.dart';
-import 'package:github_game/player.dart';
-import 'dart:collection';
-import 'package:github_game/entity.dart';
 
 /*
   Represents a position as 2 integers. Useful for tile coordinates.

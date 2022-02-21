@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/level.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 
 /*
   Represents a dynamic object in a level.

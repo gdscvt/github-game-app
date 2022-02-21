@@ -1,8 +1,8 @@
+// ignore_for_file: constant_identifier_names
+import 'dart:collection';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:github_game/github_game.dart';
-import 'dart:collection';
-
 import 'package:github_game/mixins/has_player_ref.dart';
 
 /*
@@ -27,8 +27,7 @@ extension AnimationData on AnimationState {
   // length of time each frame in an animation lasts
   static const double FRAME_LENGTH = 0.15;
 
-  String get spritePath =>
-      "${PLAYER_FILE_PATH}/player_${name.toLowerCase()}.png";
+  String get spritePath => "$PLAYER_FILE_PATH/player_${name.toLowerCase()}.png";
 
   /*
     Generates a sprite animation data object for an animation
