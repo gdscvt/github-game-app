@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
-import 'package:github_game/has_level_ref.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
 import 'package:github_game/player.dart';
 import 'package:flutter/services.dart';
@@ -29,12 +29,7 @@ class InputModule extends Component with KeyboardHandler, HasLevelRef {
 
     _player = level.player;
 
-    // Map the keybinds
-    keyMap[LogicalKeyboardKey.keyW] = InputAction.UP;
-    keyMap[LogicalKeyboardKey.keyA] = InputAction.LEFT;
-    keyMap[LogicalKeyboardKey.keyD] = InputAction.RIGHT;
-    keyMap[LogicalKeyboardKey.keyS] = InputAction.DOWN;
-    keyMap[LogicalKeyboardKey.enter] = InputAction.INTERACT;
+    _loadInputMap();
   }
 
   @override
@@ -48,6 +43,15 @@ class InputModule extends Component with KeyboardHandler, HasLevelRef {
 
     // Capture keyboard input
     return false;
+  }
+
+  void _loadInputMap() {
+    // Map the keybinds
+    keyMap[LogicalKeyboardKey.keyW] = InputAction.UP;
+    keyMap[LogicalKeyboardKey.keyA] = InputAction.LEFT;
+    keyMap[LogicalKeyboardKey.keyD] = InputAction.RIGHT;
+    keyMap[LogicalKeyboardKey.keyS] = InputAction.DOWN;
+    keyMap[LogicalKeyboardKey.enter] = InputAction.INTERACT;
   }
 
   void _handleInput(InputAction? action) {

@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
-import 'package:github_game/has_level_ref.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:tiled/tiled.dart';
 import 'package:github_game/level.dart';
-import 'package:github_game/map_module.dart';
+import 'package:github_game/modules/level/map_module.dart';
 
 /*
   This collision module transforms the tile matrix into a column major array, 

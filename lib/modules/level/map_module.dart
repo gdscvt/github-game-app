@@ -1,6 +1,6 @@
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:github_game/github_game.dart';
-import 'package:github_game/has_level_ref.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/level.dart';
 import 'package:tiled/tiled.dart';
 import 'package:flame/components.dart';

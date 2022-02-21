@@ -1,33 +1,34 @@
 import 'package:flame/components.dart';
-import 'package:github_game/has_level_ref.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/level.dart';
-import 'package:github_game/github_game.dart';
-import 'dart:collection';
 
-abstract class Entity extends SpriteGroupComponent with HasLevelRef {
-  late Position tilePosition;
+/*
+  Represents a dynamic object in a level.
+*/
+abstract class Entity extends PositionComponent with HasLevelRef {
+  late Position tilePosition; // the tile coordinates of this entity
 
-  Entity(this.tilePosition);
+  Entity(this.tilePosition); // set the tile position in constructor
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = GithubGame.TILE_SIZE;
-
+    // update the collision of the level based on this entity
     if (collision) {
       level.collisionModule.setCollision(tilePosition, true);
     }
 
-    level.entities.add(this);
-    level.teleport(position, tilePosition);
-
-    sprites = await loadSprites();
+    level.teleport(position, tilePosition); // teleport to the tile position
   }
 
+  /*
+    Returns whether or not this entity has collision.
+  */
   bool get collision;
 
+  /*
+    Called when the player interacts with this entity.
+  */
   void onInteract();
-
-  Future<HashMap<dynamic, Sprite>> loadSprites();
 }

@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:github_game/has_level_ref.dart';
+import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/components.dart';
 import 'dart:math';
@@ -16,20 +16,25 @@ enum Direction { U, R, L, D }
 enum LocomotionState { IDLE, WALKING }
 
 /*
-  This module is used to handle the movement of the player
+  This module is used to handle the movement of the player.
 */
 class LocomotionModule extends Component with HasLevelRef {
-  static const double MOVEMENT_SPEED = 85;
+  static const double MOVEMENT_SPEED = 85; // pixels per second
+
+  // input will unlock when you are this far from your current target tile
   static const double MOVEMENT_QUEUE_THRESHOLD = 2;
 
-  final ListQueue<Direction> _movements;
+  late final ListQueue<Direction>
+      _movements; // holds the queued movement directions
 
+  // the current tile position, and the tile position you are moving towards
   late Position tilePosition, targetPosition;
 
-  Direction direction = Direction.D;
-  LocomotionState locomotionState = LocomotionState.IDLE;
+  Direction direction = Direction.D; // current facing direction
+  LocomotionState locomotionState =
+      LocomotionState.IDLE; // current movement state
 
-  LocomotionModule() : _movements = ListQueue();
+  LocomotionModule() : _movements = ListQueue(); // create the movement queue
 
   @override
   Future<void> onLoad() async {
@@ -39,6 +44,10 @@ class LocomotionModule extends Component with HasLevelRef {
     targetPosition = tilePosition;
   }
 
+  /*
+    Returns whether or not the player's movement is within the distance 
+    threshold to their target tile.
+  */
   bool get _withinQueueThreshold {
     return level.player.position
             .distanceTo(level.getCanvasPosition(targetPosition)) <=
@@ -47,7 +56,7 @@ class LocomotionModule extends Component with HasLevelRef {
 
   /*
     This will cause a player to begin moving in a direction if they are 
-    not already moving (or are about to stop moving).
+    not already moving.
   */
   void move(Direction dir) {
     if (_movements.length == 2) {
@@ -58,6 +67,9 @@ class LocomotionModule extends Component with HasLevelRef {
     }
   }
 
+  /*
+    Initiate movement and update locomotion state to walking
+  */
   void addMovement(Direction dir) {
     if (_movements.isEmpty) {
       direction = dir;
@@ -93,7 +105,8 @@ class LocomotionModule extends Component with HasLevelRef {
 
   /*
     This function moves the player towards their destination if they are walking. 
-    If the player is at their destination, they will enter the idle state.
+    If the player is at their destination, they will enter their idle state or
+    begin targeting their next movement direction.
   */
   void updateMovement(Vector2 currentPosition, double dt) {
     if (_movements.isNotEmpty) {
@@ -127,6 +140,9 @@ class LocomotionModule extends Component with HasLevelRef {
     }
   }
 
+  /*
+    Updates the target movement tile position
+  */
   bool updateTargetPosition() {
     if (tilePosition == targetPosition) {
       Position forward = forwardTile;
