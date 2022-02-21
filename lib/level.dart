@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/modules/level/entity_manager_module.dart';
 import 'package:github_game/player.dart';
 import 'package:github_game/entity.dart';
 import 'package:github_game/modules/level/map_module.dart';
@@ -29,7 +30,8 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
   late final MapModule mapModule; // loads and manages the tile map
   late final CollisionModule
       collisionModule; // loads and manages collision data
-  late final HashSet<Entity> entities; // all dynamic objects in the level
+  late final EntityManagerModule
+      entityManagerModule; // loads and manages the entities
 
   late final String mapPath; // path to the map file
   late final Position spawnLocation; // spawn location for the player
@@ -42,6 +44,7 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
 
     add(mapModule = MapModule());
     add(collisionModule = CollisionModule());
+    add(entityManagerModule = EntityManagerModule());
 
     add(player = Player());
     teleport(player.position,
@@ -50,8 +53,6 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
     // Make the camera follow the player
     gameRef.camera.followComponent(player, relativeOffset: Anchor.center);
     gameRef.camera.zoom = 0.8;
-
-    addAll(entities = HashSet());
   }
 
   /*

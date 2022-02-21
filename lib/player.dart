@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:github_game/entity_group.dart';
 import 'package:github_game/github_game.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/entity.dart';
@@ -33,10 +34,12 @@ class Player extends PositionComponent with HasLevelRef {
   */
   void interact() {
     Position pos = locomotionModule.forwardTile;
-    for (Entity entity in level.entities) {
-      if (pos == entity.tilePosition) {
-        entity.onInteract();
-        return;
+    for (EntityGroup group in level.entityManagerModule.groups) {
+      for (Entity entity in group.entities) {
+        if (pos == entity.tilePosition) {
+          entity.onInteract();
+          return;
+        }
       }
     }
   }
