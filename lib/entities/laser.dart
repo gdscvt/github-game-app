@@ -22,7 +22,7 @@ class Laser extends Entity {
   double elapsed = 0.0;
 
   Laser(Position position, Level level, LaserState entryState)
-      : super(position, level) {
+      : super(position) {
     current = entryState;
 
     if (current == LaserState.FLICKER) {

@@ -30,15 +30,17 @@ extension AnimationData on AnimationState {
   /*
     Generates a sprite animation data object for an animation
   */
-  SpriteAnimationData getAnimationData(Vector2 frameSize) {
+  SpriteAnimationData getAnimationData() {
     return SpriteAnimationData.sequenced(
-        amount: _frameCount, stepTime: FRAME_LENGTH, textureSize: frameSize);
+        amount: frameCount,
+        stepTime: FRAME_LENGTH,
+        textureSize: GithubGame.TILE_SIZE);
   }
 
   /*
     Gets the number of frames for each animation
   */
-  int get _frameCount {
+  int get frameCount {
     switch (this) {
       case AnimationState.IDLE_U:
       case AnimationState.IDLE_R:
@@ -63,25 +65,22 @@ class AnimationModule extends SpriteAnimationGroupComponent {
     await super.onLoad();
 
     size = GithubGame.TILE_SIZE;
-    animations = await _loadAnimationMap();
+    await _loadAnimationMap();
     current = AnimationState.IDLE_D;
   }
 
   /*
     Loads and retuns a map of the animation assets
   */
-  Future<Map<AnimationState, SpriteAnimation>> _loadAnimationMap() async {
-    HashMap<AnimationState, SpriteAnimation> animMap = HashMap();
+  Future<void> _loadAnimationMap() async {
+    animations = HashMap();
 
     for (AnimationState state in AnimationState.values) {
-      final SpriteAnimationData data =
-          state.getAnimationData(GithubGame.TILE_SIZE);
+      final SpriteAnimationData data = state.getAnimationData();
 
       final SpriteAnimation animation = SpriteAnimation.fromFrameData(
           await Flame.images.load(state.spritePath), data);
-      animMap[state] = animation;
+      animations![state] = animation;
     }
-
-    return animMap;
   }
 }

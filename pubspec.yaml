@@ -78,6 +78,8 @@ flutter:
     - assets/assets/images/animations/laser/laser_active.png
     - assets/assets/images/animations/laser/laser_flicker.png
     - assets/assets/images/animations/laser/laser_inactive.png
+    - assets/assets/images/tilesets/1_Room_Builder_Office/Room_Builder_Office_48x48.png
+    - assets/assets/images/tilesets/2_Modern_Office_Black_Shadow/Modern_Office_Black_Shadow_48x48.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

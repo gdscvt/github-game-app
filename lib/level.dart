@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/map_module.dart';
 import 'package:github_game/modules/level/collision_module.dart';
 import 'package:tiled/tiled.dart';
 import 'package:quiver/core.dart';
@@ -30,17 +31,13 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
   // Reference to the player model
   late final Player player;
 
-  // Reference to the tile map component
-  late final TiledComponent tileMapComponent;
-
-  // Reference to the rendered tile map (member of the component)
-  late final TiledMap tileMap;
+  late final MapModule mapModule;
 
   // Path to the tile map file
-  late final String _mapPath;
+  late final String mapPath;
 
   // Player starting location
-  late final Position playerSpawnLocation;
+  late final Position spawnLocation;
 
   // This module loads and reads collision data from the level
   late CollisionModule collisionModule;
@@ -48,30 +45,21 @@ class Level extends PositionComponent with HasGameRef<GithubGame> {
   // This is a set of all the entities in the level
   HashSet<Entity> entities = HashSet();
 
-  // Set to true once all assets are loaded
-  bool _loaded = false;
-
-  Level(this._mapPath, this.playerSpawnLocation);
+  Level(this.mapPath, this.spawnLocation);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
     // Load the tile map and add it to the game
-    add(tileMapComponent =
-        await TiledComponent.load(_mapPath, GithubGame.TILE_SIZE));
-
-    // Save a reference to the rendered tile map
-    tileMap = tileMapComponent.tileMap.map;
+    add(mapModule = MapModule());
 
     // Add the collision module
-    add(collisionModule = CollisionModule(tileMapComponent));
+    add(collisionModule = CollisionModule());
 
     // Add the player to the level
-    add(player = Player(this));
-
-    // Set the loaded flag to true
-    _loaded = true;
+    add(player = Player());
+    teleport(player.position, spawnLocation);
 
     // Make the camera follow the player
     gameRef.camera.followComponent(player, relativeOffset: Anchor.center);

@@ -15,7 +15,7 @@ extension SpritePath on ComputerType {
 
 class Computer extends Entity {
   Computer(Position position, Level level, ComputerType type)
-      : super(position, level) {
+      : super(position) {
     current = type;
   }
 

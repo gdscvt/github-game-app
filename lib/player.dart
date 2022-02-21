@@ -1,15 +1,13 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/has_level_ref.dart';
 import 'package:github_game/modules/player/animation_module.dart';
 import 'package:github_game/modules/player/input_module.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/entity.dart';
 
-class Player extends PositionComponent {
-  // Reference to the current level
-  late final Level level;
-
+class Player extends PositionComponent with HasLevelRef {
   // This module controls the movement of the player
   late LocomotionModule locomotionModule;
 
@@ -18,20 +16,17 @@ class Player extends PositionComponent {
 
   late InputModule inputModule;
 
-  Player(this.level);
-
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
     // Set sprite size
     size = GithubGame.TILE_SIZE;
+    changePriorityWithoutResorting(1);
 
     add(animationModule = AnimationModule());
-    add(locomotionModule = LocomotionModule(level));
-    add(inputModule = InputModule(this));
-
-    level.teleport(position, level.playerSpawnLocation);
+    add(locomotionModule = LocomotionModule());
+    add(inputModule = InputModule());
   }
 
   @override

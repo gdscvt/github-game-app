@@ -1,13 +1,13 @@
 import 'package:flame/components.dart';
+import 'package:github_game/has_level_ref.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/github_game.dart';
 import 'dart:collection';
 
-abstract class Entity extends SpriteGroupComponent {
-  late final Level level;
+abstract class Entity extends SpriteGroupComponent with HasLevelRef {
   late Position tilePosition;
 
-  Entity(this.tilePosition, this.level);
+  Entity(this.tilePosition);
 
   @override
   Future<void> onLoad() async {
