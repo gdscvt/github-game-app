@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="14" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="14" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.1" orientation="orthogonal" renderorder="right-down" width="14" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="1">
  <tileset firstgid="1" name="Room_Builder_Office_48x48" tilewidth="48" tileheight="48" tilecount="224" columns="16">
   <image source="../images/tilesets/1_Room_Builder_Office/Room_Builder_Office_48x48.png" width="768" height="672"/>
  </tileset>
@@ -18,13 +18,7 @@
  <tileset firstgid="6173" name="SF_Inside_B" tilewidth="48" tileheight="48" tilecount="256" columns="16">
   <image source="../images/tilesets/SF_Inside_B.png" width="768" height="768"/>
  </tileset>
- <tileset firstgid="6429" name="SF_Inside_B_R90" tilewidth="48" tileheight="48" tilecount="256" columns="16">
-  <image source="../images/tilesets/SF_Inside_B_R90.png" width="768" height="768"/>
- </tileset>
- <tileset firstgid="6685" name="SF_Inside_B_L90" tilewidth="48" tileheight="48" tilecount="256" columns="16">
-  <image source="../images/tilesets/SF_Inside_B_L90.png" width="768" height="768"/>
- </tileset>
- <layer id="0" name="Floor" width="14" height="14">
+ <layer id="14" name="Floor" width="14" height="14">
   <data encoding="csv">
 0,0,0,0,0,107,108,108,108,0,0,0,0,0,
 0,0,0,0,0,107,108,108,108,0,0,0,0,0,
@@ -80,19 +74,19 @@
  </layer>
  <layer id="3" name="Walls 2" width="14" height="14">
   <data encoding="csv">
-6857,6369,6369,6369,6370,6368,6369,6369,6370,6368,6369,6369,6369,6480,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
-6873,0,0,0,0,0,0,0,0,0,0,0,0,6496,
+536877281,6369,6369,6369,6370,6368,6369,6369,6370,6368,6369,6369,6369,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
+536877281,0,0,0,0,0,0,0,0,0,0,0,0,2684360929,
 146,146,146,146,146,146,146,146,146,146,146,146,146,146
 </data>
  </layer>
