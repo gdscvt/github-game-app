@@ -3,6 +3,8 @@ import 'package:flame/flame.dart';
 import 'package:github_game/github_game.dart';
 import 'dart:collection';
 
+import 'package:github_game/mixins/has_player_ref.dart';
+
 /*
   Each state corresponds to an animation
 */
@@ -18,10 +20,11 @@ enum AnimationState {
 }
 
 extension AnimationData on AnimationState {
+  // path containing player animations
   static const String PLAYER_FILE_PATH =
       "${GithubGame.ANIMATION_FILE_PATH}/player";
 
-  // The length of time each frame in an animation lasts
+  // length of time each frame in an animation lasts
   static const double FRAME_LENGTH = 0.15;
 
   String get spritePath =>
@@ -59,28 +62,37 @@ extension AnimationData on AnimationState {
 /*
   Runs the animation state machine
 */
-class AnimationModule extends SpriteAnimationGroupComponent {
+class AnimationModule extends SpriteAnimationGroupComponent with HasPlayerRef {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = GithubGame.TILE_SIZE;
-    await _loadAnimationMap();
-    current = AnimationState.IDLE_D;
+    size = GithubGame.TILE_SIZE; // set the sprite size
+    await _loadAnimationMap(); // load the animations
+    current = AnimationState.IDLE_D; // set the default state
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    // update the animation state based on the locomotion state
+    current = AnimationState.values.byName(
+        "${player.locomotionModule.locomotionState.name}_${player.locomotionModule.direction.name}");
   }
 
   /*
     Loads and retuns a map of the animation assets
   */
   Future<void> _loadAnimationMap() async {
-    animations = HashMap();
+    animations = HashMap(); // init the anim map
 
     for (AnimationState state in AnimationState.values) {
       final SpriteAnimationData data = state.getAnimationData();
 
       final SpriteAnimation animation = SpriteAnimation.fromFrameData(
           await Flame.images.load(state.spritePath), data);
-      animations![state] = animation;
+      animations![state] = animation; // map the state to the loaded anim
     }
   }
 }

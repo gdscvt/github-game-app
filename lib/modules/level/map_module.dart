@@ -6,15 +6,17 @@ import 'package:tiled/tiled.dart';
 import 'package:flame/components.dart';
 
 class MapModule extends Component with HasLevelRef {
-  late final TiledComponent tiledComponent;
-  late final TiledMap map;
+  late final TiledComponent tiledComponent; // the tile map component
+  late final TiledMap map; // the tile map itself
 
-  late final Position dimensions;
+  late final Position
+      dimensions; // the dimensions of the map in tile coordinates
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
+    // load the map
     tiledComponent =
         await TiledComponent.load(level.mapPath, GithubGame.TILE_SIZE);
 
@@ -22,6 +24,6 @@ class MapModule extends Component with HasLevelRef {
 
     dimensions = Position(map.width, map.height);
 
-    add(tiledComponent);
+    add(tiledComponent); // add the map to the level
   }
 }

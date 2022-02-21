@@ -28,18 +28,6 @@ class Player extends PositionComponent with HasLevelRef {
     add(inputModule = InputModule());
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    // update the animation state based on the locomotion state
-    animationModule.current = AnimationState.values.byName(
-        "${locomotionModule.locomotionState.name}_${locomotionModule.direction.name}");
-
-    // update the players position based on their movement in the locomotion module.
-    locomotionModule.updateMovement(position, dt);
-  }
-
   /*
     Calls the interact function on the entity in front of this player
   */

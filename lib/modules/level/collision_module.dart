@@ -5,8 +5,9 @@ import 'package:github_game/level.dart';
 import 'package:github_game/modules/level/map_module.dart';
 
 /*
-  This collision module transforms the tile matrix into a column major array, 
-  with one bit representing the collision of each tile.
+  This module queries the collision channel in the level file. In order for 
+  this to function properly, the tile layer id's need to be in order starting 
+  from 0.
 */
 class CollisionModule extends Component with HasLevelRef {
   /*
