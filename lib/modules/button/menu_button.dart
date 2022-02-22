@@ -14,12 +14,12 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   late final DropDownButton restartGame;
 
   Future<void> setDropDownButtons() async{
-    restartLevel = DropDownButton("Restart Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+35));
+    restartLevel = DropDownButton(" Restart Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-3, position.y+40));
     goToPreviousLevel = DropDownButton("Go To Previous Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+50));
-    restartGame = DropDownButton("Restart Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+65));
+        Vector2(-5, position.y+73));
+    restartGame = DropDownButton("  Restart Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-5, position.y+105));
   }
   Future<void> addDropDownButtons() async{
   await add(restartLevel);

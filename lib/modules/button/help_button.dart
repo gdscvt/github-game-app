@@ -14,12 +14,12 @@ class HelpButton extends SpriteComponent with Tappable,Hoverable {
   late final DropDownButton aboutGame;
 
   Future<void> setDropDownButtons() async{
-    contents = DropDownButton("Contents", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+35));
-    faq = DropDownButton("FAQ", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+50));
-    aboutGame = DropDownButton("About Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+65));
+    contents = DropDownButton("      Contents", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-2*width, position.y+40));
+    faq = DropDownButton("      FAQ", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-2*width, position.y+73));
+    aboutGame = DropDownButton("      About Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-2*width, position.y+105));
   }
   Future<void> addDropDownButtons() async{
     await add(contents);

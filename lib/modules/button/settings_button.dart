@@ -13,10 +13,10 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   late final DropDownButton userAppearance;
 
   Future<void> setDropDownButtons() async{
-    userSpeed = DropDownButton("User Speed", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+35));
-    userAppearance = DropDownButton("User Appearance", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+50));
+    userSpeed = DropDownButton("     User Speed", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-2*width, position.y+40));
+    userAppearance = DropDownButton("     User Appearance", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        Vector2(-2*width, position.y+73));
   }
   Future<void> addDropDownButtons() async{
     await add(userSpeed);
