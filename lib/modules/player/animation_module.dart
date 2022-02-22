@@ -25,19 +25,8 @@ extension AnimationData on AnimationState {
   /// Length of time each frame in an animation lasts
   static const double FRAME_LENGTH = 0.15;
 
-  /// Returns the path to the sprite for this state.
-  String get spritePath => "$PLAYER_FILE_PATH/player_${name.toLowerCase()}.png";
-
-  /// Generates a sprite animation data object for an animation.
-  SpriteAnimationData getAnimationData() {
-    return SpriteAnimationData.sequenced(
-        amount: frameCount,
-        stepTime: FRAME_LENGTH,
-        textureSize: GithubGame.TILE_SIZE);
-  }
-
   /// Gets the number of frames for each animation.
-  int get frameCount {
+  int get _frameCount {
     switch (this) {
       case AnimationState.IDLE_U:
       case AnimationState.IDLE_R:
@@ -51,6 +40,17 @@ extension AnimationData on AnimationState {
         return 3;
     }
   }
+
+  /// Returns the path to the sprite for this state.
+  String get spritePath => "$PLAYER_FILE_PATH/player_${name.toLowerCase()}.png";
+
+  /// Generates a sprite animation data object for an animation.
+  SpriteAnimationData get animationData {
+    return SpriteAnimationData.sequenced(
+        amount: _frameCount,
+        stepTime: FRAME_LENGTH,
+        textureSize: GithubGame.TILE_SIZE);
+  }
 }
 
 /// Runs the animation state machine.
@@ -63,7 +63,7 @@ class AnimationModule extends SpriteAnimationGroupComponent with HasPlayerRef {
     size = GithubGame.TILE_SIZE;
 
     // Load the animation map
-    await _loadAnimationMap();
+    await _loadAnimations();
 
     // Set the default state
     current = AnimationState.IDLE_D;
@@ -79,12 +79,12 @@ class AnimationModule extends SpriteAnimationGroupComponent with HasPlayerRef {
   }
 
   /// Loads all animations for the player.
-  Future<void> _loadAnimationMap() async {
+  Future<void> _loadAnimations() async {
     // Initialize the animation map
     animations = HashMap();
 
     for (AnimationState state in AnimationState.values) {
-      final SpriteAnimationData data = state.getAnimationData();
+      final SpriteAnimationData data = state.animationData;
 
       final SpriteAnimation animation = SpriteAnimation.fromFrameData(
           await Flame.images.load(state.spritePath), data);

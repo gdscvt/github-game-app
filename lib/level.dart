@@ -19,7 +19,7 @@ class Position {
 }
 
 /// Represents a level with a player and tile map.
-class Level extends PositionComponent with HasGameRef<GithubGame> {
+class Level extends Component with HasGameRef<GithubGame> {
   /// Reference to the player
   late final Player _player;
 

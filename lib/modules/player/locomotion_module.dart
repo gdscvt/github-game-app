@@ -54,6 +54,40 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
   /// Gets the current movement state of the player.
   LocomotionState get locomotionState => _locomotionState;
 
+  /// Gets the tile position directly in front of the player
+  Position get forwardTile {
+    final Vector2 forward =
+        Vector2(_tilePosition.x.toDouble(), _tilePosition.y.toDouble());
+
+    late final Vector2 move;
+
+    switch (_direction) {
+      case Direction.U:
+        move = Vector2(0, -1);
+        break;
+      case Direction.R:
+        move = Vector2(1, 0);
+        break;
+      case Direction.L:
+        move = Vector2(-1, 0);
+        break;
+      case Direction.D:
+        move = Vector2(0, 1);
+        break;
+      default:
+        move = Vector2.zero();
+        break;
+    }
+
+    forward.add(move);
+    Position dimensions = level.mapModule.dimensions;
+
+    forward.clamp(Vector2.zero(),
+        Vector2(dimensions.x.toDouble(), dimensions.y.toDouble()));
+
+    return Position(forward.x.round(), forward.y.round());
+  }
+
   /// Creates the module and a movement queue.
   LocomotionModule() : _movements = ListQueue();
 
@@ -99,40 +133,6 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
     }
 
     _movements.add(dir);
-  }
-
-  /// Gets the tile position directly in front of the player
-  Position get forwardTile {
-    final Vector2 forward =
-        Vector2(_tilePosition.x.toDouble(), _tilePosition.y.toDouble());
-
-    late final Vector2 move;
-
-    switch (_direction) {
-      case Direction.U:
-        move = Vector2(0, -1);
-        break;
-      case Direction.R:
-        move = Vector2(1, 0);
-        break;
-      case Direction.L:
-        move = Vector2(-1, 0);
-        break;
-      case Direction.D:
-        move = Vector2(0, 1);
-        break;
-      default:
-        move = Vector2.zero();
-        break;
-    }
-
-    forward.add(move);
-    Position dimensions = level.mapModule.dimensions;
-
-    forward.clamp(Vector2.zero(),
-        Vector2(dimensions.x.toDouble(), dimensions.y.toDouble()));
-
-    return Position(forward.x.round(), forward.y.round());
   }
 
   /** 
