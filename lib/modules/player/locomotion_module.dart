@@ -103,24 +103,36 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
 
   /// Gets the tile position directly in front of the player
   Position get forwardTile {
-    final Position forward = Position(_tilePosition.x, _tilePosition.y);
+    final Vector2 forward =
+        Vector2(_tilePosition.x.toDouble(), _tilePosition.y.toDouble());
+
+    late final Vector2 move;
 
     switch (_direction) {
       case Direction.U:
-        forward.y = max(forward.y - 1, 0);
+        move = Vector2(0, -1);
         break;
       case Direction.R:
-        forward.x = min(forward.x + 1, level.mapModule.dimensions.x - 1);
+        move = Vector2(1, 0);
         break;
       case Direction.L:
-        forward.x = max(forward.x - 1, 0);
+        move = Vector2(-1, 0);
         break;
       case Direction.D:
-        forward.y = min(forward.y + 1, level.mapModule.dimensions.y - 1);
+        move = Vector2(0, 1);
+        break;
+      default:
+        move = Vector2.zero();
         break;
     }
 
-    return forward;
+    forward.add(move);
+    Position dimensions = level.mapModule.dimensions;
+
+    forward.clamp(Vector2.zero(),
+        Vector2(dimensions.x.toDouble(), dimensions.y.toDouble()));
+
+    return Position(forward.x.round(), forward.y.round());
   }
 
   /** 
@@ -131,7 +143,8 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
   void _updatePosition(double dt) {
     // If there is a movement queue'd
     if (_movements.isNotEmpty) {
-      // Update the target. Returns false if the movement cannot be performed
+      // Update the target. Returns false if the movement is blocked by
+      // collision.
       if (_updateTargetPosition()) {
         // Get the canvas coordinates of the player
         Vector2 currentPosition = player.position;
@@ -140,7 +153,7 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
         final Vector2 distanceToTarget =
             level.getCanvasPosition(_targetPosition)..sub(currentPosition);
 
-        // Get the movement vector
+        // Make a movement vector
         final Vector2 movement = distanceToTarget.normalized()
           ..multiply(Vector2.all(MOVEMENT_SPEED * dt));
 
@@ -167,6 +180,7 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
         // If the movement collided, remove it from the queue
         _movements.removeFirst();
       }
+
       if (_movements.isEmpty) {
         // If the movement queue is empty, transition to idle
         _locomotionState = LocomotionState.IDLE;
@@ -183,18 +197,15 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
       // Get the forward tile
       final Position forward = forwardTile;
 
-      // If the tile is not collided, update the target position and return true
-      if (!level.collisionModule.getCollision(forward)) {
+      // If the tile is collided, return false. Otherwise, update target tile.
+      if (level.collisionModule.getCollision(forward)) {
+        return false;
+      } else {
         _targetPosition = forward;
-        return true;
       }
-
-      // Return false if the target collides
-      return false;
     }
 
-    // If the current tile position does not equal the target, the player is
-    // already in motion
+    // Return true if there was no collision.
     return true;
   }
 }

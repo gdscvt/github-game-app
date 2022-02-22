@@ -6,12 +6,6 @@
  <tileset firstgid="225" name="Modern_Office_Black_Shadow_48x48" tilewidth="48" tileheight="48" tilecount="848" columns="16">
   <image source="../images/tilesets/2_Modern_Office_Black_Shadow/Modern_Office_Black_Shadow_48x48.png" width="768" height="2544"/>
  </tileset>
- <tileset firstgid="1073" name="Modern_Office_Shadowless_48x48" tilewidth="48" tileheight="48" tilecount="848" columns="16">
-  <image source="../images/tilesets/3_Modern_Office_Shadowless/Modern_Office_Shadowless_48x48.png" width="768" height="2544"/>
- </tileset>
- <tileset firstgid="1921" name="Modern_Office_48x48" tilewidth="48" tileheight="48" tilecount="848" columns="16">
-  <image source="../images/tilesets/Modern_Office_48x48.png" width="768" height="2544"/>
- </tileset>
  <tileset firstgid="2769" name="WallsAndFloors" tilewidth="48" tileheight="48" tilecount="3404" columns="74">
   <image source="../images/tilesets/WallsAndFloors.png" width="3552" height="2208"/>
  </tileset>
