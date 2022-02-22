@@ -45,7 +45,7 @@ bool): void]
 [Entity]^[Laser]
 [Entity]^[Computer]
 
-[<<Entity>>;Laser|+collision: bool|+onLoad(): void;+onInteract(): void]
+[<<Entity>>;Laser|+collision: bool;-layerId: int;-tileGid: Gid;-tiledMap: RenderableTiledMap|+onLoad(): void;+onInteract(): void;-loadLayerData(): void]
 [<<Entity>>;Computer|+collision: bool|+onLoad(): void;+onInteract(): void]
 
 [Player]++1-1>[LocomotionModule]

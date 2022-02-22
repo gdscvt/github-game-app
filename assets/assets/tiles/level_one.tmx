@@ -48,7 +48,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="Laser_1" width="14" height="14">
+ <layer id="2" name="Lasers" width="14" height="14">
   <data encoding="csv">
 0,0,0,0,0,6398,6398,6398,6398,0,0,0,0,0,
 0,0,0,0,0,6398,6398,6398,6398,0,0,0,0,0,

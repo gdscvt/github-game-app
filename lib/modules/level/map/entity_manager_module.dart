@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
 import 'package:github_game/entities/entity_group.dart';
+import 'package:github_game/entities/groups/laser_group.dart';
 
 /// This module is responsible for handling groups of entities in the level.
 class EntityManagerModule extends Component {
@@ -21,5 +22,7 @@ class EntityManagerModule extends Component {
   }
 
   /// Loads all entity groups and adds them to the set.
-  void _loadGroups() {}
+  void _loadGroups() {
+    _groups.add(LaserGroup());
+  }
 }
