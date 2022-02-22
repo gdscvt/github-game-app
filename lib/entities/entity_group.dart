@@ -1,11 +1,9 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
 import 'package:github_game/entity.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
 
 /// This is a group of entity components.
-abstract class EntityGroup<T extends Entity> extends Component
-    with HasLevelRef {
+abstract class EntityGroup<T extends Entity> extends Component {
   /// Set of all entities in this group
   late final HashSet<T> _entities;
 

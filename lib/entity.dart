@@ -1,11 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/mixins/has_level_ref.dart';
+import 'package:github_game/mixins/has_map_ref.dart';
 
-/*
-  Represents a dynamic object in a level.
-*/
-abstract class Entity extends PositionComponent with HasLevelRef {
+/// Represents a dynamic object in a level.
+abstract class Entity extends PositionComponent with HasMapRef, HasLevelRef {
   /// The tile coordinates of this entity
   late final Position _tilePosition;
 
@@ -14,12 +13,12 @@ abstract class Entity extends PositionComponent with HasLevelRef {
 
   /// Returns whether or not this entity has collision.
   bool get collision {
-    return level.collisionModule.getCollision(tilePosition);
+    return mapModule.collisionModule.getCollision(tilePosition);
   }
 
   /// Sets the collision for this entity and updates the collision module.
   set collision(bool coll) {
-    level.collisionModule.setCollision(_tilePosition, coll);
+    mapModule.collisionModule.setCollision(_tilePosition, coll);
   }
 
   /// Initializes the entity with the given tile coordinates.

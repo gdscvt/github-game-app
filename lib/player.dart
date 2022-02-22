@@ -3,13 +3,13 @@ import 'package:github_game/entities/entity_group.dart';
 import 'package:github_game/github_game.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/entity.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
+import 'package:github_game/mixins/has_map_ref.dart';
 import 'package:github_game/modules/player/animation_module.dart';
 import 'package:github_game/modules/player/input_module.dart';
 import 'package:github_game/modules/player/locomotion_module.dart';
 
 /// Represents a player in a level.
-class Player extends PositionComponent with HasLevelRef {
+class Player extends PositionComponent with HasMapRef {
   /// Controls the movement of the player.
   late final LocomotionModule _locomotionModule;
 
@@ -46,7 +46,7 @@ class Player extends PositionComponent with HasLevelRef {
   /// Calls the interact function on the entity in front of this player.
   void interact() {
     Position pos = _locomotionModule.forwardTile;
-    for (EntityGroup group in level.entityManagerModule.groups) {
+    for (EntityGroup group in mapModule.entityManagerModule.groups) {
       for (Entity entity in group.entities) {
         if (pos == entity.tilePosition) {
           entity.onInteract();

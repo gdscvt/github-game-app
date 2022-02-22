@@ -1,9 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
-import 'package:github_game/modules/level/entity_manager_module.dart';
 import 'package:github_game/player.dart';
 import 'package:github_game/modules/level/map_module.dart';
-import 'package:github_game/modules/level/collision_module.dart';
 import 'package:quiver/core.dart';
 
 /// Represents a position as 2 integers. Useful for tile coordinates.
@@ -26,12 +24,6 @@ class Level extends Component with HasGameRef<GithubGame> {
   /// Loads and manages the tile map
   late final MapModule _mapModule;
 
-  /// Loads and manages collision data
-  late final CollisionModule _collisionModule;
-
-  /// Loads and manages the entities
-  late final EntityManagerModule _entityManagerModule;
-
   /// Path to the map file
   late final String _mapPath;
 
@@ -44,14 +36,8 @@ class Level extends Component with HasGameRef<GithubGame> {
   /// Returns a reference to the player.
   Player get player => _player;
 
-  /// Returns the map module which is responsible for the tile map data.
+  /// Returns a reference to the map module.
   MapModule get mapModule => _mapModule;
-
-  /// Returns the collision module which is responsible for all collision data.
-  CollisionModule get collisionModule => _collisionModule;
-
-  /// Returns the entity manager module which handles all entities in the level.
-  EntityManagerModule get entityManagerModule => _entityManagerModule;
 
   /// Returns the path to the map file.
   String get mapPath => _mapPath;
@@ -64,8 +50,6 @@ class Level extends Component with HasGameRef<GithubGame> {
     await super.onLoad();
 
     add(_mapModule = MapModule());
-    add(_collisionModule = CollisionModule());
-    add(_entityManagerModule = EntityManagerModule());
 
     add(_player = Player());
 

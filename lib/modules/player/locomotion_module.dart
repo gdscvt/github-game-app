@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names, slash_for_doc_comments
 import 'dart:collection';
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:github_game/level.dart';
+import 'package:github_game/mixins/has_map_ref.dart';
 import 'package:github_game/mixins/has_player_ref.dart';
 import 'package:github_game/mixins/has_level_ref.dart';
 
@@ -13,7 +13,8 @@ enum Direction { U, R, L, D }
 enum LocomotionState { IDLE, WALKING }
 
 /// This module is used to handle the movement of the player.
-class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
+class LocomotionModule extends Component
+    with HasLevelRef, HasPlayerRef, HasMapRef {
   /// Movement speed in pixels per second.
   static const double MOVEMENT_SPEED = 95;
 
@@ -40,7 +41,7 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
    * threshold to their target tile.
    */
   bool get _withinQueueThreshold {
-    return level.player.position
+    return player.position
             .distanceTo(level.getCanvasPosition(_targetPosition)) <=
         MOVEMENT_QUEUE_THRESHOLD;
   }
@@ -79,9 +80,11 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
         break;
     }
 
+    // Add the movement vector
     forward.add(move);
-    Position dimensions = level.mapModule.dimensions;
 
+    // Clamp the tile position to the map bounds
+    Position dimensions = mapModule.dimensions;
     forward.clamp(Vector2.zero(),
         Vector2(dimensions.x.toDouble(), dimensions.y.toDouble()));
 
@@ -106,10 +109,8 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
     _updatePosition(dt); // update player position
   }
 
-  /** 
-   * This will cause a player to begin moving in a direction if they are not
-   * already moving.
-   */
+  /// This will cause a player to begin moving in a direction if they are not
+  /// already moving.
   void move(Direction dir) {
     // If there are 2 movement directions in queue, remove the last one and
     // replace it.
@@ -198,7 +199,7 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
       final Position forward = forwardTile;
 
       // If the tile is collided, return false. Otherwise, update target tile.
-      if (level.collisionModule.getCollision(forward)) {
+      if (mapModule.collisionModule.getCollision(forward)) {
         return false;
       } else {
         _targetPosition = forward;

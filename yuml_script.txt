@@ -6,7 +6,8 @@
 
 [Position|+x: int; +y: int]
 
-[<<Component>>;Level|+mapModule: MapModule;+collisionModule: CollisionModule;+player: Player;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2, Position): void;+getCanvasPosition(Position): Vector2]
+[<<Component>>;Level|+mapModule: MapModule;+player: Player;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
+Position): void;+getCanvasPosition(Position): Vector2]
 
 [Level]++1-1>[Player]
 
@@ -14,13 +15,14 @@
 
 [Level]++1-1>[MapModule]
 
-[<<Component>>;MapModule|+tiledComponent: TiledComponent;+map: TiledMap;+dimensions: Position|+onLoad(): void]
+[<<Component>>;MapModule|+tiledComponent: TiledComponent;+map: TiledMap;+collisionModule: CollisionModule;+entityManagerModule: EntityManagerModule;+dimensions: Position|+onLoad(): void]
 
-[Level]++1-1>[CollisionModule]
+[MapModule]++1-1>[CollisionModule]
 
-[<<Component>>;CollisionModule|+getCollision(Position): bool;+setCollision(Position, bool): void]
+[<<Component>>;CollisionModule|+getCollision(Position): bool;+setCollision(Position
+bool): void]
 
-[Level]++1-1>[EntityManagerModule]
+[MapModule]++1-1>[EntityManagerModule]
 
 [<<Component>>;EntityManagerModule|+groups: HashSet|+onLoad(): void;-loadGroups(): void]
 
@@ -48,7 +50,7 @@
 
 [Player]++1-1>[LocomotionModule]
 
-[<<Component>>;LocomotionModule|+(s)MOVEMENT_SPEED: double;+(s)MOVEMENT_QUEUE_THRESHOLD: double;+tilePosition: Position;+direction: Direction;+locomotionState: LocomotionState;+forwardTile: Position;-movements: ListQueue|+onLoad(): void;+move(Direction): void;-addMovement(Direction): void;-updatePosition(double): void;-updateTargetPosition(): bool]
+[<<Component>>;LocomotionModule|+(s)MOVEMENT_SPEED: double;+(s)MOVEMENT_QUEUE_THRESHOLD: double;+tilePosition: Position;+direction: Direction;+locomotionState: LocomotionState;+forwardTile: Position;-movements: ListQueue;-withinQueueThreshold: bool|+onLoad(): void;+update(double): void;+move(Direction): void;-addMovement(Direction): void;-updatePosition(double): void;-updateTargetPosition(): bool]
 
 [LocomotionModule]++1-1>[LocomotionState]
 [LocomotionModule]++1-*>[Direction]
@@ -58,7 +60,7 @@
 
 [Player]++1-1>[AnimationModule]
 
-[<<SpriteAnimationGroupComponent>>;AnimationModule|+onLoad(): void;-loadAnimations(): void]
+[<<SpriteAnimationGroupComponent>>;AnimationModule|+onLoad(): void;+update(double): void;-loadAnimations(): void]
 
 [AnimationModule]++->[AnimationState]
 
@@ -68,7 +70,8 @@
 
 [Player]++1-1>[InputModule]
 
-[<<Component>>;InputModule|-keyMap: HashMap|+onLoad(): void;+onKeyEvent(RawKeyEvent, Set): bool;-loadInputMap(): void]
+[<<Component>>;InputModule|-keyMap: HashMap|+onLoad(): void;+onKeyEvent(RawKeyEvent
+Set): bool;-loadInputMap(): void]
 
 [InputModule]++->[InputAction]
 
