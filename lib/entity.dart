@@ -6,29 +6,36 @@ import 'package:github_game/mixins/has_level_ref.dart';
   Represents a dynamic object in a level.
 */
 abstract class Entity extends PositionComponent with HasLevelRef {
-  late Position tilePosition; // the tile coordinates of this entity
+  /// The tile coordinates of this entity
+  late final Position _tilePosition;
 
-  Entity(this.tilePosition); // set the tile position in constructor
+  /// Gets the tile coordinates of this entity.
+  Position get tilePosition => _tilePosition;
+
+  /// Returns whether or not this entity has collision.
+  bool get collision;
+
+  /// Sets the collision for this entity and updates the collision module.
+  set collision(bool coll) {
+    level.collisionModule.setCollision(_tilePosition, coll);
+  }
+
+  /// Initializes the entity with the given tile coordinates.
+  Entity(this._tilePosition);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // update the collision of the level based on this entity
+    // Update the collision of the level based on this entity
     if (collision) {
-      level.collisionModule.setCollision(tilePosition, true);
+      level.collisionModule.setCollision(_tilePosition, true);
     }
 
-    level.teleport(position, tilePosition); // teleport to the tile position
+    // Teleport to the tile position
+    level.teleport(position, _tilePosition);
   }
 
-  /*
-    Returns whether or not this entity has collision.
-  */
-  bool get collision;
-
-  /*
-    Called when the player interacts with this entity.
-  */
+  /// Called when the player interacts with this entity.
   void onInteract();
 }

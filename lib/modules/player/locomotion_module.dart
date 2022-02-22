@@ -1,5 +1,4 @@
-// ignore_for_file: constant_identifier_names
-
+// ignore_for_file: constant_identifier_names, slash_for_doc_comments
 import 'dart:collection';
 import 'dart:math';
 import 'package:flame/components.dart';
@@ -7,100 +6,106 @@ import 'package:github_game/level.dart';
 import 'package:github_game/mixins/has_player_ref.dart';
 import 'package:github_game/mixins/has_level_ref.dart';
 
-/*
-  These are the directions the player can face
-*/
+/// These are the directions the player can face
 enum Direction { U, R, L, D }
 
-/*
-  These are the movement states a player can have
-*/
+/// These are the movement states a player can have
 enum LocomotionState { IDLE, WALKING }
 
-/*
-  This module is used to handle the movement of the player.
-*/
+/// This module is used to handle the movement of the player.
 class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
-  static const double MOVEMENT_SPEED = 95; // pixels per second
+  /// Movement speed in pixels per second.
+  static const double MOVEMENT_SPEED = 95;
 
-  // input will unlock when you are this far from your current target tile
+  /// Input will unlock when you are this far from your current target tile.
   static const double MOVEMENT_QUEUE_THRESHOLD = 2;
 
-  late final ListQueue<Direction>
-      _movements; // holds the queued movement directions
+  /// Holds the queue'd movement directions.
+  late final ListQueue<Direction> _movements;
 
-  // the current tile position, and the tile position you are moving towards
-  late Position tilePosition, targetPosition;
+  /// The current tile position.
+  late Position _tilePosition;
 
-  Direction direction = Direction.D; // current facing direction
-  LocomotionState locomotionState =
-      LocomotionState.IDLE; // current movement state
+  /// The target tile position.
+  late Position _targetPosition;
 
-  LocomotionModule() : _movements = ListQueue(); // create the movement queue
+  /// The current facing direction.
+  Direction _direction = Direction.D;
+
+  /// The current movement state
+  LocomotionState _locomotionState = LocomotionState.IDLE;
+
+  /**
+   * Returns whether or not the player's movement is within the distance 
+   * threshold to their target tile.
+   */
+  bool get _withinQueueThreshold {
+    return level.player.position
+            .distanceTo(level.getCanvasPosition(_targetPosition)) <=
+        MOVEMENT_QUEUE_THRESHOLD;
+  }
+
+  /// Gets the current tile position of the player.
+  Position get tilePosition => _tilePosition;
+
+  /// Gets the current facing direction of the player.
+  Direction get direction => _direction;
+
+  /// Gets the current movement state of the player.
+  LocomotionState get locomotionState => _locomotionState;
+
+  /// Creates the module and a movement queue.
+  LocomotionModule() : _movements = ListQueue();
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    tilePosition = level.spawnLocation;
-    targetPosition = tilePosition;
+    _tilePosition = level.spawnLocation;
+    _targetPosition = _tilePosition;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    _updateMovement(dt);
+    _updatePosition(dt); // update player position
   }
 
-  /*
-    Returns whether or not the player's movement is within the distance 
-    threshold to their target tile.
-  */
-  bool get _withinQueueThreshold {
-    return level.player.position
-            .distanceTo(level.getCanvasPosition(targetPosition)) <=
-        MOVEMENT_QUEUE_THRESHOLD;
-  }
-
-  /*
-    This will cause a player to begin moving in a direction if they are 
-    not already moving.
-  */
+  /** 
+   * This will cause a player to begin moving in a direction if they are not
+   * already moving.
+   */
   void move(Direction dir) {
-    // if there are 2 movement directions in queue, remove the last one and
+    // If there are 2 movement directions in queue, remove the last one and
     // replace it.
     if (_movements.length == 2) {
       _movements.removeLast();
       _addMovement(dir);
     }
-    // if there are no movements in queue, queue the movement.
-    // if there is only one movement in queue, and the player is within the
-    // queue threshold, then queue a second movement.
+    // If there are no movements in queue, queue the movement. Or, if there is
+    // only one movement in queue, and the player is within the queue threshold,
+    // then queue this movement.
     else if (_movements.isEmpty || _withinQueueThreshold) {
       _addMovement(dir);
     }
   }
 
-  /*
-    Initiate movement and update locomotion state to walking
-  */
+  /// Queue movement and update locomotion state to walking
   void _addMovement(Direction dir) {
     if (_movements.isEmpty) {
-      direction = dir;
-      locomotionState = LocomotionState.WALKING;
+      _direction = dir;
+      _locomotionState = LocomotionState.WALKING;
     }
 
     _movements.add(dir);
   }
 
-  /*
-    This function gets the tile position directly in front of the player currently
-  */
+  /// Gets the tile position directly in front of the player
   Position get forwardTile {
-    Position forward = Position(tilePosition.x, tilePosition.y);
+    final Position forward = Position(_tilePosition.x, _tilePosition.y);
 
-    switch (direction) {
+    switch (_direction) {
       case Direction.U:
         forward.y = max(forward.y - 1, 0);
         break;
@@ -118,59 +123,78 @@ class LocomotionModule extends Component with HasLevelRef, HasPlayerRef {
     return forward;
   }
 
-  /*
-    This function moves the player towards their destination if they are walking. 
-    If the player is at their destination, they will enter their idle state or
-    begin targeting their next movement direction.
-  */
-  void _updateMovement(double dt) {
+  /** 
+   * This function moves the player towards their target if they are walking.
+   * If the player is at their destination, they will enter their idle state or
+   * begin targeting their next movement direction.
+   */
+  void _updatePosition(double dt) {
+    // If there is a movement queue'd
     if (_movements.isNotEmpty) {
+      // Update the target. Returns false if the movement cannot be performed
       if (_updateTargetPosition()) {
+        // Get the canvas coordinates of the player
         Vector2 currentPosition = player.position;
-        Vector2 distanceToTarget = level.getCanvasPosition(targetPosition)
-          ..sub(currentPosition);
 
-        Vector2 movement = distanceToTarget.normalized()
+        // Get the distance between the player and their target tile
+        final Vector2 distanceToTarget =
+            level.getCanvasPosition(_targetPosition)..sub(currentPosition);
+
+        // Get the movement vector
+        final Vector2 movement = distanceToTarget.normalized()
           ..multiply(Vector2.all(MOVEMENT_SPEED * dt));
 
-        double ratio = distanceToTarget.length / movement.length;
+        // If the movement vector is greater than the distance to the target,
+        // you must scale the movement vector down to match the distance
+        final double ratio = distanceToTarget.length / movement.length;
 
+        // If the ratio is a fraction, the movement vector must be scaled
         if (ratio < 1.0) {
+          // Scale the movement vector
           movement.multiply(Vector2.all(ratio));
         }
 
+        // Add the movement vector to the player position
         currentPosition.add(movement);
 
-        if (currentPosition == level.getCanvasPosition(targetPosition)) {
-          tilePosition = targetPosition;
+        // If you have reached the target tile, update your tile position and
+        // remove the movement from the queue
+        if (currentPosition == level.getCanvasPosition(_targetPosition)) {
+          _tilePosition = _targetPosition;
           _movements.removeFirst();
         }
       } else {
+        // If the movement collided, remove it from the queue
         _movements.removeFirst();
       }
       if (_movements.isEmpty) {
-        locomotionState = LocomotionState.IDLE;
+        // If the movement queue is empty, transition to idle
+        _locomotionState = LocomotionState.IDLE;
       } else {
-        direction = _movements.first;
+        // Otherwise, transition to next movement direction
+        _direction = _movements.first;
       }
     }
   }
 
-  /*
-    Updates the target movement tile position
-  */
+  /// Updates the position of the target and returns true if it is not collided.
   bool _updateTargetPosition() {
-    if (tilePosition == targetPosition) {
-      Position forward = forwardTile;
+    if (_tilePosition == _targetPosition) {
+      // Get the forward tile
+      final Position forward = forwardTile;
 
+      // If the tile is not collided, update the target position and return true
       if (!level.collisionModule.getCollision(forward)) {
-        targetPosition = forward;
+        _targetPosition = forward;
         return true;
       }
 
+      // Return false if the target collides
       return false;
     }
 
+    // If the current tile position does not equal the target, the player is
+    // already in motion
     return true;
   }
 }
