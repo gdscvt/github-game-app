@@ -13,7 +13,9 @@ abstract class Entity extends PositionComponent with HasLevelRef {
   Position get tilePosition => _tilePosition;
 
   /// Returns whether or not this entity has collision.
-  bool get collision;
+  bool get collision {
+    return level.collisionModule.getCollision(tilePosition);
+  }
 
   /// Sets the collision for this entity and updates the collision module.
   set collision(bool coll) {
@@ -26,11 +28,6 @@ abstract class Entity extends PositionComponent with HasLevelRef {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    // Update the collision of the level based on this entity
-    if (collision) {
-      level.collisionModule.setCollision(_tilePosition, true);
-    }
 
     // Teleport to the tile position
     level.teleport(position, _tilePosition);

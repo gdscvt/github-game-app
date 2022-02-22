@@ -16,7 +16,11 @@ class CollisionModule extends Component with HasLevelRef {
     final MapModule mapModule = level.mapModule;
     return mapModule.tiledComponent.tileMap
             .getTileData(
-                layerId: mapModule.map.layerByName("Collision").id ?? 0,
+                layerId: mapModule.map.layerByName("Collision").id ??
+                    () {
+                      throw StateError(
+                          "This tile map does not have a layer titled 'Collision'");
+                    }.call(),
                 x: tilePosition.x,
                 y: tilePosition.y)
             ?.tile !=
