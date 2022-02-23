@@ -6,12 +6,12 @@
 
 [Position|+x: int; +y: int]
 
-[<<Component>>;Level|+mapModule: MapModule;+player: Player;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
+[<<Component>>;Level|+mapModule: MapModule;+player: PlayerModule;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
 Position): void;+getCanvasPosition(Position): Vector2]
 
-[Level]++1-1>[Player]
+[Level]++1-1>[PlayerModule]
 
-[<<PositionComponent>>;Player|+locomotionModule: LocomotionModule;+animationModule: AnimationModule;+inputModule: InputModule|+onLoad(): void;+interact(): void]
+[<<PositionComponent>>;PlayerModule|+locomotionModule: LocomotionModule;+animationModule: AnimationModule;+inputModule: InputModule|+onLoad(): void;+interact(): void]
 
 [Level]++1-1>[MapModule]
 
@@ -19,7 +19,7 @@ Position): void;+getCanvasPosition(Position): Vector2]
 
 [MapModule]++1-1>[CollisionModule]
 
-[<<Component>>;CollisionModule|+getCollision(Position): bool;+setCollision(Position
+[<<Component>>;CollisionModule|+onLoad(): void;+getCollision(Position): bool;+setCollision(Position
 bool): void]
 
 [MapModule]++1-1>[EntityManagerModule]
@@ -34,7 +34,8 @@ bool): void]
 [EntityGroup]^[LaserGroup]
 [EntityGroup]^[ComputerGroup]
 
-[<<EntityGroup>>;LaserGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void]
+[<<EntityGroup>>;LaserGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void;+activate(): void;+deactivate(): void]
+
 [<<EntityGroup>>;ComputerGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void]
 
 [LaserGroup]++1-*>[Laser]
@@ -45,10 +46,10 @@ bool): void]
 [Entity]^[Laser]
 [Entity]^[Computer]
 
-[<<Entity>>;Laser|+collision: bool;-layerId: int;-tileGid: Gid;-tiledMap: RenderableTiledMap|+onLoad(): void;+onInteract(): void;-loadLayerData(): void]
+[<<Entity>>;Laser|+collision: bool;-layerId: int;-tileGid: Gid;-tiledMap: RenderableTiledMap|+onLoad(): void;+onInteract(): void;+activate(): void;+deactivate(): void;-loadLayerData(): void]
 [<<Entity>>;Computer|+collision: bool|+onLoad(): void;+onInteract(): void]
 
-[Player]++1-1>[LocomotionModule]
+[PlayerModule]++1-1>[LocomotionModule]
 
 [<<Component>>;LocomotionModule|+(s)MOVEMENT_SPEED: double;+(s)MOVEMENT_QUEUE_THRESHOLD: double;+tilePosition: Position;+direction: Direction;+locomotionState: LocomotionState;+forwardTile: Position;-movements: ListQueue;-withinQueueThreshold: bool|+onLoad(): void;+update(double): void;+move(Direction): void;-addMovement(Direction): void;-updatePosition(double): void;-updateTargetPosition(): bool]
 
@@ -58,7 +59,7 @@ bool): void]
 [<<enum>>;LocomotionState|IDLE;WALKING]
 [<<enum>>;Direction|U;R;L;D]
 
-[Player]++1-1>[AnimationModule]
+[PlayerModule]++1-1>[AnimationModule]
 
 [<<SpriteAnimationGroupComponent>>;AnimationModule|+onLoad(): void;+update(double): void;-loadAnimations(): void]
 
@@ -68,7 +69,7 @@ bool): void]
 
 [AnimationState]++1-1>[<<extension>>;AnimationData|+spritePath: String;+animationData: SpriteAnimationData;-frameCount: int]
 
-[Player]++1-1>[InputModule]
+[PlayerModule]++1-1>[InputModule]
 
 [<<Component>>;InputModule|-keyMap: HashMap|+onLoad(): void;+onKeyEvent(RawKeyEvent
 Set): bool;-loadInputMap(): void]

@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
-import 'package:github_game/entity.dart';
+import 'package:github_game/entities/entity.dart';
 
 /// This is a group of entity components.
 abstract class EntityGroup<T extends Entity> extends Component {

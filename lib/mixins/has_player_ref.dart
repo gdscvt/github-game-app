@@ -1,12 +1,12 @@
 import 'package:flame/components.dart';
-import 'package:github_game/player.dart';
 import 'package:github_game/level.dart';
+import 'package:github_game/modules/player_module.dart';
 import 'package:github_game/mixins/has_level_ref.dart';
 
 mixin HasPlayerRef on Component {
-  Player? _playerRef;
+  PlayerModule? _playerRef;
 
-  Player get player {
+  PlayerModule get player {
     if (_playerRef == null) {
       if (this is HasLevelRef) {
         return (this as HasLevelRef).level.player;
@@ -18,7 +18,7 @@ mixin HasPlayerRef on Component {
             return _playerRef!;
           } else if (c is Level) {
             return c.player;
-          } else if (c is Player) {
+          } else if (c is PlayerModule) {
             _playerRef = c;
             return c;
           } else {

@@ -1,4 +1,4 @@
-import 'package:github_game/entity.dart';
+import 'package:github_game/entities/entity.dart';
 import 'package:github_game/level.dart';
 
 class Computer extends Entity {

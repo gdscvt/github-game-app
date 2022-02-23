@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
-import 'package:github_game/player.dart';
+import 'package:github_game/modules/player_module.dart';
 import 'package:github_game/modules/level/map_module.dart';
 import 'package:quiver/core.dart';
 
@@ -19,7 +19,7 @@ class Position {
 /// Represents a level with a player and tile map.
 class Level extends Component with HasGameRef<GithubGame> {
   /// Reference to the player
-  late final Player _player;
+  late final PlayerModule _player;
 
   /// Loads and manages the tile map
   late final MapModule _mapModule;
@@ -34,7 +34,7 @@ class Level extends Component with HasGameRef<GithubGame> {
   Level(this._mapPath, this._spawnLocation);
 
   /// Returns a reference to the player.
-  Player get player => _player;
+  PlayerModule get player => _player;
 
   /// Returns a reference to the map module.
   MapModule get mapModule => _mapModule;
@@ -51,7 +51,7 @@ class Level extends Component with HasGameRef<GithubGame> {
 
     add(_mapModule = MapModule());
 
-    add(_player = Player());
+    add(_player = PlayerModule());
 
     // Teleport the player to their spawn location
     teleport(_player.position, _spawnLocation);
