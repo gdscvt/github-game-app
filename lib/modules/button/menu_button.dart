@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
+import 'package:github_game/modules/button/abstract/positional_values.dart';
 
 import 'dropdown_button.dart';
 // -Justin
@@ -15,11 +14,11 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
 
   Future<void> setDropDownButtons() async{
     restartLevel = DropDownButton(" Restart Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-3, position.y+40));
+        Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(0.0)));
     goToPreviousLevel = DropDownButton("Go To Previous Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+73));
+        Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(1.0)));
     restartGame = DropDownButton("  Restart Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-5, position.y+105));
+        Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(2.0)));
   }
   Future<void> addDropDownButtons() async{
   await add(restartLevel);

@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 
+import 'abstract/positional_values.dart';
 import 'dropdown_button.dart';
 // -Justin
 class SettingsButton extends SpriteComponent with Tappable,Hoverable {
@@ -14,9 +13,9 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
 
   Future<void> setDropDownButtons() async{
     userSpeed = DropDownButton("     User Speed", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-2*width, position.y+40));
+        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(0.0)));
     userAppearance = DropDownButton("     User Appearance", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-2*width, position.y+73));
+        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(1.0)));
   }
   Future<void> addDropDownButtons() async{
     await add(userSpeed);

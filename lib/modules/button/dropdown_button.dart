@@ -21,7 +21,7 @@ class DropDownButton extends TextBoxComponent with Tappable{
       ..shader = LinearGradient(
     colors: [Color(0xFF2f62ba), Color(0xFF182c4f)]).createShader(rect);
     c.drawOval(
-        rect,//rect.deflate(box.margins.right),//could be left,top,right or bottom
+        rect,//rect.defla-te(box.margins.right),//could be left,top,right or bottom
         paint);
 
 

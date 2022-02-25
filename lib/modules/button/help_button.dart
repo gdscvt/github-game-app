@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
+import 'package:github_game/modules/button/abstract/positional_values.dart';
 
 import 'dropdown_button.dart';
 // -Justin
@@ -15,11 +14,11 @@ class HelpButton extends SpriteComponent with Tappable,Hoverable {
 
   Future<void> setDropDownButtons() async{
     contents = DropDownButton("      Contents", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-2*width, position.y+40));
+        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(0.0)));
     faq = DropDownButton("      FAQ", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-2*width, position.y+73));
+        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(1.0)));
     aboutGame = DropDownButton("      About Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(-2*width, position.y+105));
+        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(2.0)));
   }
   Future<void> addDropDownButtons() async{
     await add(contents);
