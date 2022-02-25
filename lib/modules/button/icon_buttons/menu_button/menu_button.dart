@@ -3,7 +3,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:github_game/modules/button/abstract/positional_values.dart';
 
-import 'dropdown_button.dart';
+import '../dropdown_button.dart';
 // -Justin
 class MenuButton extends SpriteComponent with Tappable,Hoverable{
   static final TextStyle style = TextStyle(color:Colors.white);
@@ -13,12 +13,12 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   late final DropDownButton restartGame;
 
   Future<void> setDropDownButtons() async{
-    restartLevel = DropDownButton(" Restart Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(0.0)));
-    goToPreviousLevel = DropDownButton("Go To Previous Level", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(1.0)));
-    restartGame = DropDownButton("  Restart Game", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(2.0)));
+    restartLevel = DropDownButton(text: " Restart Level", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        positional: Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(0.0)));
+    goToPreviousLevel = DropDownButton(text: "Go To Previous Level", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        positional: Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(1.0)));
+    restartGame = DropDownButton(text: "  Restart Game", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        positional: Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(2.0)));
   }
   Future<void> addDropDownButtons() async{
   await add(restartLevel);
@@ -34,6 +34,12 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   bool onTapDown(TapDownInfo e){
     try{
       print('Menu Button clicked');
+      if(!contains(restartLevel)){
+        addDropDownButtons();
+      }
+      else{
+        removeDropDownButtons();
+      }
       return true;
     }catch(err){
       print(err);
@@ -44,7 +50,6 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   bool onHoverEnter(PointerHoverInfo info){
     try{
       print('Menu Button hovered');
-      addDropDownButtons();
       return true;
     }catch(err){
       print(err);
@@ -56,7 +61,6 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   bool onHoverLeave(PointerHoverInfo info){
     try{
       print('Menu Button leaved');
-      removeDropDownButtons();
       return true;
     }catch(err){
       print(err);

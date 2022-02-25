@@ -9,7 +9,7 @@ import 'package:github_game/entities/laser.dart';
 import 'dart:collection';
 import 'package:github_game/entity.dart';
 
-import 'modules/button/menu_button.dart';
+import 'modules/button/icon_buttons/menu_button/menu_button.dart';
 
 /*
   Represents a position as 2 integers. Useful for tile coordinates.

@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/input.dart';
-import 'package:github_game/modules/button/dropdown_button.dart';
-import 'package:github_game/modules/button/help_button.dart';
-import 'package:github_game/modules/button/menu_button.dart';
+import 'package:github_game/modules/button/icon_buttons/dropdown_button.dart';
+import 'package:github_game/modules/button/icon_buttons/help_button/help_button.dart';
+import 'package:github_game/modules/button/icon_buttons/menu_button/menu_button.dart';
 
-import 'modules/button/settings_button.dart';
+import 'modules/button/icon_buttons/settings_button/settings_button.dart';
 
 /*
   This class represents the game with a specified level. Added HasTappables -Justin

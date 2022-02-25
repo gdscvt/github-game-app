@@ -3,7 +3,7 @@ import 'package:flame/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // -Justin
-class DropDownButton extends TextBoxComponent with Tappable{
+class DropDownButton extends TextBoxComponent with Tappable, Hoverable{
 
   late final String text;
   late final style;
@@ -11,7 +11,7 @@ class DropDownButton extends TextBoxComponent with Tappable{
   late final positional;
 
 
-  DropDownButton(this.text, this.style, this.box, this.positional) : super(text: text, textRenderer: style, boxConfig: box, position: positional);
+  DropDownButton({required this.text, this.style, this.box, this.positional}) : super(text: text, textRenderer: style, boxConfig: box, position: positional);
   @override
   void drawBackground(Canvas c){
     Rect rect = Rect.fromLTWH(0, 0, width/1.1, height*1.1);
@@ -21,9 +21,10 @@ class DropDownButton extends TextBoxComponent with Tappable{
       ..shader = LinearGradient(
     colors: [Color(0xFF2f62ba), Color(0xFF182c4f)]).createShader(rect);
     c.drawOval(
-        rect,//rect.defla-te(box.margins.right),//could be left,top,right or bottom
+        rect,//rect.deflate(box.margins.right),//could be left,top,right or bottom
         paint);
-
-
   }
+
+
+
 }

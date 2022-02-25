@@ -2,8 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 
-import 'abstract/positional_values.dart';
-import 'dropdown_button.dart';
+import '../../abstract/positional_values.dart';
+import '../dropdown_button.dart';
 // -Justin
 class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   static final TextStyle style = TextStyle(color:Colors.white);
@@ -12,10 +12,10 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   late final DropDownButton userAppearance;
 
   Future<void> setDropDownButtons() async{
-    userSpeed = DropDownButton("     User Speed", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(0.0)));
-    userAppearance = DropDownButton("     User Appearance", reg, TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
-        Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(1.0)));
+    userSpeed = DropDownButton(text: "     User Speed", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        positional: Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(0.0)));
+    userAppearance = DropDownButton(text: "     User Appearance", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+        positional: Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(1.0)));
   }
   Future<void> addDropDownButtons() async{
     await add(userSpeed);
@@ -29,6 +29,12 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   bool onTapDown(TapDownInfo e){
     try{
       print('Settings Button clicked');
+      if(!contains(userSpeed)){
+        addDropDownButtons();
+      }
+      else{
+        removeDropDownButtons();
+      }
       return true;
     }catch(err){
       print(err);
@@ -39,7 +45,6 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   bool onHoverEnter(PointerHoverInfo info){
     try{
       print('Settings Button hovered');
-      addDropDownButtons();
       return true;
     }catch(err){
       print(err);
@@ -50,7 +55,6 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   bool onHoverLeave(PointerHoverInfo info){
     try{
       print('Settings Button leaved');
-      removeDropDownButtons();
       return true;
     }catch(err){
       print(err);
