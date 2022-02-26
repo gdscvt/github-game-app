@@ -1,20 +1,20 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-
-import '../../abstract/positional_values.dart';
-import '../dropdown_button.dart';
+import 'package:github_game/modules/button/icon_buttons/settings_button/settings_button_dropdown_buttons/UserAppearance/userAppearance_button.dart';
+import 'package:github_game/modules/button/icon_buttons/settings_button/settings_button_dropdown_buttons/UserSpeed/userSpeed_button.dart';
+import '../abstract/positional_values.dart';
 // -Justin
 class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   static final TextStyle style = TextStyle(color:Colors.white);
   static final TextPaint reg = TextPaint(style: style);
-  late final DropDownButton userSpeed;
-  late final DropDownButton userAppearance;
+  late final UserSpeedButton userSpeed;
+  late final UserAppearanceButton userAppearance;
 
-  Future<void> setDropDownButtons() async{
-    userSpeed = DropDownButton(text: "     User Speed", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+  Future<void> setDropDownButtons({required int screenWidth, required int screenHeight}) async{
+    userSpeed = UserSpeedButton(text: "     User Speed", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(0.0)));
-    userAppearance = DropDownButton(text: "     User Appearance", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
+    userAppearance = UserAppearanceButton(text: "     User Appearance", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(PositionalValues.rightSideButtonX*width, position.y+PositionalValues.nextY(1.0)));
   }
   Future<void> addDropDownButtons() async{

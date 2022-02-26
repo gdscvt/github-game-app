@@ -1,26 +1,25 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-import 'package:github_game/github_game.dart';
-import 'package:github_game/modules/button/abstract/positional_values.dart';
 import 'package:github_game/modules/button/icon_buttons/help_button/help_button_dropdown_buttons/AboutGame/aboutGame_button.dart';
-import 'package:github_game/modules/button/icon_buttons/help_button/help_button_dropdown_buttons/help_dropdown.dart';
-
-import '../dropdown_button.dart';
+import 'package:github_game/modules/button/icon_buttons/help_button/help_button_dropdown_buttons/Faq/faq_button.dart';
+import '../abstract/positional_values.dart';
+import '../model/dropdown_button.dart';
+import 'help_button_dropdown_buttons/Contents/contents_button.dart';
 // -Justin
 class HelpButton extends SpriteComponent with Tappable,Hoverable {
   static final TextStyle style = TextStyle(color:Colors.white);
   static final TextPaint reg = TextPaint(style: style);
-  late final DropDownButton contents;
-  late final DropDownButton faq;
+  late final ContentsButton contents;
+  late final FaqButton faq;
   late final AboutGameButton aboutGame;
-  Future<void> setDropDownButtons() async {
-    contents = HelpDropdownButton(text: "      Contents",
+  Future<void> setDropDownButtons({required int screenWidth, required int screenHeight}) async {
+    contents = ContentsButton(text: "      Contents",
         style: reg,
         box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(PositionalValues.rightSideButtonX * width,
             PositionalValues.nextY(0.0)));
-    faq = HelpDropdownButton(text: "      FAQ",
+    faq = FaqButton(text: "      FAQ",
         style: reg,
         box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(PositionalValues.rightSideButtonX*width,
@@ -29,7 +28,7 @@ class HelpButton extends SpriteComponent with Tappable,Hoverable {
         style: reg,
         box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(PositionalValues.rightSideButtonX*width,
-            0 + PositionalValues.nextY(2.0)));
+            0 + PositionalValues.nextY(2.0)), screenWidth: screenWidth, screenHeight: screenHeight);
   }
   Future<void> addDropDownButtons() async{
     await add(contents);

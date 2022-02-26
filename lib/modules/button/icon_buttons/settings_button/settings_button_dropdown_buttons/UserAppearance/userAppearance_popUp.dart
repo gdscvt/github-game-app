@@ -2,14 +2,14 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
 
-class AboutGamePopUp extends TextBoxComponent {
+class UserAppearancePopUp extends TextBoxComponent {
   late final String text;
   late final style;
   late final box;
   late final positional;
 
 
-  AboutGamePopUp({required this.text, this.style, this.box,this.positional}) : super(text: text, textRenderer: style, boxConfig: box, position: positional);
+  UserAppearancePopUp({required this.text, this.style, this.box, this.positional}) : super(text: text, textRenderer: style, boxConfig: box, position: positional);
   @override
   void drawBackground(Canvas c){
     Rect rect = Rect.fromLTWH(0, 0, 200, 500);

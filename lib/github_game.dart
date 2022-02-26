@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/input.dart';
-import 'package:github_game/modules/button/icon_buttons/dropdown_button.dart';
+import 'package:github_game/modules/button/icon_buttons/model/dropdown_button.dart';
 import 'package:github_game/modules/button/icon_buttons/help_button/help_button.dart';
 import 'package:github_game/modules/button/icon_buttons/menu_button/menu_button.dart';
 
@@ -71,9 +71,9 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
       ..size = SETTINGSBUTTON_SIZE
       ..position = Vector2((1/1.135)*screenWidth, (1/150)*screenHeight);
 
-    menuButton.setDropDownButtons();
-    helpButton.setDropDownButtons();
-    settingsButton.setDropDownButtons();
+    menuButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
+    helpButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
+    settingsButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
     // Await needed to load one component at a time otherwise they
     // won't load on same screen. -Justin
     await add(menuButton);

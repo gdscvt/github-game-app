@@ -9,9 +9,12 @@ class DropDownButton extends TextBoxComponent with Tappable, Hoverable{
   late final style;
   late final box;
   late final positional;
+  late final screenWidth;
+  late final screenHeight;
 
 
-  DropDownButton({required this.text, this.style, this.box, this.positional}) : super(text: text, textRenderer: style, boxConfig: box, position: positional);
+  DropDownButton({required this.text, this.style, this.box, this.positional, this.screenWidth, this.screenHeight}) :
+        super(text: text, textRenderer: style, boxConfig: box, position: positional);
   @override
   void drawBackground(Canvas c){
     Rect rect = Rect.fromLTWH(0, 0, width/1.1, height*1.1);
