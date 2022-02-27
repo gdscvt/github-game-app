@@ -15,11 +15,7 @@ class FaqButton extends DropDownButton{
   bool onTapDown(TapDownInfo e){
     try{
       print("Faq Button Tapped");
-      if(!contains(data)){
-        add(data);
-      }else{
-        remove(data);
-      }
+      !contains(data) ? add(data) : remove(data);
       return true;
     }catch(err){
       print(err);

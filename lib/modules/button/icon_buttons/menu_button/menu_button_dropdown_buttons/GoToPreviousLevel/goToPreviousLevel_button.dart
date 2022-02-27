@@ -15,11 +15,7 @@ class GoToPreviousLevelButton extends DropDownButton{
   bool onTapDown(TapDownInfo e){
     try{
       print("Go To Previous Level Button Tapped");
-      if(!contains(data)){
-        add(data);
-      }else{
-        remove(data);
-      }
+      !contains(data) ? add(data) : remove(data);
       return true;
     }catch(err){
       print(err);

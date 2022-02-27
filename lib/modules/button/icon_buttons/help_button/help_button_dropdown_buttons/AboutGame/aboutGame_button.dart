@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:github_game/modules/button/icon_buttons/model/dropdown_button.dart';
-import '../../../abstract/positional_values.dart';
 import 'aboutGame_popUp.dart';
 
 class AboutGameButton extends DropDownButton{
@@ -19,11 +18,7 @@ class AboutGameButton extends DropDownButton{
   bool onTapDown(TapDownInfo e){
     try{
       print("About Game Button Tapped");
-      if(!contains(data)){
-        add(data);
-      }else{
-        remove(data);
-      }
+      !contains(data) ? add(data) : remove(data);
       return true;
     }catch(err){
       print(err);
