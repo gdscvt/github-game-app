@@ -1,6 +1,6 @@
 # github_game
 
-Seperate repo for github_game
+Seperate repo for github_game with GDSC. In active development.
 
 ## Getting Started
 
