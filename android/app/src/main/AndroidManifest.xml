@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.justin.github_game">
+    package="com.example.github_game">
    <application
         android:label="github_game"
         android:name="${applicationName}"

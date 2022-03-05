@@ -38,6 +38,7 @@ dependencies:
   flame_tiled: ^1.2.1
   flame_audio: ^1.0.0
   quiver: ^3.0.1+1
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,10 @@ flutter:
     - assets/assets/images/animations/laser/laser_active.png
     - assets/assets/images/animations/laser/laser_flicker.png
     - assets/assets/images/animations/laser/laser_inactive.png
+    - assets/assets/images/tilesets/1_Room_Builder_Office/Room_Builder_Office_48x48.png
+    - assets/assets/images/tilesets/2_Modern_Office_Black_Shadow/Modern_Office_Black_Shadow_48x48.png
+    - assets/assets/images/tilesets/SF_Inside_B.png
+    - assets/assets/images/tilesets/WallsAndFloors.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

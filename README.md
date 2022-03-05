@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # github_game
 
 Seperate repo for github_game
@@ -14,3 +15,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Class Structure:
+![alt text](./uml.jpg)
+>>>>>>> 54199dd1e7a920e05c0f9bee6bb104a16921908f
