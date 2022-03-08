@@ -29,12 +29,7 @@ class SettingsButton extends SpriteComponent with Tappable,Hoverable {
   bool onTapDown(TapDownInfo e){
     try{
       print('Settings Button clicked');
-      if(!contains(userSpeed)){
-        addDropDownButtons();
-      }
-      else{
-        removeDropDownButtons();
-      }
+      !contains(userSpeed) ? addDropDownButtons() : removeDropDownButtons();
       return true;
     }catch(err){
       print(err);

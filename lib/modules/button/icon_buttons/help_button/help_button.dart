@@ -13,6 +13,7 @@ class HelpButton extends SpriteComponent with Tappable,Hoverable {
   late final ContentsButton contents;
   late final FaqButton faq;
   late final AboutGameButton aboutGame;
+
   Future<void> setDropDownButtons({required int screenWidth, required int screenHeight}) async {
     contents = ContentsButton(text: "      Contents",
         style: reg,
@@ -44,13 +45,7 @@ class HelpButton extends SpriteComponent with Tappable,Hoverable {
   bool onTapDown(TapDownInfo e){
     try{
       print('Help Button clicked');
-
-      if(!contains(contents)){
-        addDropDownButtons();
-      }
-      else{
-        removeDropDownButtons();
-      }
+      !contains(contents) ? addDropDownButtons() : removeDropDownButtons();
       return true;
     }catch(err){
       print(err);

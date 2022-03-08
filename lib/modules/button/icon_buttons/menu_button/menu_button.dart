@@ -12,7 +12,6 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   late final RestartLevelButton restartLevel;
   late final GoToPreviousLevelButton goToPreviousLevel;
   late final RestartGameButton restartGame;
-
   Future<void> setDropDownButtons({required int screenWidth, required int screenHeight}) async{
     restartLevel = RestartLevelButton(text: " Restart Level", style: reg, box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(PositionalValues.leftSideButtonX, position.y+PositionalValues.nextY(0.0)));
@@ -35,12 +34,7 @@ class MenuButton extends SpriteComponent with Tappable,Hoverable{
   bool onTapDown(TapDownInfo e){
     try{
       print('Menu Button clicked');
-      if(!contains(restartLevel)){
-        addDropDownButtons();
-      }
-      else{
-        removeDropDownButtons();
-      }
+      !contains(restartLevel) ? addDropDownButtons() : removeDropDownButtons();
       return true;
     }catch(err){
       print(err);

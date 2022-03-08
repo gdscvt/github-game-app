@@ -32,18 +32,20 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   late final String _mapPath;
 
   //Instantiates Menu Button and associated size -Justin
-  MenuButton menuButton = MenuButton();
+  static MenuButton menuButton = MenuButton();
   static final Vector2 MENUBUTTON_SIZE = Vector2.all(BUTTON_SIZE);
 
   //Instantiates Help Button and associated size -Justin
-  HelpButton helpButton = HelpButton();
+  static HelpButton helpButton = HelpButton();
   static final Vector2 HELPBUTTON_SIZE = Vector2.all(BUTTON_SIZE);
 
   //Instantiates Help Button and associated size -Justin
-  SettingsButton settingsButton = SettingsButton();
+  static SettingsButton settingsButton = SettingsButton();
   static final Vector2 SETTINGSBUTTON_SIZE = Vector2.all(BUTTON_SIZE);
 
-
+  //Instantiaties screenWidth and screenHeight
+  static int screenWidth = 0;
+  static int screenHeight = 0;
 
   GithubGame(this._mapPath);
 
@@ -55,8 +57,8 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
 
     // First value is how many tiles fill map in width. Second value
     // is width of a single tile. Multiplying them gets us the screenWidth. -Justin
-    int screenWidth = level.mapModule.map.width*level.mapModule.map.tileWidth;
-    int screenHeight = level.mapModule.map.height*level.mapModule.map.tileHeight;
+    screenWidth = level.mapModule.map.width*level.mapModule.map.tileWidth;
+    screenHeight = level.mapModule.map.height*level.mapModule.map.tileHeight;
 
     //Sets properties of buttons. -Justin
     menuButton
@@ -77,9 +79,13 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
     settingsButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
     // Await needed to load one component at a time otherwise they
     // won't load on same screen. -Justin
-    await add(menuButton);
-    await add(helpButton);
-    await add(settingsButton);
+    await addButtons();
 
   }
+Future<void> addButtons() async{
+  await add(menuButton);
+  await add(helpButton);
+  await add(settingsButton);
 }
+}
+
