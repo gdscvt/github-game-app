@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// -Justin
+/// Super class for each dropdown button
 class DropDownButton extends TextBoxComponent with Tappable, Hoverable{
 
   late final String text;
@@ -12,9 +12,13 @@ class DropDownButton extends TextBoxComponent with Tappable, Hoverable{
   late final screenWidth;
   late final screenHeight;
 
-
+  /// Constructor is used to set properties from a TextBoxComponent. screenWidth and
+  /// screenHeight are not related to any of the TextBoxComponents. They are used for
+  /// centering each DropDownButton's popUp relative to the screen's dimensions
   DropDownButton({required this.text, this.style, this.box, this.positional, this.screenWidth, this.screenHeight}) :
         super(text: text, textRenderer: style, boxConfig: box, position: positional);
+
+  /// This builds the oval shape with a gradient for each dropdown button
   @override
   void drawBackground(Canvas c){
     Rect rect = Rect.fromLTWH(0, 0, width/1.1, height*1.1);

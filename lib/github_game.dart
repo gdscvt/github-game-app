@@ -55,12 +55,12 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
 
     await add(level = Level(_mapPath, Position(5, 5)));
 
-    // First value is how many tiles fill map in width. Second value
-    // is width of a single tile. Multiplying them gets us the screenWidth. -Justin
+    /// First value is how many tiles fill the map in width. Second value
+    /// is the width of a single tile. Multiplying them gets us the screenWidth. -Justin
     screenWidth = level.mapModule.map.width*level.mapModule.map.tileWidth;
     screenHeight = level.mapModule.map.height*level.mapModule.map.tileHeight;
 
-    //Sets properties of buttons. -Justin
+    /// Sets properties of buttons. -Justin
     menuButton
       ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/home_grey.png')
       ..size = MENUBUTTON_SIZE
@@ -74,11 +74,13 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
       ..size = SETTINGSBUTTON_SIZE
       ..position = Vector2((1/1.135)*screenWidth, (1/150)*screenHeight);
 
+    /// Sets position of dropdown buttons. screenWidth and screenHeight needed for
+    /// the dropdown buttons constructor
     menuButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
     helpButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
     settingsButton.setDropDownButtons(screenWidth: screenWidth, screenHeight: screenHeight);
-    // Await needed to load one component at a time otherwise they
-    // won't load on same screen. -Justin
+    // /Await needed to load one component at a time otherwise they
+    /// won't load on same screen. -Justin
     await addButtons();
 
   }
