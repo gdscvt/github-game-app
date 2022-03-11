@@ -191,15 +191,6 @@ class LocomotionModule extends Component
         _direction = _movements.first;
       }
     }
-    /// Buttons position updated according to player position -Justin
-    /// Currently hardcoded such that the buttons do not move horizontally.
-    /// This is done since first level the map does not go off screen moving horizontally.
-    GithubGame.menuButton.position = Vector2(GithubGame.menuButton.position.x,
-        (1/200)*GithubGame.screenHeight+((1/4.5)*player.position.y));
-    GithubGame.helpButton.position = Vector2(GithubGame.helpButton.position.x,
-        (1/200)*GithubGame.screenHeight+((1/4.5)*player.position.y));
-    GithubGame.settingsButton.position = Vector2(GithubGame.settingsButton.position.x,
-        (1/200)*GithubGame.screenHeight+((1/4.5)*player.position.y));
   }
 
   /// Updates the position of the target and returns true if it is not collided.

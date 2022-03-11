@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/input.dart';
+import 'package:github_game/modules/buttons/in_level_buttons/icon_buttons/abstract/positional_values.dart';
 import 'package:github_game/modules/buttons/main_menu_buttons/start_game/start_game_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/menu_button/menu_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/help_button/help_button.dart';
@@ -76,18 +76,23 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
 
     if(this._mapPath != 'main_menu.tmx') {
       /// Sets properties of buttons. -Justin
+      print(canvasSize.x);
+      print(canvasSize.y);
       menuButton
         ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/home_grey.png')
         ..size = MENUBUTTON_SIZE
-        ..position = Vector2((1/140)*screenWidth, (1/150)*screenHeight);
+        ..position = Vector2((1/200)*canvasSize.x, (1/150)*canvasSize.y)
+        ..positionType = PositionType.widget;
       helpButton
         ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/help_grey.png')
         ..size = HELPBUTTON_SIZE
-        ..position = Vector2((1/1.3)*screenWidth, (1/150)*screenHeight);
+        ..position = Vector2((1/1.09)*canvasSize.x, (1/150)*canvasSize.y)
+        ..positionType = PositionType.widget;
       settingsButton
         ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/settings_grey.png')
         ..size = SETTINGSBUTTON_SIZE
-        ..position = Vector2((1/1.135)*screenWidth, (1/150)*screenHeight);
+        ..position = Vector2((1/1.04)*canvasSize.x, (1/150)*canvasSize.y)
+        ..positionType = PositionType.widget;
       /// Sets position of dropdown buttons. screenWidth and screenHeight needed for
       /// the dropdown buttons constructor
       menuButton.setDropDownButtons(

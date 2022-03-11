@@ -1,17 +1,24 @@
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/input.dart';
+import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/modules/buttons/in_level_buttons/icon_buttons/menu_button/menu_button.dart';
+import 'package:flame/src/game/mixins/game.dart';
 
-class CurrentLevel{
+
+abstract class CurrentLevel extends FlameGame{
   static GithubGame game = GithubGame('level_one.tmx');
   static GameWidget gameWidget = GameWidget(game: game);
 }
 void main() {
 
+
   runApp(CurrentLevel.gameWidget);
 
 }
+
 /*
 class Game extends StatefulWidget {
   @override
