@@ -36,10 +36,8 @@ class LocomotionModule extends Component
   /// The current movement state
   LocomotionState _locomotionState = LocomotionState.IDLE;
 
-  /**
-   * Returns whether or not the player's movement is within the distance 
-   * threshold to their target tile.
-   */
+  /// Returns whether or not the player's movement is within the distance 
+  /// threshold to their target tile.
   bool get _withinQueueThreshold {
     return player.position
             .distanceTo(level.getCanvasPosition(_targetPosition)) <=
@@ -136,11 +134,9 @@ class LocomotionModule extends Component
     _movements.add(dir);
   }
 
-  /** 
-   * This function moves the player towards their target if they are walking.
-   * If the player is at their destination, they will enter their idle state or
-   * begin targeting their next movement direction.
-   */
+  /// This function moves the player towards their target if they are walking.
+  /// If the player is at their destination, they will enter their idle state or
+  /// begin targeting their next movement direction.
   void _updatePosition(double dt) {
     // If there is a movement queue'd
     if (_movements.isNotEmpty) {
