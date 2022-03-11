@@ -69,6 +69,8 @@ bool): void]
 
 [AnimationState]++1-1>[<<extension>>;AnimationData|+spritePath: String;+animationData: SpriteAnimationData;-frameCount: int]
 
+[Level]++1-1>[<<extension>>;LevelLoader|-loadJson(Map): void]
+
 [PlayerModule]++1-1>[InputModule]
 
 [<<Component>>;InputModule|-keyMap: HashMap|+onLoad(): void;+onKeyEvent(RawKeyEvent

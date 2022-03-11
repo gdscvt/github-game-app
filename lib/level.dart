@@ -5,7 +5,6 @@ import 'package:github_game/modules/player_module.dart';
 import 'package:github_game/modules/level/map_module.dart';
 import 'package:github_game/modules/level/entity_manager_module.dart';
 import 'package:quiver/core.dart';
-import 'dart:convert';
 
 /// Represents a position as 2 integers. Useful for tile coordinates.
 class Position {
@@ -22,7 +21,7 @@ class Position {
 /// This is used to load levels from json files.
 extension _LevelLoader on Level {
   /// This function loads the data into the level from the json file.
-  void _loadLevelJson(Map<String, dynamic> json) {
+  void _loadJson(Map<String, dynamic> json) {
     String title = json["title"];
     String mapPath = json["mapPath"];
     Map<String, dynamic> spawnPosMap = json["spawnLocation"];
@@ -56,7 +55,7 @@ class Level extends Component with HasGameRef<GithubGame> {
 
   /// Initializes the level.
   Level.fromJson(Map<String, dynamic> json) {
-    _loadLevelJson(json);
+    _loadJson(json);
   }
 
   /// Returns a reference to the title string.
