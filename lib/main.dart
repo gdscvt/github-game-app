@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:github_game/github_game.dart';
 
 void main() {
-  final game = GithubGame("level_one.tmx");
+  final game = GithubGame();
 
   runApp(GameWidget(game: game));
 }

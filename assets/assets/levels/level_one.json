@@ -1,0 +1,58 @@
+{
+    "title": "Level 1",
+    "mapPath": "level_one.tmx",
+    "spawnLocation": {
+        "x": 5,
+        "y": 5
+    },
+    "entityGroups": [
+        {
+            "type": "LASER",
+            "entities": [
+                {
+                    "x": 5,
+                    "y": 0
+                },
+                {
+                    "x": 6,
+                    "y": 0
+                },
+                {
+                    "x": 7,
+                    "y": 0
+                },
+                {
+                    "x": 8,
+                    "y": 0
+                }
+            ],
+            "properties": {
+                "active": true
+            }
+        },
+        {
+            "type": "LASER",
+            "entities": [
+                {
+                    "x": 5,
+                    "y": 1
+                },
+                {
+                    "x": 6,
+                    "y": 1
+                },
+                {
+                    "x": 7,
+                    "y": 1
+                },
+                {
+                    "x": 8,
+                    "y": 1
+                }
+            ],
+            "properties": {
+                "active": true
+            }
+        }
+    ]
+}
