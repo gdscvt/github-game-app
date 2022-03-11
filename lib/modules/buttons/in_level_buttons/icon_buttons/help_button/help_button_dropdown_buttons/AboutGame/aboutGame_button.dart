@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:github_game/main.dart';
 import '../../../model/dropdown_button.dart';
 import 'aboutGame_popUp.dart';
 /// AboutGameButton Class -Justin
@@ -11,6 +12,7 @@ class AboutGameButton extends DropDownButton{
   late final data;
   AboutGameButton({required String text, style, box, positional, screenWidth, screenHeight}) :
         super(text: text, style: style, box: box, positional: positional, screenWidth: screenWidth, screenHeight: screenHeight) {
+        this.positionType = PositionType.widget;
         /// data is a boilerplate for setting the associated in_level_buttons's popUp
         data = AboutGamePopUp(text: 'test',
         box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
@@ -25,7 +27,8 @@ class AboutGameButton extends DropDownButton{
   bool onTapDown(TapDownInfo e){
     try{
       print("About Game Button Tapped");
-      !contains(data) ? add(data) : remove(data);
+      /// Adds overlay to screen. Need the String from the OverlayMapBuilder
+      CurrentLevel.gameWidget.game.overlays.add('PauseMenu');
       return true;
     }catch(err){
       print(err);

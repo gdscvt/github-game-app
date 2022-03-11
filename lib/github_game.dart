@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/input.dart';
-import 'package:github_game/modules/buttons/in_level_buttons/icon_buttons/abstract/positional_values.dart';
 import 'package:github_game/modules/buttons/main_menu_buttons/start_game/start_game_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/menu_button/menu_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/help_button/help_button.dart';
@@ -12,7 +11,7 @@ import 'modules/buttons/in_level_buttons/icon_buttons/settings_button/settings_b
 /*
   This class represents the game with a specified level. Added HasTappables -Justin
 */
-class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappables, HasHoverables {
+class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappables, HasHoverables{
   // The directory holding animation assets
   static const String ANIMATION_FILE_PATH = "animations";
 
@@ -38,7 +37,7 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
     _mapPath = newPath;
   }
 
-  ActiveOverlaysNotifier overlay = ActiveOverlaysNotifier();
+  static ActiveOverlaysNotifier overlay = ActiveOverlaysNotifier();
 
   //Instantiates Menu Button and associated size -Justin
   static MenuButton menuButton = MenuButton();
@@ -54,10 +53,12 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
 
   //Instantiates Start Game Button
   static final startGameButton = StartGameButton();
-  //Instantiaties screenWidth and screenHeight
+  //Instantiates screenWidth and screenHeight of game dimensions
   static int screenWidth = 0;
   static int screenHeight = 0;
-
+  //Instantiates canvasWidth and canvasHeight of browser dimensions
+  double canvasWidth = 0.0;
+  double canvasHeight = 0.0;
 
   GithubGame(this._mapPath);
 
@@ -73,11 +74,14 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
     screenWidth = level.mapModule.map.width*level.mapModule.map.tileWidth;
     screenHeight = level.mapModule.map.height*level.mapModule.map.tileHeight;
 
+    /// Sets canvas dimensions. Needed in update() method
+    canvasWidth = canvasSize.x;
+    canvasHeight = canvasSize.y;
 
+    /// Adds level buttons if not on main menu screen. Will change if no
+    /// main_menu level
     if(this._mapPath != 'main_menu.tmx') {
       /// Sets properties of buttons. -Justin
-      print(canvasSize.x);
-      print(canvasSize.y);
       menuButton
         ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/home_grey.png')
         ..size = MENUBUTTON_SIZE
@@ -96,16 +100,18 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
       /// Sets position of dropdown buttons. screenWidth and screenHeight needed for
       /// the dropdown buttons constructor
       menuButton.setDropDownButtons(
-          screenWidth: screenWidth, screenHeight: screenHeight);
+          screenWidth: canvasSize.x.toInt(), screenHeight: canvasSize.y.toInt());
       helpButton.setDropDownButtons(
-          screenWidth: screenWidth, screenHeight: screenHeight);
+          screenWidth: canvasSize.x.toInt(), screenHeight: canvasSize.y.toInt());
       settingsButton.setDropDownButtons(
-          screenWidth: screenWidth, screenHeight: screenHeight);
+          screenWidth: canvasSize.x.toInt(), screenHeight: canvasSize.y.toInt());
 
       /// Await needed to load one component at a time otherwise they
       /// won't load on same screen. -Justin
       await addInLevelButtons();
-    } else{
+    }
+    /// Not needed unless we keep main menu level
+    else{
       startGameButton
       ..position = Vector2((1/2)*screenWidth, (1/2)*screenHeight);
       await addMainMenuButtons();
@@ -116,16 +122,28 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   @override
   void update(double dt){
     super.update(dt);
+    ///Changes position of buttons as size of browser changes
+    double newCanvasWidth = canvasSize.x;
+    double newCanvasHeight = canvasSize.y;
+    if(newCanvasWidth != canvasWidth || newCanvasHeight != newCanvasHeight){
+      canvasWidth = newCanvasWidth;
+      canvasHeight = newCanvasHeight;
+      menuButton.position = Vector2((1/200)*canvasSize.x, (1/150)*canvasSize.y);
+      helpButton.position = Vector2((1/1.09)*canvasSize.x, (1/150)*canvasSize.y);
+      settingsButton.position = Vector2((1/1.04)*canvasSize.x, (1/150)*canvasSize.y);
+    }
   }
+  /// Adds level buttons to the screen
 Future<void> addInLevelButtons() async{
   await add(menuButton);
   await add(helpButton);
   await add(settingsButton);
 }
-
+/// Not needed unless we keep main menu level
 Future<void> addMainMenuButtons() async{
     await add(startGameButton);
 }
+/// Handles changing the level map
 Future<void> newLevel(Level newLevel) async{
     remove(this.level);
     this.level = newLevel;

@@ -11,6 +11,7 @@ class FaqButton extends DropDownButton{
   late final data;
   FaqButton({required String text, style, box, positional, screenWidth, screenHeight}) :
         super(text: text, style: style, box: box, positional: positional, screenWidth: screenWidth, screenHeight: screenHeight) {
+        this.positionType = PositionType.widget;
         /// data is a boilerplate for setting the associated in_level_buttons's popUp
         data = FaqPopUp(text: 'test',
         box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),

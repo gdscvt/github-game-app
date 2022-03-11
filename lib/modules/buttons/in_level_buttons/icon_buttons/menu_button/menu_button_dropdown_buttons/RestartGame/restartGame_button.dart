@@ -15,6 +15,7 @@ class RestartGameButton extends DropDownButton{
   RestartGameButton({required String text, style, box, positional, screenWidth, screenHeight}) :
         super(text: text, style: style, box: box, positional: positional, screenWidth: screenWidth, screenHeight: screenHeight) {
         /// data is a boilerplate for setting the associated in_level_buttons's popUp
+        this.positionType = PositionType.widget;
         data = RestartGamePopUp(text: 'test',
         box: TextBoxConfig(margins: const EdgeInsets.all(8.0), maxWidth: 150.0),
         positional: Vector2(-screenWidth/4, screenHeight/4));
@@ -29,6 +30,7 @@ class RestartGameButton extends DropDownButton{
     try{
       print("Restart Game Button Tapped");
       !contains(data) ? add(data) : remove(data);
+      /// Changes level to main menu
       CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
 
       return true;
@@ -37,8 +39,15 @@ class RestartGameButton extends DropDownButton{
       return false;
     }
   }
-  Future<void> addNewLevel() async{
-    await add(CurrentLevel.game.level);
+  @override
+  bool onHoverEnter(PointerHoverInfo e){
+    try{
+      print('Restart Game Button Hovered');
+      return true;
+    }catch(err){
+      print(err);
+      return false;
+    }
   }
 
 

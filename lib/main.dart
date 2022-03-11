@@ -1,22 +1,47 @@
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/input.dart';
-import 'package:flame/components.dart';
 import 'package:github_game/github_game.dart';
-import 'package:github_game/modules/buttons/in_level_buttons/icon_buttons/menu_button/menu_button.dart';
-import 'package:flame/src/game/mixins/game.dart';
+
+import 'level.dart';
 
 
 abstract class CurrentLevel extends FlameGame{
+  /// Declares game
   static GithubGame game = GithubGame('level_one.tmx');
-  static GameWidget gameWidget = GameWidget(game: game);
+  /// Pause Menu overlay. Needs to look nicer but is setup
+  static Widget _pauseMenu(BuildContext buildContext, Game game){
+    return Center(
+        child: Container(
+            width: 50,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.red,
+            ),
+            child: Column(
+                children: [
+                  FlatButton(onPressed: (){
+                    try {
+                      CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                    }catch(err){
+                      print(err);
+                    }
+                  }, child: const Text('Change tmx'))
+                ]
+            )
+        )
+    );
+  }
+  /// Declares GameWidget
+  static GameWidget gameWidget = GameWidget(game: game,
+  /// The map(String, Widget Function) for overlay map
+    /// See the aboutGame_button.dart file to understand how to add overlay to screen
+  overlayBuilderMap: const{
+    'PauseMenu': _pauseMenu,
+  },);
 }
 void main() {
-
-
   runApp(CurrentLevel.gameWidget);
-
 }
 
 /*
