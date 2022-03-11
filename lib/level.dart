@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/particles.dart';
 import 'package:github_game/github_game.dart';
+import 'package:github_game/main.dart';
 import 'package:github_game/modules/player_module.dart';
 import 'package:github_game/modules/level/map_module.dart';
 import 'package:quiver/core.dart';
@@ -26,15 +27,19 @@ class Level extends Component with HasGameRef<GithubGame> {
   late final MapModule _mapModule;
 
   /// Path to the map file
-  late final String _mapPath;
+  late String _mapPath;
 
   /// Player spawn location
   late final Position _spawnLocation;
 
+  /// Old map Path
+  late String oldMapPath;
 
   /// Initializes the level with the map path and spawn location.
   Level(this._mapPath, this._spawnLocation);
-
+  set mapPath(String newPath){
+    _mapPath = newPath;
+  }
   /// Returns a reference to the player.
   PlayerModule get player => _player;
 
@@ -52,14 +57,17 @@ class Level extends Component with HasGameRef<GithubGame> {
     await super.onLoad();
 
     await add(_mapModule = MapModule());
-    await add(_player = PlayerModule());
+    /// If not main menu(Position for main menu set to (-1, -1))
+    // if(this._spawnLocation.x != -1 && this._spawnLocation.y != -1) {
+      await add(_player = PlayerModule());
 
-    // Teleport the player to their spawn location
-    teleport(_player.position, _spawnLocation);
+      // Teleport the player to their spawn location
+      teleport(_player.position, _spawnLocation);
 
-    // Make the camera follow the player
-    gameRef.camera.followComponent(_player, relativeOffset: Anchor.center);
-    gameRef.camera.zoom = 0.8;
+      // Make the camera follow the player
+      gameRef.camera.followComponent(_player, relativeOffset: Anchor.center);
+      gameRef.camera.zoom = 0.8;
+    //}
   }
 
   /// Used to teleport a vector position to a given tile position.
@@ -74,4 +82,7 @@ class Level extends Component with HasGameRef<GithubGame> {
     return Vector2(tilePosition.x.toDouble(), tilePosition.y.toDouble())
       ..multiply(GithubGame.TILE_SIZE);
   }
+
+
+
 }
