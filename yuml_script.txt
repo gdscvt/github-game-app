@@ -22,21 +22,21 @@ Position): void;+getCanvasPosition(Position): Vector2]
 [<<Component>>;CollisionModule|+onLoad(): void;+getCollision(Position): bool;+setCollision(Position
 bool): void]
 
-[MapModule]++1-1>[EntityManagerModule]
+[Level]++1-1>[EntityManagerModule]
 
 [<<Component>>;EntityManagerModule|+groups: HashSet|+onLoad(): void;-loadGroups(): void]
 
 [EntityManagerModule]++1-*>[EntityGroup]
 
-[<<Component>>;EntityGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void]
+[<<Component>>;EntityGroup|+entities: HashSet|+fromJson(): EntityGroup;+onLoad(): void]
 
 [EntityGroup]++1-*[Entity]
 [EntityGroup]^[LaserGroup]
 [EntityGroup]^[ComputerGroup]
 
-[<<EntityGroup>>;LaserGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void;+activate(): void;+deactivate(): void]
+[<<EntityGroup>>;LaserGroup|+entities: HashSet|+onLoad(): void;+activate(): void;+deactivate(): void]
 
-[<<EntityGroup>>;ComputerGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void]
+[<<EntityGroup>>;ComputerGroup|+entities: HashSet|+onLoad(): void]
 
 [LaserGroup]++1-*>[Laser]
 [ComputerGroup]++1-*>[Computer]
