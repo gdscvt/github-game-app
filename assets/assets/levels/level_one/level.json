@@ -1,5 +1,5 @@
 {
-    "title": "Level 1",
+    "id": "level_one",
     "mapPath": "level_one.tmx",
     "spawnLocation": {
         "x": 5,
@@ -43,9 +43,7 @@
                     "y": 1
                 }
             ],
-            "properties": {
-                "active": true
-            }
+            "properties": {}
         },
         {
             "id": "computer_group",
@@ -63,7 +61,7 @@
             "properties": {
                 "repos": [
                     {
-                        "path": "repos/test"
+                        "path": "test"
                     }
                 ],
                 "events": [
