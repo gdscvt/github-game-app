@@ -6,12 +6,13 @@ import 'package:github_game/level.dart';
 /// deactivated together.
 class LaserGroup extends EntityGroup<Laser> {
   /// This constructor parses the json data and creates the laser group.
-  LaserGroup(List<dynamic> entityJsons, Map<String, dynamic> properties)
-      : super(entityJsons, properties) {
+  LaserGroup(
+      String id, List<dynamic> entityJsons, Map<String, dynamic>? properties)
+      : super(id, entityJsons, properties) {
     entities.addAll(
         entityJsons.map((json) => Laser(Position(json["x"], json["y"]))));
 
-    if (!properties["active"]) {
+    if (!properties?["active"]) {
       deactivate();
     }
   }

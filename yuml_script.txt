@@ -24,19 +24,19 @@ bool): void]
 
 [Level]++1-1>[EntityManagerModule]
 
-[<<Component>>;EntityManagerModule|+groups: HashSet|+onLoad(): void;-loadGroups(): void]
+[<<Component>>;EntityManagerModule|+groups: HashMap|+onLoad(): void]
 
 [EntityManagerModule]++1-*>[EntityGroup]
 
-[<<Component>>;EntityGroup|+entities: HashSet|+fromJson(): EntityGroup;+onLoad(): void]
+[<<Component>>;EntityGroup|+id: String;+entities: HashSet|+fromJson(): EntityGroup;+onLoad(): void]
 
 [EntityGroup]++1-*[Entity]
 [EntityGroup]^[LaserGroup]
 [EntityGroup]^[ComputerGroup]
 
-[<<EntityGroup>>;LaserGroup|+entities: HashSet|+onLoad(): void;+activate(): void;+deactivate(): void]
+[<<EntityGroup>>;LaserGroup|+entities: HashSet|+activate(): void;+deactivate(): void]
 
-[<<EntityGroup>>;ComputerGroup|+entities: HashSet|+onLoad(): void]
+[<<EntityGroup>>;ComputerGroup|+entities: HashSet]
 
 [LaserGroup]++1-*>[Laser]
 [ComputerGroup]++1-*>[Computer]

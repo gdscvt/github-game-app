@@ -46,7 +46,7 @@ class PlayerModule extends PositionComponent with HasLevelRef {
   /// Calls the interact function on the entity in front of this player.
   void interact() {
     Position pos = _locomotionModule.forwardTile;
-    for (EntityGroup group in level.entityManagerModule.groups) {
+    for (EntityGroup group in level.entityManagerModule.groups.values) {
       for (Entity entity in group.entities) {
         if (pos == entity.tilePosition) {
           entity.onInteract();

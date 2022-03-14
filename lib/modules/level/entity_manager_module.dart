@@ -4,19 +4,23 @@ import 'package:github_game/entities/entity_group.dart';
 
 /// This module is responsible for handling groups of entities in the level.
 class EntityManagerModule extends Component {
-  /// The set of all entity groups.
-  late final HashSet<EntityGroup> _groups;
+  /// A map of all entity groups mapped by id.
+  late final HashMap<String, EntityGroup> _groups;
 
-  /// Returns the set of all entity groups.
-  HashSet<EntityGroup> get groups => _groups;
+  /// Returns the map of all entity groups mapped by id.
+  HashMap<String, EntityGroup> get groups => _groups;
 
-  /// Loads all entity groups and adds them to the set.
+  /// Loads all entity groups and adds them to the map.
   EntityManagerModule(Iterable<EntityGroup> entityGroups)
-      : _groups = HashSet()..addAll(entityGroups);
+      : _groups = HashMap() {
+    for (EntityGroup group in entityGroups) {
+      _groups.putIfAbsent(group.id, () => group);
+    }
+  }
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    addAll(_groups);
+    addAll(_groups.values);
   }
 }
