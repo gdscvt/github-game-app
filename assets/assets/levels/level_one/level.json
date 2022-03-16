@@ -1,5 +1,5 @@
 {
-    "title": "Level 1",
+    "id": "level_one",
     "mapPath": "level_one.tmx",
     "spawnLocation": {
         "x": 5,
@@ -43,9 +43,7 @@
                     "y": 1
                 }
             ],
-            "properties": {
-                "active": true
-            }
+            "properties": {}
         },
         {
             "id": "computer_group",
@@ -60,25 +58,7 @@
                     "y": 3
                 }
             ],
-            "properties": {
-                "repos": [
-                    {
-                        "path": "repos/test"
-                    }
-                ],
-                "events": [
-                    {
-                        "name": "deactivate",
-                        "conditions": [],
-                        "actions": [
-                            {
-                                "type": "LASER_DEACTIVATE",
-                                "laserGroup": "laser_group"
-                            }
-                        ]
-                    }
-                ]
-            }
+            "properties": {}
         }
     ]
 }

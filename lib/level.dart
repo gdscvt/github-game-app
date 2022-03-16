@@ -22,12 +22,12 @@ class Position {
 extension _LevelLoader on Level {
   /// This function loads the data into the level from the json file.
   void _loadJson(Map<String, dynamic> json) {
-    String title = json["title"];
+    String id = json["id"];
     String mapPath = json["mapPath"];
     Map<String, dynamic> spawnPosMap = json["spawnLocation"];
     List<dynamic> entityGroups = json["entityGroups"];
 
-    _title = title;
+    _id = id;
     _mapModule = MapModule.fromFile(mapPath);
     _spawnLocation = Position(spawnPosMap["x"], spawnPosMap["y"]);
 
@@ -39,7 +39,7 @@ extension _LevelLoader on Level {
 /// Represents a level with a player and tile map.
 class Level extends Component with HasGameRef<GithubGame> {
   /// Title of the level
-  late final String _title;
+  late final String _id;
 
   /// Reference to the player
   late final PlayerModule _player;
@@ -59,7 +59,7 @@ class Level extends Component with HasGameRef<GithubGame> {
   }
 
   /// Returns a reference to the title string.
-  String get title => _title;
+  String get id => _id;
 
   /// Returns a reference to the player.
   PlayerModule get player => _player;

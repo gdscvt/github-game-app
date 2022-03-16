@@ -11,7 +11,8 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents {
   // The directory holding animation assets
   static const String ANIMATION_FILE_PATH = "animations";
 
-  static const String LEVEL_FILE_PATH = "assets/levels";
+  static const String LEVEL_DIRECTORY_PATH = "assets/levels";
+  static const String LEVEL_PATH = "$LEVEL_DIRECTORY_PATH/level_one";
 
   // The size in pixels of each tile
   static final Vector2 TILE_SIZE = Vector2.all(48.0);
@@ -22,8 +23,7 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    String json =
-        await rootBundle.loadString("$LEVEL_FILE_PATH/level_one.json");
+    String json = await rootBundle.loadString("$LEVEL_PATH/level.json");
     add(level = Level.fromJson(jsonDecode(json)));
   }
 }

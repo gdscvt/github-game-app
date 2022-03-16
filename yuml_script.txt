@@ -6,7 +6,7 @@
 
 [Position|+x: int; +y: int]
 
-[<<Component>>;Level|+mapModule: MapModule;+player: PlayerModule;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
+[<<Component>>;Level|+id: String;+mapModule: MapModule;+player: PlayerModule;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
 Position): void;+getCanvasPosition(Position): Vector2]
 
 [Level]++1-1>[PlayerModule]

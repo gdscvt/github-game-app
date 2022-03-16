@@ -12,7 +12,7 @@ class LaserGroup extends EntityGroup<Laser> {
     entities.addAll(
         entityJsons.map((json) => Laser(Position(json["x"], json["y"]))));
 
-    if (!properties?["active"]) {
+    if (properties?["active"] != null && !properties?["active"]) {
       deactivate();
     }
   }
