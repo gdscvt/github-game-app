@@ -7,8 +7,6 @@ class Computer extends Entity {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    collision = false;
   }
 
   @override

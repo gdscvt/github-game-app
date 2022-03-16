@@ -19,9 +19,7 @@ abstract class EntityGroup<T extends Entity> extends Component {
   HashSet<T> get entities => _entities;
 
   /// Initializes the group with an empty set.
-  EntityGroup(
-      this._id, List<dynamic> entityJsons, Map<String, dynamic>? properties)
-      : _entities = HashSet();
+  EntityGroup(this._id, List<dynamic> entityJsons) : _entities = HashSet();
 
   /// This factory should be used to create the correct type of entity group
   /// from json data.
@@ -47,6 +45,6 @@ abstract class EntityGroup<T extends Entity> extends Component {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    addAll(_entities);
+    await addAll(_entities);
   }
 }

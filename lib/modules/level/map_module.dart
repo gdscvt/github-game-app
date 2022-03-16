@@ -47,7 +47,6 @@ class MapModule extends Component with HasLevelRef {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
     // Load the map
     _tiledComponent = await TiledComponent.load(_mapPath, PythonGame.TILE_SIZE);
 
@@ -56,7 +55,7 @@ class MapModule extends Component with HasLevelRef {
     _dimensions = Position(_map.width, _map.height);
 
     // Add the map to the level
-    add(_tiledComponent);
+    await add(_tiledComponent);
 
     // Add the collision and entity manager modules
     add(_collisionModule = CollisionModule());

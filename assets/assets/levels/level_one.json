@@ -42,10 +42,7 @@
                     "x": 8,
                     "y": 1
                 }
-            ],
-            "properties": {
-                "active": true
-            }
+            ]
         },
         {
             "id": "computer_group",
@@ -57,28 +54,10 @@
                 },
                 {
                     "x": 9,
-                    "y": 3
+                    "y": 2
                 }
             ],
-            "properties": {
-                "repos": [
-                    {
-                        "path": "repos/test"
-                    }
-                ],
-                "events": [
-                    {
-                        "name": "deactivate",
-                        "conditions": [],
-                        "actions": [
-                            {
-                                "type": "LASER_DEACTIVATE",
-                                "laserGroup": "laser_group"
-                            }
-                        ]
-                    }
-                ]
-            }
+            "properties": {}
         }
     ]
 }
