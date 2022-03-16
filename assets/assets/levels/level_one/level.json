@@ -58,25 +58,7 @@
                     "y": 3
                 }
             ],
-            "properties": {
-                "repos": [
-                    {
-                        "path": "test"
-                    }
-                ],
-                "events": [
-                    {
-                        "name": "deactivate",
-                        "conditions": [],
-                        "actions": [
-                            {
-                                "type": "LASER_DEACTIVATE",
-                                "laserGroup": "laser_group"
-                            }
-                        ]
-                    }
-                ]
-            }
+            "properties": {}
         }
     ]
 }

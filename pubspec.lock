@@ -135,13 +135,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  github:
-    dependency: "direct main"
-    description:
-      name: github
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "9.0.2"
   http:
     dependency: transitive
     description:
@@ -163,13 +156,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.4.0"
   lints:
     dependency: transitive
     description:
