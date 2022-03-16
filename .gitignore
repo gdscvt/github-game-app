@@ -1,4 +1,6 @@
 # Miscellaneous
+windows/*
+/web/
 *.class
 *.log
 *.pyc
