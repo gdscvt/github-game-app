@@ -1,8 +1,8 @@
-import 'package:github_game/entities/groups/laser_group.dart';
+import 'package:python_game/entities/groups/laser_group.dart';
 import 'package:tiled/tiled.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:github_game/entities/entity.dart';
-import 'package:github_game/level.dart';
+import 'package:python_game/entities/entity.dart';
+import 'package:python_game/level.dart';
 
 /// This class represents one laser tile. By default it will have collision.
 class Laser extends Entity {

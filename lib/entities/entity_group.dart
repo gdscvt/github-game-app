@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
-import 'package:github_game/entities/entity.dart';
-import 'package:github_game/entities/groups/computer_group.dart';
-import 'package:github_game/entities/groups/laser_group.dart';
+import 'package:python_game/entities/entity.dart';
+import 'package:python_game/entities/groups/computer_group.dart';
+import 'package:python_game/entities/groups/laser_group.dart';
 
 /// This is a group of entity components.
 abstract class EntityGroup<T extends Entity> extends Component {

@@ -1,5 +1,5 @@
-import 'package:github_game/entities/entity.dart';
-import 'package:github_game/level.dart';
+import 'package:python_game/entities/entity.dart';
+import 'package:python_game/level.dart';
 
 class Computer extends Entity {
   Computer(Position tilePosition) : super(tilePosition);

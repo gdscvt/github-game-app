@@ -1,10 +1,10 @@
 // ignore_for_file: constant_identifier_names, slash_for_doc_comments
 import 'dart:collection';
 import 'package:flame/components.dart';
-import 'package:github_game/level.dart';
-import 'package:github_game/mixins/has_map_ref.dart';
-import 'package:github_game/mixins/has_player_ref.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
+import 'package:python_game/level.dart';
+import 'package:python_game/mixins/has_map_ref.dart';
+import 'package:python_game/mixins/has_player_ref.dart';
+import 'package:python_game/mixins/has_level_ref.dart';
 
 /// These are the directions the player can face
 enum Direction { U, R, L, D }
@@ -36,7 +36,7 @@ class LocomotionModule extends Component
   /// The current movement state
   LocomotionState _locomotionState = LocomotionState.IDLE;
 
-  /// Returns whether or not the player's movement is within the distance 
+  /// Returns whether or not the player's movement is within the distance
   /// threshold to their target tile.
   bool get _withinQueueThreshold {
     return player.position

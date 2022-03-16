@@ -1,13 +1,13 @@
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
-import 'package:github_game/level.dart';
+import 'package:python_game/level.dart';
 import 'package:flame/input.dart';
 import 'dart:convert';
 
 /*
   This class represents the game with a specified level
 */
-class GithubGame extends FlameGame with HasKeyboardHandlerComponents {
+class PythonGame extends FlameGame with HasKeyboardHandlerComponents {
   // The directory holding animation assets
   static const String ANIMATION_FILE_PATH = "animations";
 

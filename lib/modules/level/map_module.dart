@@ -1,10 +1,10 @@
 import 'package:tiled/tiled.dart';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:github_game/github_game.dart';
-import 'package:github_game/level.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
-import 'package:github_game/modules/level/map/collision_module.dart';
+import 'package:python_game/python_game.dart';
+import 'package:python_game/level.dart';
+import 'package:python_game/mixins/has_level_ref.dart';
+import 'package:python_game/modules/level/map/collision_module.dart';
 
 /// This module is responsible for the tile map in a level.
 class MapModule extends Component with HasLevelRef {
@@ -49,7 +49,7 @@ class MapModule extends Component with HasLevelRef {
     await super.onLoad();
 
     // Load the map
-    _tiledComponent = await TiledComponent.load(_mapPath, GithubGame.TILE_SIZE);
+    _tiledComponent = await TiledComponent.load(_mapPath, PythonGame.TILE_SIZE);
 
     _map = _tiledComponent.tileMap.map;
 

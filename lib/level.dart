@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:github_game/entities/entity_group.dart';
-import 'package:github_game/github_game.dart';
-import 'package:github_game/modules/player_module.dart';
-import 'package:github_game/modules/level/map_module.dart';
-import 'package:github_game/modules/level/entity_manager_module.dart';
+import 'package:python_game/entities/entity_group.dart';
+import 'package:python_game/python_game.dart';
+import 'package:python_game/modules/player_module.dart';
+import 'package:python_game/modules/level/map_module.dart';
+import 'package:python_game/modules/level/entity_manager_module.dart';
 import 'package:quiver/core.dart';
 
 /// Represents a position as 2 integers. Useful for tile coordinates.
@@ -37,7 +37,7 @@ extension _LevelLoader on Level {
 }
 
 /// Represents a level with a player and tile map.
-class Level extends Component with HasGameRef<GithubGame> {
+class Level extends Component with HasGameRef<PythonGame> {
   /// Title of the level
   late final String _title;
 
@@ -99,6 +99,6 @@ class Level extends Component with HasGameRef<GithubGame> {
   /// Returns a vector converted from tile coordinates to canvas coordinates.
   Vector2 getCanvasPosition(Position tilePosition) {
     return Vector2(tilePosition.x.toDouble(), tilePosition.y.toDouble())
-      ..multiply(GithubGame.TILE_SIZE);
+      ..multiply(PythonGame.TILE_SIZE);
   }
 }

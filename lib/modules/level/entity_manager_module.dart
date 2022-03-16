@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
-import 'package:github_game/entities/entity_group.dart';
+import 'package:python_game/entities/entity_group.dart';
 
 /// This module is responsible for handling groups of entities in the level.
 class EntityManagerModule extends Component {

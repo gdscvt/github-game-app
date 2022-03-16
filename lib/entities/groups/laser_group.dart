@@ -1,6 +1,6 @@
-import 'package:github_game/entities/entity_group.dart';
-import 'package:github_game/entities/individuals/laser.dart';
-import 'package:github_game/level.dart';
+import 'package:python_game/entities/entity_group.dart';
+import 'package:python_game/entities/individuals/laser.dart';
+import 'package:python_game/level.dart';
 
 /// This class represents a group of lasers that can be activated and
 /// deactivated together.

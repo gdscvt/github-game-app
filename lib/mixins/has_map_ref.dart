@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
-import 'package:github_game/modules/level/map_module.dart';
-import 'package:github_game/level.dart';
+import 'package:python_game/mixins/has_level_ref.dart';
+import 'package:python_game/modules/level/map_module.dart';
+import 'package:python_game/level.dart';
 
 mixin HasMapRef on Component {
   MapModule? _mapRef;

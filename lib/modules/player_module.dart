@@ -1,12 +1,12 @@
 import 'package:flame/components.dart';
-import 'package:github_game/entities/entity_group.dart';
-import 'package:github_game/github_game.dart';
-import 'package:github_game/level.dart';
-import 'package:github_game/entities/entity.dart';
-import 'package:github_game/mixins/has_level_ref.dart';
-import 'package:github_game/modules/player/animation_module.dart';
-import 'package:github_game/modules/player/input_module.dart';
-import 'package:github_game/modules/player/locomotion_module.dart';
+import 'package:python_game/entities/entity_group.dart';
+import 'package:python_game/python_game.dart';
+import 'package:python_game/level.dart';
+import 'package:python_game/entities/entity.dart';
+import 'package:python_game/mixins/has_level_ref.dart';
+import 'package:python_game/modules/player/animation_module.dart';
+import 'package:python_game/modules/player/input_module.dart';
+import 'package:python_game/modules/player/locomotion_module.dart';
 
 /// Represents a player in a level.
 class PlayerModule extends PositionComponent with HasLevelRef {
@@ -33,7 +33,7 @@ class PlayerModule extends PositionComponent with HasLevelRef {
     await super.onLoad();
 
     // Set the sprite size
-    size = GithubGame.TILE_SIZE;
+    size = PythonGame.TILE_SIZE;
 
     // Set the priority (z-axis) of the sprite
     changePriorityWithoutResorting(1);

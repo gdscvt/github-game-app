@@ -3,8 +3,8 @@ import 'dart:collection';
 import 'package:flutter/services.dart';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
-import 'package:github_game/mixins/has_player_ref.dart';
-import 'package:github_game/modules/player/locomotion_module.dart';
+import 'package:python_game/mixins/has_player_ref.dart';
+import 'package:python_game/modules/player/locomotion_module.dart';
 
 /// These are all of the input actions that need to be handled.
 enum InputAction { UP, RIGHT, LEFT, DOWN, INTERACT }

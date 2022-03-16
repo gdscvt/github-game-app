@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:github_game/level.dart';
+import 'package:python_game/level.dart';
 
 mixin HasLevelRef on Component {
   Level? _levelRef;

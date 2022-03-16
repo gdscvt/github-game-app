@@ -2,8 +2,8 @@
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:tiled/tiled.dart';
 import 'package:flame/components.dart';
-import 'package:github_game/level.dart';
-import 'package:github_game/mixins/has_map_ref.dart';
+import 'package:python_game/level.dart';
+import 'package:python_game/mixins/has_map_ref.dart';
 
 /// This module queries the collision channel in the level file. In order for
 /// this to function properly, the tile layer id's need to be in order starting

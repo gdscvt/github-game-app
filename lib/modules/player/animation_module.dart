@@ -2,8 +2,8 @@
 import 'dart:collection';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
-import 'package:github_game/github_game.dart';
-import 'package:github_game/mixins/has_player_ref.dart';
+import 'package:python_game/python_game.dart';
+import 'package:python_game/mixins/has_player_ref.dart';
 
 /// Each state corresponds to an animation.
 enum AnimationState {
@@ -20,7 +20,7 @@ enum AnimationState {
 extension AnimationData on AnimationState {
   /// Path containing player animations
   static const String PLAYER_FILE_PATH =
-      "${GithubGame.ANIMATION_FILE_PATH}/player";
+      "${PythonGame.ANIMATION_FILE_PATH}/player";
 
   /// Length of time each frame in an animation lasts
   static const double FRAME_LENGTH = 0.15;
@@ -49,7 +49,7 @@ extension AnimationData on AnimationState {
     return SpriteAnimationData.sequenced(
         amount: _frameCount,
         stepTime: FRAME_LENGTH,
-        textureSize: GithubGame.TILE_SIZE);
+        textureSize: PythonGame.TILE_SIZE);
   }
 }
 
@@ -60,7 +60,7 @@ class AnimationModule extends SpriteAnimationGroupComponent with HasPlayerRef {
     await super.onLoad();
 
     // Set the sprite size
-    size = GithubGame.TILE_SIZE;
+    size = PythonGame.TILE_SIZE;
 
     // Load the animation map
     await _loadAnimations();

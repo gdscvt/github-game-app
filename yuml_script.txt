@@ -1,8 +1,8 @@
 // Sweet Class Diagram
 // -------------------
-[FlameGame]^[GithubGame]
+[FlameGame]^[PythonGame]
 
-[GithubGame|+onLoad(): void]++1-1>[Level]
+[PythonGame|+onLoad(): void]++1-1>[Level]
 
 [Position|+x: int; +y: int]
 
