@@ -65,6 +65,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/assets/levels/level_one/level.json
+    - assets/assets/images/tilesets/SF_Inside_B.png
+    - assets/assets/images/tilesets/WallsAndFloors.png
     - assets/assets/tiles/level_one.tmx
     - assets/assets/images/animations/player/player_idle_u.png
     - assets/assets/images/animations/player/player_idle_r.png
@@ -74,6 +76,9 @@ flutter:
     - assets/assets/images/animations/player/player_walking_r.png
     - assets/assets/images/animations/player/player_walking_l.png
     - assets/assets/images/animations/player/player_walking_d.png
+    - assets/assets/images/animations/laser/laser_active.png
+    - assets/assets/images/animations/laser/laser_flicker.png
+    - assets/assets/images/animations/laser/laser_inactive.png
     - assets/assets/images/tilesets/1_Room_Builder_Office/Room_Builder_Office_48x48.png
     - assets/assets/images/tilesets/2_Modern_Office_Black_Shadow/Modern_Office_Black_Shadow_48x48.png
     - assets/assets/images/tilesets/SF_Inside_B.png

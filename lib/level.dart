@@ -78,15 +78,16 @@ class Level extends Component with HasGameRef<GithubGame> {
     await super.onLoad();
 
     await add(_mapModule);
-    add(_entityManagerModule);
-    add(_player = PlayerModule());
+    await add(_entityManagerModule);
+    await add(_player = PlayerModule());
 
-    // Teleport the player to their spawn location
-    teleport(_player.position, _spawnLocation);
+      // Teleport the player to their spawn location
+      teleport(_player.position, _spawnLocation);
 
-    // Make the camera follow the player
-    gameRef.camera.followComponent(_player, relativeOffset: Anchor.center);
-    gameRef.camera.zoom = 0.8;
+      // Make the camera follow the player
+      gameRef.camera.followComponent(_player, relativeOffset: Anchor.center);
+      gameRef.camera.zoom = 0.8;
+    //}
   }
 
   /// Used to teleport a vector position to a given tile position.
@@ -101,4 +102,7 @@ class Level extends Component with HasGameRef<GithubGame> {
     return Vector2(tilePosition.x.toDouble(), tilePosition.y.toDouble())
       ..multiply(GithubGame.TILE_SIZE);
   }
+
+
+
 }

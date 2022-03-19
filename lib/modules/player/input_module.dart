@@ -26,9 +26,9 @@ class InputModule extends Component with KeyboardHandler, HasPlayerRef {
 
   @override
   bool onKeyEvent(
-    RawKeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
+      RawKeyEvent event,
+      Set<LogicalKeyboardKey> keysPressed,
+      ) {
     for (LogicalKeyboardKey key in keysPressed) {
       _handleInput(_keyMap[key]);
     }
@@ -50,7 +50,7 @@ class InputModule extends Component with KeyboardHandler, HasPlayerRef {
   /// Responds accordingly to the given input action.
   void _handleInput(InputAction? action) {
     switch (action) {
-      // Handle each input action
+    // Handle each input action
       case InputAction.DOWN:
         player.locomotionModule.move(Direction.D);
         break;

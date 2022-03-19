@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names, slash_for_doc_comments
 import 'dart:collection';
 import 'package:flame/components.dart';
+import 'package:github_game/github_game.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/mixins/has_map_ref.dart';
 import 'package:github_game/mixins/has_player_ref.dart';
@@ -36,11 +37,13 @@ class LocomotionModule extends Component
   /// The current movement state
   LocomotionState _locomotionState = LocomotionState.IDLE;
 
-  /// Returns whether or not the player's movement is within the distance 
-  /// threshold to their target tile.
+  /**
+   * Returns whether or not the player's movement is within the distance
+   * threshold to their target tile.
+   */
   bool get _withinQueueThreshold {
     return player.position
-            .distanceTo(level.getCanvasPosition(_targetPosition)) <=
+        .distanceTo(level.getCanvasPosition(_targetPosition)) <=
         MOVEMENT_QUEUE_THRESHOLD;
   }
 
@@ -56,7 +59,7 @@ class LocomotionModule extends Component
   /// Gets the tile position directly in front of the player
   Position get forwardTile {
     final Vector2 forward =
-        Vector2(_tilePosition.x.toDouble(), _tilePosition.y.toDouble());
+    Vector2(_tilePosition.x.toDouble(), _tilePosition.y.toDouble());
 
     late final Vector2 move;
 
@@ -134,9 +137,12 @@ class LocomotionModule extends Component
     _movements.add(dir);
   }
 
-  /// This function moves the player towards their target if they are walking.
-  /// If the player is at their destination, they will enter their idle state or
-  /// begin targeting their next movement direction.
+
+  /**
+   * This function moves the player towards their target if they are walking.
+   * If the player is at their destination, they will enter their idle state or
+   * begin targeting their next movement direction.
+   */
   void _updatePosition(double dt) {
     // If there is a movement queue'd
     if (_movements.isNotEmpty) {
@@ -148,7 +154,7 @@ class LocomotionModule extends Component
 
         // Get the distance between the player and their target tile
         final Vector2 distanceToTarget =
-            level.getCanvasPosition(_targetPosition)..sub(currentPosition);
+        level.getCanvasPosition(_targetPosition)..sub(currentPosition);
 
         // Make a movement vector
         final Vector2 movement = distanceToTarget.normalized()
@@ -201,7 +207,6 @@ class LocomotionModule extends Component
         _targetPosition = forward;
       }
     }
-
     // Return true if there was no collision.
     return true;
   }
