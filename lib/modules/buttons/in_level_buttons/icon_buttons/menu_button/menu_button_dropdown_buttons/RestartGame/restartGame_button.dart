@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:github_game/level.dart';
+import 'package:flutter/services.dart';
 import 'package:github_game/main.dart';
+import '../../../../../../../github_game.dart';
 import '../../../model/dropdown_button.dart';
 import 'restartGame_popUp.dart';
 /// RestartGameButton class -Justin
@@ -31,7 +34,8 @@ class RestartGameButton extends DropDownButton{
       print("Restart Game Button Tapped");
       !contains(data) ? add(data) : remove(data);
       /// Changes level to main menu
-      CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+      String json = getMainMenu() as String;
+      CurrentLevel.game.newLevel(jsonDecode(json));
 
       return true;
     }catch(err){
@@ -49,6 +53,8 @@ class RestartGameButton extends DropDownButton{
       return false;
     }
   }
-
+  Future<String> getMainMenu() async{
+    return await rootBundle.loadString("$GithubGame.LEVEL_PATH/level.json");
+  }
 
 }

@@ -1,0 +1,64 @@
+{
+  "id": "main_menu",
+  "mapPath": "main_menu.tmx",
+  "spawnLocation": {
+    "x": 5,
+    "y": 5
+  },
+  "entityGroups": [
+    {
+      "id": "laser_group",
+      "type": "LASER",
+      "entities": [
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 7,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 1
+        },
+        {
+          "x": 6,
+          "y": 1
+        },
+        {
+          "x": 7,
+          "y": 1
+        },
+        {
+          "x": 8,
+          "y": 1
+        }
+      ],
+      "properties": {}
+    },
+    {
+      "id": "computer_group",
+      "type": "COMPUTER",
+      "entities": [
+        {
+          "x": 6,
+          "y": 8
+        },
+        {
+          "x": 9,
+          "y": 3
+        }
+      ],
+      "properties": {}
+    }
+  ]
+}

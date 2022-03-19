@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:github_game/github_game.dart';
 
 import 'level.dart';
@@ -34,9 +36,10 @@ abstract class CurrentLevel extends FlameGame{
                     /// Padding value should be relative to screenHeight
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                        onPressed: (){
+                        onPressed: () async{
                       try {
-                        CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                        String json = await rootBundle.loadString("assets/levels/main_menu/main_menu.json");
+                        CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
                       }catch(err){
                         print(err);
                       }
@@ -52,9 +55,10 @@ abstract class CurrentLevel extends FlameGame{
                     /// Padding value should be relative to screenHeight
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      onPressed: (){
+                      onPressed: () async{
                         try {
-                          CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                          String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
+                          CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
                         }catch(err){
                           print(err);
                         }
@@ -70,9 +74,10 @@ abstract class CurrentLevel extends FlameGame{
                     /// Padding value should be relative to screenHeight
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      onPressed: (){
+                      onPressed: () async{
                         try {
-                          CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                          String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
+                          CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
                         }catch(err){
                           print(err);
                         }
@@ -88,9 +93,10 @@ abstract class CurrentLevel extends FlameGame{
                     /// Padding value should be relative to screenHeight
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      onPressed: (){
+                      onPressed: () async{
                         try {
-                          CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                          String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
+                          CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
                         }catch(err){
                           print(err);
                         }

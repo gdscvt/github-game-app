@@ -60,6 +60,5 @@ class MapModule extends Component with HasLevelRef {
 
     // Add the collision and entity manager modules
     await add(_collisionModule = CollisionModule());
-    await add(_entityManagerModule = EntityManagerModule());
   }
 }

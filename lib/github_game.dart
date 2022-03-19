@@ -17,7 +17,7 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   static const String ANIMATION_FILE_PATH = "animations";
 
   static const String LEVEL_DIRECTORY_PATH = "assets/levels";
-  static const String LEVEL_PATH = "$LEVEL_DIRECTORY_PATH/level_one";
+  static const String LEVEL_PATH = "$LEVEL_DIRECTORY_PATH";
   
   // Directory for in_level_buttons sprites -Justin
   static const String BUTTON_SPRITES_FILE_PATH = "button_sprites";
@@ -70,10 +70,8 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    String json = await rootBundle.loadString("$LEVEL_PATH/level.json");
-    add(level = Level.fromJson(jsonDecode(json)));
-
-    await add(level = Level(this._mapPath, Position(5, 5)));
+    String json = await rootBundle.loadString("$LEVEL_PATH/level_one/level.json");
+    await add(level = Level.fromJson(jsonDecode(json)));
 
     /// First value is how many tiles fill the map in width. Second value
     /// is the width of a single tile. Multiplying them gets us the screenWidth. -Justin
