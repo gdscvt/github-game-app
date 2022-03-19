@@ -4,29 +4,104 @@ import 'package:flutter/material.dart';
 import 'package:github_game/github_game.dart';
 
 import 'level.dart';
+import 'modules/size_config.dart';
 
 
 abstract class CurrentLevel extends FlameGame{
   /// Declares game
   static GithubGame game = GithubGame('level_one.tmx');
   /// Pause Menu overlay. Needs to look nicer but is setup
-  static Widget _pauseMenu(BuildContext buildContext, Game game){
+  static Widget _pauseMenu(BuildContext context, Game game){
+    /// SizeConfig is initialized based on screen
+    SizeConfig().init(context);
     return Center(
+        /// Builds blue menu box attached to AboutGame for now
         child: Container(
-            width: 50,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.red,
+            width: SizeConfig.screenWidth!*(1/4),
+            height: SizeConfig.screenHeight!*(1/4),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFF2f62ba), Color(0xFF182c4f)])
             ),
+            /// Wrapped in a column, creates 4 Textbuttons named "Change Level".
+            /// To be changed.
             child: Column(
                 children: [
-                  FlatButton(onPressed: (){
-                    try {
-                      CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
-                    }catch(err){
-                      print(err);
-                    }
-                  }, child: const Text('Change tmx'))
+                  Padding(
+                    /// Padding value should be relative to screenHeight
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                        onPressed: (){
+                      try {
+                        CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                      }catch(err){
+                        print(err);
+                      }
+                    }, child: const Text('Change Level',
+                    style: const TextStyle(color: Color(0xFFFFAF3C)),),
+                    style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.amber,
+                      primary: Color(0xFF571370),
+                      elevation: 50.0,
+                    ),),
+                  ),
+                  Padding(
+                    /// Padding value should be relative to screenHeight
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      onPressed: (){
+                        try {
+                          CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                        }catch(err){
+                          print(err);
+                        }
+                      }, child: const Text('Change Level',
+                      style: const TextStyle(color: Color(0xFFFFAF3C)),),
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.amber,
+                        primary: Color(0xFF571370),
+                        elevation: 50.0,
+                      ),),
+                  ),
+                  Padding(
+                    /// Padding value should be relative to screenHeight
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      onPressed: (){
+                        try {
+                          CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                        }catch(err){
+                          print(err);
+                        }
+                      }, child: const Text('Change Level',
+                      style: const TextStyle(color: Color(0xFFFFAF3C)),),
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.amber,
+                        primary: Color(0xFF571370),
+                        elevation: 50.0,
+                      ),),
+                  ),
+                  Padding(
+                    /// Padding value should be relative to screenHeight
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      onPressed: (){
+                        try {
+                          CurrentLevel.game.newLevel(Level('main_menu.tmx', Position(5,5)));
+                        }catch(err){
+                          print(err);
+                        }
+                      }, child: const Text('Change Level',
+                      style: const TextStyle(color: Color(0xFFFFAF3C)),),
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.amber,
+                        primary: Color(0xFF571370),
+                        elevation: 50.0,
+                      ),),
+                  ),
                 ]
             )
         )
@@ -41,7 +116,10 @@ abstract class CurrentLevel extends FlameGame{
   },);
 }
 void main() {
-  runApp(CurrentLevel.gameWidget);
+  //runApp(CurrentLevel.gameWidget);
+  runApp(MaterialApp(
+    home: CurrentLevel.gameWidget
+  ));
 }
 
 /*

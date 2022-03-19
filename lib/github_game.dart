@@ -37,6 +37,7 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
     _mapPath = newPath;
   }
 
+  //Instantiates overlay to handle adding menu to screen
   static ActiveOverlaysNotifier overlay = ActiveOverlaysNotifier();
 
   //Instantiates Menu Button and associated size -Justin
