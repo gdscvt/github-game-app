@@ -1,12 +1,13 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/services.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/input.dart';
+import 'dart:convert';
 import 'package:github_game/modules/buttons/main_menu_buttons/start_game/start_game_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/menu_button/menu_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/help_button/help_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/settings_button/settings_button.dart';
-
 
 /*
   This class represents the game with a specified level. Added HasTappables -Justin
@@ -15,6 +16,9 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   // The directory holding animation assets
   static const String ANIMATION_FILE_PATH = "animations";
 
+  static const String LEVEL_DIRECTORY_PATH = "assets/levels";
+  static const String LEVEL_PATH = "$LEVEL_DIRECTORY_PATH/level_one";
+  
   // Directory for in_level_buttons sprites -Justin
   static const String BUTTON_SPRITES_FILE_PATH = "button_sprites";
 
@@ -66,7 +70,8 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
+    String json = await rootBundle.loadString("$LEVEL_PATH/level.json");
+    add(level = Level.fromJson(jsonDecode(json)));
 
     await add(level = Level(this._mapPath, Position(5, 5)));
 

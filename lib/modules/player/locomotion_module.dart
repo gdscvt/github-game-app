@@ -137,6 +137,7 @@ class LocomotionModule extends Component
     _movements.add(dir);
   }
 
+
   /**
    * This function moves the player towards their target if they are walking.
    * If the player is at their destination, they will enter their idle state or

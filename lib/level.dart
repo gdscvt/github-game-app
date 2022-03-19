@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flame/particles.dart';
+import 'package:github_game/entities/entity_group.dart';
 import 'package:github_game/github_game.dart';
-import 'package:github_game/main.dart';
 import 'package:github_game/modules/player_module.dart';
 import 'package:github_game/modules/level/map_module.dart';
+import 'package:github_game/modules/level/entity_manager_module.dart';
 import 'package:quiver/core.dart';
 
 /// Represents a position as 2 integers. Useful for tile coordinates.
@@ -18,36 +18,57 @@ class Position {
   String toString() => "$x, $y";
 }
 
+/// This is used to load levels from json files.
+extension _LevelLoader on Level {
+  /// This function loads the data into the level from the json file.
+  void _loadJson(Map<String, dynamic> json) {
+    String id = json["id"];
+    String mapPath = json["mapPath"];
+    Map<String, dynamic> spawnPosMap = json["spawnLocation"];
+    List<dynamic> entityGroups = json["entityGroups"];
+
+    _id = id;
+    _mapModule = MapModule.fromFile(mapPath);
+    _spawnLocation = Position(spawnPosMap["x"], spawnPosMap["y"]);
+
+    _entityManagerModule = EntityManagerModule(
+        entityGroups.map((groupJson) => EntityGroup.fromJson(groupJson)));
+  }
+}
+
 /// Represents a level with a player and tile map.
 class Level extends Component with HasGameRef<GithubGame> {
+  /// Title of the level
+  late final String _id;
+
   /// Reference to the player
   late final PlayerModule _player;
 
   /// Loads and manages the tile map
   late final MapModule _mapModule;
 
-  /// Path to the map file
-  late String _mapPath;
+  /// Loads and manages the entities
+  late final EntityManagerModule _entityManagerModule;
 
   /// Player spawn location
   late final Position _spawnLocation;
 
-  /// Old map Path
-  late String oldMapPath;
-
-  /// Initializes the level with the map path and spawn location.
-  Level(this._mapPath, this._spawnLocation);
-  set mapPath(String newPath){
-    _mapPath = newPath;
+  /// Initializes the level.
+  Level.fromJson(Map<String, dynamic> json) {
+    _loadJson(json);
   }
+
+  /// Returns a reference to the title string.
+  String get id => _id;
+
   /// Returns a reference to the player.
   PlayerModule get player => _player;
 
   /// Returns a reference to the map module.
   MapModule get mapModule => _mapModule;
 
-  /// Returns the path to the map file.
-  String get mapPath => _mapPath;
+  /// Returns the entity manager module which handles all entities in the level.
+  EntityManagerModule get entityManagerModule => _entityManagerModule;
 
   /// Returns the player spawn location.
   Position get spawnLocation => _spawnLocation;
@@ -56,10 +77,9 @@ class Level extends Component with HasGameRef<GithubGame> {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    await add(_mapModule = MapModule());
-    /// If not main menu(Position for main menu set to (-1, -1))
-    // if(this._spawnLocation.x != -1 && this._spawnLocation.y != -1) {
-      await add(_player = PlayerModule());
+    await add(_mapModule);
+    await add(_entityManagerModule);
+    await add(_player = PlayerModule());
 
       // Teleport the player to their spawn location
       teleport(_player.position, _spawnLocation);

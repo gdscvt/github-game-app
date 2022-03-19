@@ -5,7 +5,6 @@ import 'package:github_game/github_game.dart';
 import 'package:github_game/level.dart';
 import 'package:github_game/mixins/has_level_ref.dart';
 import 'package:github_game/modules/level/map/collision_module.dart';
-import 'package:github_game/modules/level/map/entity_manager_module.dart';
 
 /// This module is responsible for the tile map in a level.
 class MapModule extends Component with HasLevelRef {
@@ -21,11 +20,11 @@ class MapModule extends Component with HasLevelRef {
   /// Loads and manages collision data
   late final CollisionModule _collisionModule;
 
-  /// Loads and manages the entities
-  late final EntityManagerModule _entityManagerModule;
-
   /// The dimensions of the map in tile coordinates
   late final Position _dimensions;
+
+  /// The path to this map file
+  late final String _mapPath;
 
   /// Returns the tiled map component.
   TiledComponent get tiledComponent => _tiledComponent;
@@ -39,19 +38,18 @@ class MapModule extends Component with HasLevelRef {
   /// Returns the collision module which is responsible for all collision data.
   CollisionModule get collisionModule => _collisionModule;
 
-  /// Returns the entity manager module which handles all entities in the level.
-  EntityManagerModule get entityManagerModule => _entityManagerModule;
-
   /// Returns the dimensions of this level.
   Position get dimensions => _dimensions;
+
+  /// This constructor initializes the object with a given file path.
+  MapModule.fromFile(this._mapPath);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
     // Load the map
-    _tiledComponent =
-        await TiledComponent.load(level.mapPath, GithubGame.TILE_SIZE);
+    _tiledComponent = await TiledComponent.load(_mapPath, GithubGame.TILE_SIZE);
 
     _map = _tiledComponent.tileMap.map;
 

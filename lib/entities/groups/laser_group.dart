@@ -5,17 +5,16 @@ import 'package:github_game/level.dart';
 /// This class represents a group of lasers that can be activated and
 /// deactivated together.
 class LaserGroup extends EntityGroup<Laser> {
-  @override
-  void loadEntities() {
-    // ** DEBUGGING CODE **
-    entities.add(Laser(Position(5, 0)));
-    entities.add(Laser(Position(6, 0)));
-    entities.add(Laser(Position(7, 0)));
-    entities.add(Laser(Position(8, 0)));
-    entities.add(Laser(Position(5, 1)));
-    entities.add(Laser(Position(6, 1)));
-    entities.add(Laser(Position(7, 1)));
-    entities.add(Laser(Position(8, 1)));
+  /// This constructor parses the json data and creates the laser group.
+  LaserGroup(
+      String id, List<dynamic> entityJsons, Map<String, dynamic>? properties)
+      : super(id, entityJsons, properties) {
+    entities.addAll(
+        entityJsons.map((json) => Laser(Position(json["x"], json["y"]))));
+
+    if (properties?["active"] != null && !properties?["active"]) {
+      deactivate();
+    }
   }
 
   /// Activate all lasers in the group.

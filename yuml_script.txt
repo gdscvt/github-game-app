@@ -6,7 +6,7 @@
 
 [Position|+x: int; +y: int]
 
-[<<Component>>;Level|+mapModule: MapModule;+player: PlayerModule;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
+[<<Component>>;Level|+id: String;+mapModule: MapModule;+player: PlayerModule;+spawnLocation: Position|+onLoad(): void;+teleport(Vector2
 Position): void;+getCanvasPosition(Position): Vector2]
 
 [Level]++1-1>[PlayerModule]
@@ -22,21 +22,21 @@ Position): void;+getCanvasPosition(Position): Vector2]
 [<<Component>>;CollisionModule|+onLoad(): void;+getCollision(Position): bool;+setCollision(Position
 bool): void]
 
-[MapModule]++1-1>[EntityManagerModule]
+[Level]++1-1>[EntityManagerModule]
 
-[<<Component>>;EntityManagerModule|+groups: HashSet|+onLoad(): void;-loadGroups(): void]
+[<<Component>>;EntityManagerModule|+groups: HashMap|+onLoad(): void]
 
 [EntityManagerModule]++1-*>[EntityGroup]
 
-[<<Component>>;EntityGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void]
+[<<Component>>;EntityGroup|+id: String;+entities: HashSet|+fromJson(): EntityGroup;+onLoad(): void]
 
 [EntityGroup]++1-*[Entity]
 [EntityGroup]^[LaserGroup]
 [EntityGroup]^[ComputerGroup]
 
-[<<EntityGroup>>;LaserGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void;+activate(): void;+deactivate(): void]
+[<<EntityGroup>>;LaserGroup|+entities: HashSet|+activate(): void;+deactivate(): void]
 
-[<<EntityGroup>>;ComputerGroup|+entities: HashSet|+onLoad(): void;+loadEntities(): void]
+[<<EntityGroup>>;ComputerGroup|+entities: HashSet]
 
 [LaserGroup]++1-*>[Laser]
 [ComputerGroup]++1-*>[Computer]
@@ -68,6 +68,8 @@ bool): void]
 [<<enum>>;AnimationState|IDLE_U;IDLE_R;IDLE_L;IDLE_D;WALKING_U;WALKING_R;WALKING_L;WALKING_D]
 
 [AnimationState]++1-1>[<<extension>>;AnimationData|+spritePath: String;+animationData: SpriteAnimationData;-frameCount: int]
+
+[Level]++1-1>[<<extension>>;LevelLoader|-loadJson(Map): void]
 
 [PlayerModule]++1-1>[InputModule]
 
