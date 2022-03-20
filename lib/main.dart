@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:github_game/github_game.dart';
-
 import 'level.dart';
 import 'modules/size_config.dart';
 
@@ -17,107 +16,137 @@ abstract class CurrentLevel extends FlameGame{
     /// SizeConfig is initialized based on screen
     SizeConfig().init(context);
     return Center(
-        /// Builds blue menu box attached to AboutGame for now
-        child: Container(
-            width: SizeConfig.screenWidth!*(1/4),
-            height: SizeConfig.screenHeight!*(1/4),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFF2f62ba), Color(0xFF182c4f)])
-            ),
-            /// Wrapped in a column, creates 4 Textbuttons named "Change Level".
-            /// To be changed.
-            child: Column(
-                children: [
-                  Padding(
-                    /// Padding value should be relative to screenHeight
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                        onPressed: () async{
-                      try {
-                        String json = await rootBundle.loadString("assets/levels/main_menu/main_menu.json");
-                        CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
-                      }catch(err){
-                        print(err);
-                      }
-                    }, child: const Text('Change Level',
-                    style: const TextStyle(color: Color(0xFFFFAF3C)),),
-                    style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.amber,
-                      primary: Color(0xFF571370),
-                      elevation: 50.0,
-                    ),),
-                  ),
-                  Padding(
-                    /// Padding value should be relative to screenHeight
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      onPressed: () async{
-                        try {
-                          String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
-                          CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
-                        }catch(err){
-                          print(err);
-                        }
-                      }, child: const Text('Change Level',
-                      style: const TextStyle(color: Color(0xFFFFAF3C)),),
-                      style: ElevatedButton.styleFrom(
-                        shadowColor: Colors.amber,
-                        primary: Color(0xFF571370),
-                        elevation: 50.0,
-                      ),),
-                  ),
-                  Padding(
-                    /// Padding value should be relative to screenHeight
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      onPressed: () async{
-                        try {
-                          String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
-                          CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
-                        }catch(err){
-                          print(err);
-                        }
-                      }, child: const Text('Change Level',
-                      style: const TextStyle(color: Color(0xFFFFAF3C)),),
-                      style: ElevatedButton.styleFrom(
-                        shadowColor: Colors.amber,
-                        primary: Color(0xFF571370),
-                        elevation: 50.0,
-                      ),),
-                  ),
-                  Padding(
-                    /// Padding value should be relative to screenHeight
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      onPressed: () async{
-                        try {
-                          String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
-                          CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
-                        }catch(err){
-                          print(err);
-                        }
-                      }, child: const Text('Change Level',
-                      style: const TextStyle(color: Color(0xFFFFAF3C)),),
-                      style: ElevatedButton.styleFrom(
-                        shadowColor: Colors.amber,
-                        primary: Color(0xFF571370),
-                        elevation: 50.0,
-                      ),),
-                  ),
-                ]
-            )
-        )
+      child: Container(
+        width: SizeConfig.screenWidth!*(1/3.5),
+        height: SizeConfig.screenHeight!*(1/3.5),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+                return Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Color(0xFF2f62ba), Color(0xFF182c4f)])
+                    ),
+                    /// Wrapped in a column, creates 4 Textbuttons named "Change Level".
+                    /// To be changed.
+                    child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                            width: constraints.maxWidth*(1/3),
+                            height: constraints.maxHeight*(1/4.8),
+                            margin: EdgeInsets.all(constraints!.maxHeight*(1/30)),
+                            padding: EdgeInsets.symmetric(vertical: constraints.maxHeight*(1/300),horizontal: constraints.maxWidth*(1/300)),
+                              child: TextButton(
+                                  onPressed: () async{
+                                try {
+                                  String json = await rootBundle.loadString("assets/levels/main_menu/main_menu.json");
+                                  CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
+                                }catch(err){
+                                  print(err);
+                                }
+                              }, child: Text('Restart Level',
+                              style: TextStyle(color: Color(0xFFFFAF3C),
+                              fontSize: constraints.maxHeight*(1/12.5)),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.amber,
+                                primary: Color(0xFF571370),
+                                elevation: 50.0,
+                              ),),
+
+                          ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: constraints.maxWidth*(1/3),
+                              height: constraints.maxHeight*(1/4.8),
+                              margin: EdgeInsets.all(constraints!.maxHeight*(1/30)),
+                              padding: EdgeInsets.symmetric(vertical: constraints.maxHeight*(1/300),horizontal: constraints.maxWidth*(1/300)),
+                              child: TextButton(
+                                  onPressed: () async{
+                                    try {
+                                      String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
+                                      CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
+                                    }catch(err){
+                                      print(err);
+                                    }
+                                  }, child: Text('Go To Previous Level',
+                                  style: TextStyle(color: Color(0xFFFFAF3C),
+                                  fontSize: constraints.maxHeight*(1/12.5)),),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.amber,
+                                    primary: Color(0xFF571370),
+                                    elevation: 50.0,
+                                  ),),
+
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: constraints.maxWidth*(1/3),
+                              height: constraints.maxHeight*(1/4.8),
+                              margin: EdgeInsets.all(constraints!.maxHeight*(1/30)),
+                              padding: EdgeInsets.symmetric(vertical: constraints.maxHeight*(1/300),horizontal: constraints.maxWidth*(1/300)),
+                              child: TextButton(
+                                  onPressed: () async{
+                                    try {
+                                      String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
+                                      CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
+                                    }catch(err){
+                                      print(err);
+                                    }
+                                  }, child: Text('Restart Game',
+                                  style: TextStyle(color: Color(0xFFFFAF3C),
+                                  fontSize: constraints.maxHeight*(1/12.5)),),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.amber,
+                                    primary: Color(0xFF571370),
+                                    elevation: 50.0,
+                                  ),),
+
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: constraints.maxWidth*(1/3),
+                              height: constraints.maxHeight*(1/4.8),
+                              margin: EdgeInsets.all(constraints!.maxHeight*(1/30)),
+                              padding: EdgeInsets.symmetric(vertical: constraints.maxHeight*(1/300),horizontal: constraints.maxWidth*(1/300)),
+                              child: TextButton(
+                                  onPressed: () async{
+                                    try {
+                                      String json = await rootBundle.loadString("$GithubGame.LEVEL_PATH/main_menu/main_menu.json");
+                                      CurrentLevel.game.newLevel(Level.fromJson(jsonDecode(json)));
+                                    }catch(err){
+                                      print(err);
+                                    }
+                                  }, child: Text('User Speed',
+                                  style: TextStyle(color: Color(0xFFFFAF3C),
+                                  fontSize: constraints.maxHeight*(1/12.5)),),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.amber,
+                                    primary: Color(0xFF571370),
+                                    elevation: 50.0,
+                                  ),),
+                            ),
+                          ),
+                        ]
+                    )
+
+            );
+          }
+        ),
+      ),
     );
   }
   /// Declares GameWidget
   static GameWidget gameWidget = GameWidget(game: game,
   /// The map(String, Widget Function) for overlay map
     /// See the aboutGame_button.dart file to understand how to add overlay to screen
-  overlayBuilderMap: const{
+  overlayBuilderMap: {
     'PauseMenu': _pauseMenu,
   },);
 }

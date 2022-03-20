@@ -4,10 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:github_game/level.dart';
 import 'package:flame/input.dart';
 import 'dart:convert';
-import 'package:github_game/modules/buttons/main_menu_buttons/start_game/start_game_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/menu_button/menu_button.dart';
 import 'modules/buttons/in_level_buttons/icon_buttons/help_button/help_button.dart';
-import 'modules/buttons/in_level_buttons/icon_buttons/settings_button/settings_button.dart';
 
 /*
   This class represents the game with a specified level. Added HasTappables -Justin
@@ -52,12 +50,6 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
   static HelpButton helpButton = HelpButton();
   static final Vector2 HELPBUTTON_SIZE = Vector2.all(BUTTON_SIZE);
 
-  //Instantiates Help Button and associated size -Justin
-  static SettingsButton settingsButton = SettingsButton();
-  static final Vector2 SETTINGSBUTTON_SIZE = Vector2.all(BUTTON_SIZE);
-
-  //Instantiates Start Game Button
-  static final startGameButton = StartGameButton();
   //Instantiates screenWidth and screenHeight of game dimensions
   static int screenWidth = 0;
   static int screenHeight = 0;
@@ -94,32 +86,16 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
       helpButton
         ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/help_grey.png')
         ..size = HELPBUTTON_SIZE
-        ..position = Vector2((1/1.09)*canvasSize.x, (1/150)*canvasSize.y)
-        ..positionType = PositionType.widget;
-      settingsButton
-        ..sprite = await loadSprite('$BUTTON_SPRITES_FILE_PATH/settings_grey.png')
-        ..size = SETTINGSBUTTON_SIZE
         ..position = Vector2((1/1.04)*canvasSize.x, (1/150)*canvasSize.y)
         ..positionType = PositionType.widget;
       /// Sets position of dropdown buttons. screenWidth and screenHeight needed for
       /// the dropdown buttons constructor
-      menuButton.setDropDownButtons(
-          screenWidth: canvasSize.x.toInt(), screenHeight: canvasSize.y.toInt());
       helpButton.setDropDownButtons(
-          screenWidth: canvasSize.x.toInt(), screenHeight: canvasSize.y.toInt());
-      settingsButton.setDropDownButtons(
           screenWidth: canvasSize.x.toInt(), screenHeight: canvasSize.y.toInt());
 
       /// Await needed to load one component at a time otherwise they
       /// won't load on same screen. -Justin
       await addInLevelButtons();
-    }
-    /// Not needed unless we keep main menu level
-    else{
-      startGameButton
-      ..position = Vector2((1/2)*screenWidth, (1/2)*screenHeight);
-      await addMainMenuButtons();
-
     }
   }
 
@@ -134,18 +110,12 @@ class GithubGame extends FlameGame with HasKeyboardHandlerComponents, HasTappabl
       canvasHeight = newCanvasHeight;
       menuButton.position = Vector2((1/200)*canvasSize.x, (1/150)*canvasSize.y);
       helpButton.position = Vector2((1/1.09)*canvasSize.x, (1/150)*canvasSize.y);
-      settingsButton.position = Vector2((1/1.04)*canvasSize.x, (1/150)*canvasSize.y);
     }
   }
   /// Adds level buttons to the screen
 Future<void> addInLevelButtons() async{
   await add(menuButton);
   await add(helpButton);
-  await add(settingsButton);
-}
-/// Not needed unless we keep main menu level
-Future<void> addMainMenuButtons() async{
-    await add(startGameButton);
 }
 /// Handles changing the level map
 Future<void> newLevel(Level newLevel) async{
