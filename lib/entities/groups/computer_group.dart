@@ -5,7 +5,7 @@ import 'package:github_game/mixins/has_level_ref.dart';
 class ComputerGroup extends EntityGroup<Computer> with HasLevelRef {
   ComputerGroup(
       String id, List<dynamic> entityJsons, Map<String, dynamic>? properties)
-      : super(id, entityJsons, properties) {}
+      : super(id, entityJsons, properties);
 
   @override
   Future<void> onLoad() async {
