@@ -34,6 +34,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flame: ^1.0.0
+  flame_tiled: ^1.2.1
+  flame_audio: ^1.0.0
+  quiver: ^3.0.1+1
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -58,9 +63,21 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/assets/levels/level_one/level.json
+    - assets/assets/tiles/level_one.tmx
+    - assets/assets/images/animations/player/player_idle_u.png
+    - assets/assets/images/animations/player/player_idle_r.png
+    - assets/assets/images/animations/player/player_idle_l.png
+    - assets/assets/images/animations/player/player_idle_d.png
+    - assets/assets/images/animations/player/player_walking_u.png
+    - assets/assets/images/animations/player/player_walking_r.png
+    - assets/assets/images/animations/player/player_walking_l.png
+    - assets/assets/images/animations/player/player_walking_d.png
+    - assets/assets/images/tilesets/1_Room_Builder_Office/Room_Builder_Office_48x48.png
+    - assets/assets/images/tilesets/2_Modern_Office_Black_Shadow/Modern_Office_Black_Shadow_48x48.png
+    - assets/assets/images/tilesets/SF_Inside_B.png
+    - assets/assets/images/tilesets/WallsAndFloors.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
