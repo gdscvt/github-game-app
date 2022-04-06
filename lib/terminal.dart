@@ -1,3 +1,10 @@
+import 'dart:js';
+
+import 'package:flutter/material.dart';
+import 'package:github_game/entities/groups/laser_group.dart';
+import 'package:github_game/github_game.dart';
+import 'package:github_game/main.dart';
+
 class Terminal {
   var requiredData;
   var solution;
@@ -13,8 +20,10 @@ class Terminal {
   var tutorial;
   var game_win;
   var directoryPath;
+  bool isDisplayed = false;
+  GithubGame game;
 
-  Terminal(dataJson) {
+  Terminal(dataJson, this.game) {
     // requiredData contains tha translated json file into json object
     // requiredData = jsonDecode(dataJson[0]);
     requiredData = dataJson[0];
@@ -28,6 +37,7 @@ class Terminal {
     commitMsg = "";
     display = "";
     completed = false;
+
     // this.popup = dataJson[0].popup;
     // popup = new Popup(this.popup);
     // TODO get the rest of the fields
@@ -144,6 +154,8 @@ class Terminal {
         currDir = requiredData['filesRepo'];
         // computer.lineCount += 2;
         display += 'Files from given repo cloned! \n';
+        (game.level.entityManagerModule.groups['laser_group'] as LaserGroup)
+            .deactivate();
         break;
 
       default:
@@ -211,5 +223,11 @@ class Terminal {
   exit() {
     // computerToggle = false;
     display = "";
+    App.terminalScreen!.state.setState(() {
+      App.terminalScreen!.state.isDisplayed = false;
+      isDisplayed = true;
+      // App.terminalScreen!.focusNode.
+      // App.focusNode.requestFocus();
+    });
   }
 }
